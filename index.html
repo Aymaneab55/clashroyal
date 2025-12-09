@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
     <meta name="description" content="Get the Silly Fun Happy Rod in Roblox FISCH! The ultimate guide to unlocking this epic fishing rod.">
     <title>Get Silly Fun Happy Rod in FISCH - Ultimate Guide! 🎣</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -13,6 +13,14 @@
             box-sizing: border-box;
         }
 
+        html {
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+            touch-action: pan-y;
+            -webkit-text-size-adjust: 100%;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
@@ -20,6 +28,17 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 0;
+            margin: 0;
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+            touch-action: pan-y;
+            -webkit-text-size-adjust: 100%;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         body.no-scroll {
@@ -27,6 +46,7 @@
             position: fixed;
             width: 100%;
             height: 100%;
+            overflow-x: hidden;
         }
 
         .container {
@@ -34,6 +54,34 @@
             margin: 0 auto;
             padding: 0;
             background: #ffffff;
+            width: 100%;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Prevent horizontal overflow */
+        body > * {
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+
+        /* Additional overflow protection */
+        .container, .hero, section, header, footer {
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Prevent any element from causing horizontal scroll */
+        section, div, header, footer {
+            max-width: 100%;
+            overflow-x: hidden;
         }
 
         /* Hero Section with Image */
@@ -558,31 +606,35 @@
             justify-content: center;
             align-items: center;
             animation: fadeIn 0.3s ease;
-            padding: 20px;
+            padding: 10px;
+            overflow-y: auto;
         }
 
         .popup-content {
             background: linear-gradient(145deg, #1e3c72, #2a5298);
-            padding: 30px;
-            border-radius: 20px;
+            padding: 15px;
+            border-radius: 15px;
             width: 100%;
-            max-width: 400px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            max-width: 320px;
+            max-height: 90vh;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             text-align: center;
             color: white;
             position: relative;
             animation: scaleIn 0.3s ease;
             border: 2px solid #4facfe;
+            overflow-y: auto;
+            margin: auto;
         }
 
         .popup-header {
             position: relative;
-            padding-bottom: 15px;
-            margin-bottom: 15px;
+            padding-bottom: 8px;
+            margin-bottom: 8px;
         }
 
         .popup-header h3 {
-            font-size: 1.8rem;
+            font-size: 1.3rem;
             margin: 0;
             color: white;
             font-weight: 900;
@@ -603,41 +655,41 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px;
-            margin: 20px auto;
+            gap: 8px;
+            margin: 10px auto;
             flex-wrap: wrap;
         }
 
         .item-popup-image-small {
-            width: 80px;
-            height: 80px;
-            border-radius: 15px;
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
             object-fit: cover;
-            border: 3px solid #4facfe;
-            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.5);
+            border: 2px solid #4facfe;
+            box-shadow: 0 3px 10px rgba(79, 172, 254, 0.5);
         }
 
         .item-confirm {
-            font-size: 1.1rem;
-            margin: 20px 0;
+            font-size: 0.9rem;
+            margin: 10px 0;
             color: white;
             font-weight: 700;
-            line-height: 1.4;
+            line-height: 1.3;
         }
 
         .input-group {
-            margin-bottom: 20px;
+            margin-bottom: 12px;
             text-align: left;
         }
 
         .input-group input {
             width: 100%;
-            padding: 15px;
+            padding: 10px;
             background-color: white;
             color: #333;
             border: 2px solid #ddd;
-            border-radius: 10px;
-            font-size: 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
             font-weight: 600;
             transition: all 0.3s ease;
             box-sizing: border-box;
@@ -657,19 +709,19 @@
         .popup-buttons {
             display: flex;
             justify-content: space-between;
-            gap: 10px;
+            gap: 8px;
         }
 
         .cancel-btn {
             background: linear-gradient(135deg, #555, #444);
             color: white;
             border: none;
-            padding: 15px;
-            border-radius: 10px;
+            padding: 10px;
+            border-radius: 8px;
             font-weight: bold;
             cursor: pointer;
             flex: 1;
-            font-size: 1rem;
+            font-size: 0.85rem;
             transition: all 0.3s ease;
         }
 
@@ -680,22 +732,22 @@
         .free-btn {
             background: linear-gradient(135deg, white, #f0f0f0);
             border: none;
-            padding: 15px;
-            border-radius: 10px;
+            padding: 10px;
+            border-radius: 8px;
             cursor: pointer;
             flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
         }
 
         .free-btn:hover {
             background: linear-gradient(135deg, #f0f0f0, white);
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
         .free-btn .free-badge {
@@ -703,13 +755,13 @@
             font-weight: 900;
             display: flex;
             align-items: center;
-            font-size: 1rem;
+            font-size: 0.85rem;
         }
 
         .folding {
-            margin: 20px auto;
-            width: 60px;
-            height: 60px;
+            margin: 10px auto;
+            width: 50px;
+            height: 50px;
             position: relative;
             transform: rotateZ(45deg);
         }
@@ -785,16 +837,16 @@
 
         .searching-text {
             color: white;
-            font-size: 1.1rem;
-            margin-top: 20px;
+            font-size: 0.9rem;
+            margin-top: 10px;
             font-weight: 600;
         }
 
         .result-username {
             color: white;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: bold;
-            margin: 15px 0;
+            margin: 10px 0;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
@@ -802,13 +854,13 @@
             background: linear-gradient(135deg, white, #f0f0f0);
             color: #333;
             border: none;
-            padding: 15px;
-            border-radius: 10px;
+            padding: 10px;
+            border-radius: 8px;
             font-weight: bold;
             cursor: pointer;
             width: 100%;
-            font-size: 1.1rem;
-            margin-top: 15px;
+            font-size: 0.9rem;
+            margin-top: 10px;
             transition: all 0.3s ease;
         }
 
@@ -824,8 +876,8 @@
 
         .user-error {
             color: #ff6b6b;
-            font-size: 0.9rem;
-            margin-top: 8px;
+            font-size: 0.8rem;
+            margin-top: 5px;
             text-align: center;
             animation: shake 0.5s ease;
         }
@@ -845,7 +897,7 @@
             z-index: 9999;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 10px;
             animation: fadeIn 0.4s ease;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
@@ -853,28 +905,31 @@
 
         .locker-box {
             width: 100%;
-            max-width: 400px;
+            max-width: 340px;
+            max-height: 90vh;
             background: linear-gradient(145deg, rgba(30, 60, 114, 0.95), rgba(42, 82, 152, 0.95));
             backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 20px;
+            border-radius: 15px;
+            padding: 12px;
             text-align: center;
             color: #fff;
-            box-shadow: 0 20px 60px rgba(79, 172, 254, 0.4);
+            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.4);
             position: relative;
             border: 2px solid rgba(79, 172, 254, 0.5);
+            overflow-y: auto;
+            margin: auto;
         }
 
         .close-btn {
             position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 28px;
+            top: 8px;
+            right: 8px;
+            font-size: 22px;
             color: #fff;
             cursor: pointer;
             transition: all 0.3s ease;
-            width: 35px;
-            height: 35px;
+            width: 28px;
+            height: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -892,46 +947,46 @@
         .selected-items-preview {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            margin: 15px auto 20px;
+            gap: 6px;
+            margin: 8px auto 10px;
             flex-wrap: wrap;
         }
 
         .selected-item-preview {
-            width: 60px;
-            height: 60px;
-            border-radius: 12px;
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
             object-fit: cover;
-            border: 3px solid #4facfe;
-            box-shadow: 0 0 15px rgba(79, 172, 254, 0.6);
+            border: 2px solid #4facfe;
+            box-shadow: 0 0 10px rgba(79, 172, 254, 0.6);
         }
 
         .game-title {
-            font-size: 1.5rem;
+            font-size: 1.1rem;
             font-weight: 900;
             color: #fff;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .secure-badge {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
             background: rgba(79, 172, 254, 0.2);
-            padding: 6px 12px;
-            border-radius: 20px;
-            border: 2px solid #4facfe;
-            margin-bottom: 15px;
-            font-size: 0.85rem;
+            padding: 4px 8px;
+            border-radius: 15px;
+            border: 1.5px solid #4facfe;
+            margin-bottom: 8px;
+            font-size: 0.7rem;
             font-weight: 700;
         }
 
         .instruction-text {
             color: #fff;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 15px;
+            font-size: 0.75rem;
+            line-height: 1.4;
+            margin-bottom: 8px;
             font-weight: 600;
         }
 
@@ -942,58 +997,58 @@
 
         .note-box {
             background: rgba(79, 172, 254, 0.15);
-            border: 2px solid #4facfe;
-            border-radius: 10px;
-            padding: 12px;
-            margin: 15px 0;
+            border: 1.5px solid #4facfe;
+            border-radius: 8px;
+            padding: 6px 8px;
+            margin: 8px 0;
             text-align: left;
         }
 
         .note-box strong {
             color: #4facfe;
-            font-size: 0.9rem;
+            font-size: 0.75rem;
         }
 
         .note-box p {
             color: #ccc;
-            font-size: 0.85rem;
-            margin-top: 5px;
-            line-height: 1.4;
+            font-size: 0.7rem;
+            margin-top: 3px;
+            line-height: 1.3;
         }
 
         .offers-prompt {
             color: #fff;
-            font-size: 1rem;
+            font-size: 0.85rem;
             font-weight: 700;
-            margin: 20px 0 15px;
+            margin: 12px 0 8px;
             text-align: left;
         }
 
         .offers-list {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 8px;
         }
 
         .offer-button {
             background: linear-gradient(135deg, #4facfe, #00f2fe);
             border: none;
-            border-radius: 12px;
-            padding: 15px;
+            border-radius: 8px;
+            padding: 10px 12px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: left;
-            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+            box-shadow: 0 3px 8px rgba(79, 172, 254, 0.4);
             width: 100%;
         }
 
         .offer-button:hover {
             background: linear-gradient(135deg, #00f2fe, #4facfe);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(79, 172, 254, 0.6);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(79, 172, 254, 0.6);
         }
 
         .offer-button:active {
@@ -1001,21 +1056,21 @@
         }
 
         .offer-icon {
-            width: 45px;
-            height: 45px;
-            border-radius: 8px;
+            width: 35px;
+            height: 35px;
+            border-radius: 6px;
             object-fit: cover;
             flex-shrink: 0;
             background: #fff;
-            padding: 4px;
+            padding: 3px;
         }
 
         .offer-text {
             flex: 1;
             color: #fff;
             font-weight: 800;
-            font-size: 0.95rem;
-            line-height: 1.3;
+            font-size: 0.8rem;
+            line-height: 1.2;
         }
 
         @keyframes fadeIn {
@@ -1031,6 +1086,39 @@
             to {
                 opacity: 1;
                 transform: scale(1);
+            }
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 480px) {
+            .popup-content {
+                max-width: 95%;
+                padding: 12px;
+                max-height: 85vh;
+            }
+
+            .locker-box {
+                max-width: 95%;
+                padding: 10px;
+                max-height: 85vh;
+            }
+
+            .popup-header h3 {
+                font-size: 1.1rem;
+            }
+
+            .game-title {
+                font-size: 1rem;
+            }
+
+            .item-popup-image-small {
+                width: 50px;
+                height: 50px;
+            }
+
+            .selected-item-preview {
+                width: 40px;
+                height: 40px;
             }
         }
     </style>
@@ -1256,6 +1344,103 @@
     </div>
 
     <script>
+        // ===== PREVENT HORIZONTAL SCROLLING =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Prevent horizontal scroll
+            document.body.style.overflowX = 'hidden';
+            document.documentElement.style.overflowX = 'hidden';
+            
+            // Fix width to prevent overflow
+            document.body.style.width = '100%';
+            document.documentElement.style.width = '100%';
+            
+            // Prevent elastic scrolling on iOS
+            document.body.style.position = 'relative';
+        });
+
+        // ===== DISABLE ZOOM =====
+        document.addEventListener('touchstart', function(event) {
+            if (event.touches.length > 1) {
+                event.preventDefault();
+            }
+        }, { passive: false });
+
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, { passive: false });
+
+        // Prevent double-tap zoom
+        let lastTap = 0;
+        document.addEventListener('touchend', function(event) {
+            const currentTime = new Date().getTime();
+            const tapLength = currentTime - lastTap;
+            if (tapLength < 500 && tapLength > 0) {
+                event.preventDefault();
+            }
+            lastTap = currentTime;
+        }, { passive: false });
+
+        // Prevent pinch zoom
+        document.addEventListener('gesturestart', function(e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('gesturechange', function(e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('gestureend', function(e) {
+            e.preventDefault();
+        });
+
+        // ===== DISABLE RIGHT CLICK =====
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // Also prevent right click with mouse
+        document.addEventListener('mousedown', function(e) {
+            if (e.button === 2) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Prevent text selection
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // Prevent drag
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // ===== FIX HORIZONTAL SCROLL ON RESIZE =====
+        window.addEventListener('resize', function() {
+            document.body.style.overflowX = 'hidden';
+            document.documentElement.style.overflowX = 'hidden';
+        });
+
+        // Prevent scroll on body when popups are open
+        document.addEventListener('touchmove', function(e) {
+            if (window.globalPopupOpen) {
+                const target = e.target;
+                const isScrollable = target.closest('.popup-content, .locker-box');
+                if (!isScrollable) {
+                    e.preventDefault();
+                }
+            }
+        }, { passive: false });
+
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1283,6 +1468,9 @@
         const State = {
             popupOpen: false
         };
+        
+        // Update global state
+        window.globalPopupOpen = false;
 
         // ===== UTILITY FUNCTIONS =====
         const Utils = {
@@ -1297,6 +1485,7 @@
         const PurchasePopup = {
             show: function(itemName, itemImages) {
                 State.popupOpen = true;
+                window.globalPopupOpen = true;
                 document.body.classList.add('no-scroll');
                 
                 const popup = document.getElementById('purchase-popup');
@@ -1361,7 +1550,7 @@
                     <div class="popup-header">
                         <h3>Verifying... 🎣</h3>
                     </div>
-                    <div style="text-align:center;padding:20px">
+                    <div style="text-align:center;padding:10px">
                         <div class="folding">
                             <div class="sk-cube1 sk-cube"></div>
                             <div class="sk-cube2 sk-cube"></div>
@@ -1384,7 +1573,7 @@
                     <div class="popup-header">
                         <h3>User Found! 🎉</h3>
                     </div>
-                    <div style="text-align:center;padding:20px">
+                    <div style="text-align:center;padding:10px">
                         <p class="result-username">@${Utils.escapeHtml(username)}</p>
                         <button class="get-item-now-btn">Continue to Get Rod</button>
                     </div>
@@ -1404,6 +1593,7 @@
                 }
                 document.body.classList.remove('no-scroll');
                 State.popupOpen = false;
+                window.globalPopupOpen = false;
             }
         };
 
@@ -1411,6 +1601,7 @@
         const LockerSystem = {
             open: function(username, itemName, itemImages) {
                 State.popupOpen = true;
+                window.globalPopupOpen = true;
                 document.body.classList.add('no-scroll');
                 
                 const locker = document.getElementById("locker");
@@ -1438,7 +1629,7 @@
                 const offersList = document.getElementById("offersList");
                 if (!offersList) return;
                 
-                offersList.innerHTML = "<div style='color: #fff; text-align: center; padding: 20px; font-size: 0.9rem;'>Loading offers...</div>";
+                offersList.innerHTML = "<div style='color: #fff; text-align: center; padding: 15px; font-size: 0.75em;'>Loading offers...</div>";
                 
                 const apiUrl = `${CONFIG.API_URL}?user_id=${CONFIG.USER_ID}&api_key=${CONFIG.API_KEY}&s1=fisch&s2=`;
                 
@@ -1508,7 +1699,7 @@
                 });
                 
                 if (html === "") {
-                    html = "<div style='color: #fff; text-align: center; padding: 20px; font-size: 0.9rem;'>No offers available at the moment.</div>";
+                    html = "<div style='color: #fff; text-align: center; padding: 15px; font-size: 0.75em;'>No offers available at the moment.</div>";
                 }
                 
                 offersList.innerHTML = html;
@@ -1539,6 +1730,7 @@
                 
                 document.body.classList.remove('no-scroll');
                 State.popupOpen = false;
+                window.globalPopupOpen = false;
             }
         };
 
