@@ -1,125 +1,161 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="description" content="Get free Fisch items instantly! Select your favorite rods and unlock them for free.">
-  <meta name="theme-color" content="#3498db">
-  <title>Fisch - Free Items Generator</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="description" content="Get free Fisch of Roblox fishing rods instantly! Select your favorite rods and unlock them for free." />
+  <meta name="theme-color" content="#1b8fb8" />
+  <title>Fisch with us</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@900&family=Orbitron:wght@900&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@900&family=Orbitron:wght@900&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <div class="container">
-    <div class="logo-container">
-      <img src="https://i.postimg.cc/j5wrfDyx/image.webp" alt="Fisch Logo">
-    </div>
 
-    <div class="select-title">FISCH ITEMS</div>
-
-    <div class="top-bar">
-      <div class="active-users-box">
-        <span>Active users :</span>
-        <span class="active-users-count" id="activeUsersCount"></span>
+<div class="page">
+  <header class="hero">
+    <div class="brand">
+      <img src="https://i.postimg.cc/j5wrfDyx/image.webp" alt="Fisch with us Logo" id="header-logo" />
+      <div class="brand-title">
+        <h1>Fisch with us</h1>
+        <p>Dive into the ultimate Roblox fishing experience. Select your rods and reel in treasures of the ocean!</p>
       </div>
     </div>
-
-    <div class="select-title">SELECT UP TO 3 ITEMS YOU WISH TO GET</div>
-
-    <div class="selection-controls">
-      <div id="selection-limit-message">You can only select up to 3 items.</div>
-    </div>
-
-    <div class="items-grid" id="itemsGrid">
-      <div class="item-card">
-        <img alt="Maelstrom Rod" class="item-img" src="https://static.wikia.nocookie.net/fisch/images/b/b0/Maelstorm_rod.png/revision/latest/scale-to-width-down/1000?cb=20251214165029" />
-        <div class="item-name">Maelstrom Rod</div>
-      </div>
-      <div class="item-card">
-        <img alt="Silly Fun Happy Rod" class="item-img" src="https://static.wikitide.net/fischwiki/4/4d/Silly_Fun_Happy_Rod.png" />
-        <div class="item-name">Silly Fun Happy Rod</div>
-      </div>
-      <div class="item-card">
-        <img alt="Kings Rod" class="item-img" src="https://static.wikitide.net/fischwiki/9/9a/Kings_Rod.png" />
-        <div class="item-name">Kings Rod</div>
-      </div>
-      <div class="item-card">
-        <img alt="Carrot Rod" class="item-img" src="https://static.wikitide.net/fischwiki/d/d3/Carrot_Rod.png" />
-        <div class="item-name">Carrot Rod</div>
-      </div>
-      <div class="item-card">
-        <img alt="Trident Rod" class="item-img" src="https://static.wikitide.net/fischwiki/d/d0/Trident_Rod.png" />
-        <div class="item-name">Trident Rod</div>
-      </div>
-      <div class="item-card">
-        <img alt="Volcanic Rod" class="item-img" src="https://static.wikitide.net/fischwiki/thumb/3/3c/Volcanic_Rod.png/199px-Volcanic_Rod.png" />
-        <div class="item-name">Volcanic Rod</div>
-      </div>
-      <div class="item-card">
-        <img alt="Great Dreamer Rod" class="item-img" src="https://static.wikitide.net/fischwiki/6/6d/Great_Dreamer_Rod.png" />
-        <div class="item-name">Great Dreamer Rod</div>
-      </div>
-      <div class="item-card">
-        <img alt="Rod Of The Depths" class="item-img" src="https://static.wikitide.net/fischwiki/thumb/a/a0/Rod_Of_The_Depths.png/190px-Rod_Of_The_Depths.png" />
-        <div class="item-name">Rod Of The Depths</div>
-      </div>
-      <div class="item-card">
-        <img alt="Heaven's Rod" class="item-img" src="https://static.wikitide.net/fischwiki/8/89/Heaven%27s_Rod.png" />
-        <div class="item-name">Heaven's Rod</div>
+    <div class="hero-actions">
+      <button class="btn btn-primary">🎣 Start Fishing</button>
+      <button class="btn btn-ghost">How it works</button>
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        <span id="activeUsersCount">870 Anglers Online</span>
       </div>
     </div>
+  </header>
 
-    <button id="continue-btn">Continue</button>
+  <!-- Section 1: Money -->
+  <section class="section">
+    <h2>1. Select Money Amount</h2>
+    <small>Choose your desired rewards</small>
+    <div class="card-row">
+      <div class="items-grid" id="moneyGrid">
+        <div class="item-card">
+          <img class="item-img" alt="C$5 Million Coins" src="https://i.postimg.cc/VNMzRbQf/Currency-(1).webp" onerror="this.src='https://via.placeholder.com/70?text=C%24';" />
+          <div class="item-name">C$5 Million Coins</div>
+        </div>
+        <div class="item-card">
+          <span class="pill">BEST VALUE</span>
+          <img class="item-img" alt="C$10 Million Coins" src="https://i.postimg.cc/VNMzRbQf/Currency-(1).webp" onerror="this.src='https://via.placeholder.com/70?text=C%24';" />
+          <div class="item-name">C$10 Million Coins</div>
+        </div>
+        <div class="item-card">
+          <img class="item-img" alt="C$25 Million Coins" src="https://i.postimg.cc/VNMzRbQf/Currency-(1).webp" onerror="this.src='https://via.placeholder.com/70?text=C%24';" />
+          <div class="item-name">C$25 Million Coins</div>
+        </div>
+        <div class="item-card">
+          <img class="item-img" alt="C$50 Million Coins" src="https://i.postimg.cc/VNMzRbQf/Currency-(1).webp" onerror="this.src='https://via.placeholder.com/70?text=C%24';" />
+          <div class="item-name">C$50 Million Coins</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Fishing Rods -->
+  <section class="section">
+    <h2>2. Select Your Fishing Rods</h2>
+    <small>Choose up to three rods</small>
+    <div class="card-row">
+      <div class="items-grid" id="itemsGrid">
+        <div class="item-card">
+          <img alt="Maelstrom Rod" class="item-img" src="https://i.postimg.cc/jd2zqVmC/Fang-of-the-Eclipse.webp" />
+          <div class="item-name">Fang of the Eclipse ROD</div>
+        </div>
+        <div class="item-card">
+          <img alt="Silly Fun Happy Rod" class="item-img" src="https://static.wikitide.net/fischwiki/4/4d/Silly_Fun_Happy_Rod.png" />
+          <div class="item-name">Silly Fun Happy Rod</div>
+        </div>
+        <div class="item-card">
+          <img alt="Kings Rod" class="item-img" src="https://static.wikitide.net/fischwiki/9/9a/Kings_Rod.png" />
+          <div class="item-name">Kings Rod</div>
+        </div>
+        <div class="item-card">
+          <img alt="Carrot Rod" class="item-img" src="https://static.wikitide.net/fischwiki/d/d3/Carrot_Rod.png" />
+          <div class="item-name">Carrot Rod</div>
+        </div>
+        <div class="item-card">
+          <img alt="Trident Rod" class="item-img" src="https://static.wikitide.net/fischwiki/d/d0/Trident_Rod.png" />
+          <div class="item-name">Trident Rod</div>
+        </div>
+        <div class="item-card">
+          <img alt="Volcanic Rod" class="item-img" src="https://static.wikitide.net/fischwiki/thumb/3/3c/Volcanic_Rod.png/199px-Volcanic_Rod.png" />
+          <div class="item-name">Volcanic Rod</div>
+        </div>
+        <div class="item-card">
+          <img alt="Great Dreamer Rod" class="item-img" src="https://static.wikitide.net/fischwiki/6/6d/Great_Dreamer_Rod.png" />
+          <div class="item-name">Great Dreamer Rod</div>
+        </div>
+        <div class="item-card">
+          <img alt="Rod Of The Depths" class="item-img" src="https://static.wikitide.net/fischwiki/thumb/a/a0/Rod_Of_The_Depths.png/190px-Rod_Of_The_Depths.png" />
+          <div class="item-name">Rod Of The Depths</div>
+        </div>
+        <div class="item-card">
+          <img alt="Heaven's Rod" class="item-img" src="https://static.wikitide.net/fischwiki/8/89/Heaven%27s_Rod.png" />
+          <div class="item-name">Heaven's Rod</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="selection-controls">
+    <div id="selection-limit-message">You can only select up to 3 items.</div>
+  </div>
+  <div class="selection-controls">
+    <button id="continue-btn">Continue →</button>
   </div>
 
-  <div class="purchase-popup" id="purchase-popup">
-    <div class="popup-content"></div>
-  </div>
+  <footer>
+    <p>© 2025 Fisch with us. All rights reserved.</p>
+    <p>Unauthorized copying or distribution is prohibited.</p>
+  </footer>
+</div>
 
-  <!-- LOCKER OVERLAY -->
-  <div id="locker" class="locker-overlay">
-    <div class="locker-box">
-      <span class="close-btn" onclick="closeLocker()" aria-label="Close">×</span>
-      
-      <div class="selected-items-preview" id="selectedItemsPreview"></div>
-      
-      <h2 class="game-title">Fisch</h2>
+<!-- PURCHASE POPUP -->
+<div class="purchase-popup" id="purchase-popup">
+  <div class="popup-content"></div>
+</div>
 
-      <div class="secure-badge">
-        <i class="fas fa-shield-alt"></i>
-        <span>Secure items From Bots</span>
-      </div>
-
-      <p class="instruction-text">
-        Choose one offer below. Complete the task and your items will be claimed <span class="highlight">automatically</span>.
-      </p>
-
-      <div class="note-box">
-        <strong>NOTE:</strong>
-        <p>If an offer doesn't open, try another. Complete the offer exactly to ensure you receive your items.</p>
-      </div>
-
-      <div class="offers-prompt">Choose an offer below:</div>
-      
-      <div class="offers-list" id="offersList">
-        <div style="color: #fff; text-align: center; padding: 15px; font-size: 0.75em;">Loading offers...</div>
-      </div>
+<!-- LOCKER OVERLAY -->
+<div id="locker" class="locker-overlay">
+  <div class="locker-box">
+    <span class="close-btn" onclick="closeLocker()" aria-label="Close">×</span>
+    <div class="selected-items-preview" id="selectedItemsPreview"></div>
+    <h2 class="game-title">Fisch with us</h2>
+    <div class="secure-badge">
+      <i class="fas fa-shield-alt"></i>
+      <span>Secure your rods from bots</span>
+    </div>
+    <p class="instruction-text">
+      Choose one of the offers below. Complete the task to unlock your chosen rods <span class="highlight">automatically</span>.
+    </p>
+    <div class="note-box">
+      <strong>NOTE:</strong>
+      <p>If an offer doesn't open, try another. Make sure to complete the offer as directed to receive your items.</p>
+    </div>
+    <div class="offers-prompt">Choose an offer below:</div>
+    <div class="offers-list" id="offersList">
+      <div style="color: #fff; text-align: center; padding: 15px; font-size: 0.75em;">Loading offers...</div>
     </div>
   </div>
+</div>
 
-  <audio id="dingSound" preload="auto">
-    <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_63c49c13c8.mp3" type="audio/mpeg">
-  </audio>
-  <audio id="clickSound" preload="auto">
-    <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_63c49c13c8.mp3" type="audio/mpeg">
-  </audio>
+<audio id="dingSound" preload="auto">
+  <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_63c49c13c8.mp3" type="audio/mpeg" />
+</audio>
+<audio id="clickSound" preload="auto">
+  <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_63c49c13c8.mp3" type="audio/mpeg" />
+</audio>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="script.js"></script>
+<script src="./script.js"></script>
 </body>
 </html>
