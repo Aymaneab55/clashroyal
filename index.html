@@ -1,898 +1,718 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avatar World - AW Coins Generator (2026)</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Rivals Weapon System | Premium Rewards</title>
+  <meta name="description" content="Claim your premium Rivals weapons, keys, and skins. Verify your username to generate rewards instantly.">
+  <meta property="og:title" content="Rivals Weapon System - Claim Rewards">
+  <meta property="og:description" content="Generate premium weapons and keys for your account today.">
+  <meta property="og:image" content="https://static.wikia.nocookie.net/robloxrivals/images/b/b1/Knife_%28Keyrambit%29.png">
+  <meta name="theme-color" content="#6366f1">
+
+  <style>
+    :root {
+      --bg-dark: #0F172A;
+      --card-bg: #1E293B;
+      --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+      --button-gradient: linear-gradient(135deg, #4ade80 0%, #10b981 100%);
+      --glow-green: 0 0 20px rgba(74, 222, 128, 0.4);
+      --glow-purple: 0 0 25px rgba(168, 85, 247, 0.3);
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-dark);
+      color: #ffffff;
+      overflow-x: hidden;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 30px 30px;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* PRELOADER CSS TO FIX THE CRASH/GLITCH */
+    #initial-loader {
+      position: fixed;
+      inset: 0;
+      background-color: var(--bg-dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+      transition: opacity 0.5s ease;
+    }
     
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fredoka+One&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --primary-purple: #6d28d9;
-            --dark-purple: #5b21b6;
-            --light-purple: #8b5cf6;
-            --accent-yellow: #fbbf24;
-            --accent-green: #10b981;
-            --dark-bg: #1f1f2f;
-        }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, var(--dark-bg) 0%, #2d1b69 100%);
-            color: white;
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
-        }
-        
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://i.postimg.cc/VNQLqDFC/Avatar-back.png') no-repeat center center;
-            background-size: cover;
-            opacity: 0.15;
-            z-index: -1;
-        }
-        
-        .font-fredoka {
-            font-family: 'Fredoka One', cursive;
-        }
-        
-        .card-gradient {
-            background: linear-gradient(145deg, rgba(109, 40, 217, 0.8), rgba(139, 92, 246, 0.6));
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent-yellow), #f59e0b);
-            color: #1f2937;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
-        }
-        
-        .quantity-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            transition: all 0.2s ease;
-        }
-        
-        .quantity-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-        
-        .floating {
-            animation: floating 3s ease-in-out infinite;
-        }
-        
-        @keyframes floating {
-            0% { transform: translate(0, 0px); }
-            50% { transform: translate(0, 15px); }
-            100% { transform: translate(0, -0px); }
-        }
-        
-        .pulse-glow {
-            animation: pulse-glow 2s infinite;
-        }
-        
-        @keyframes pulse-glow {
-            0% { box-shadow: 0 0 5px rgba(139, 92, 246, 0.5); }
-            50% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.8); }
-            100% { box-shadow: 0 0 5px rgba(139, 92, 246, 0.5); }
-        }
-        
-        .progress-bar {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--light-purple), var(--primary-purple));
-            border-radius: 10px;
-            transition: width 0.5s ease;
-        }
-        
-        .modal-overlay {
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(5px);
-        }
-        
-        .modal-content {
-            background: linear-gradient(135deg, #2d1b69, #1f1f2f);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-        }
-        
-        .loading-spinner {
-        border: 4px solid #f3f3f3;
-        border-top: 4px solid #7010b9;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        animation: spin 1s linear infinite;
-        margin: 0 auto 16px auto;
-      }
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(255, 255, 255, 0.1);
+      border-left-color: #6366f1;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
 
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-        .notification {
-            background: rgba(255, 255, 255, 0.95);
-            color: #1f2937;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            animation: slideIn 0.3s ease;
-        }
-        
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        
-        .item-card {
-            transition: all 0.3s ease;
-        }
-        
-        .item-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .btn-verify {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            color: white;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
-        }
-        
-        .btn-verify:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
-        }
-        
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .container {
-                padding-left: 1rem;
-                padding-right: 1rem;
-            }
-        }
-        .aw-text {
-  color: #ff4fa3; /* pink fill */
-  -webkit-text-stroke: 0.5px #000; /* black outline */
-  text-stroke: 0.5px #000;
-  text-shadow:
-    0.5px 0.5px 0 #000,
-   -0.5px 0.5px 0 #000,
-    0.5px -0.5px 0 #000,
-   -0.5px -0.5px 0 #000;
-}
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
 
-.get-coins-btn {
-    display: inline-block;
-    padding: 16px 36px;
-    background: linear-gradient(135deg, #ff2b2b, #b30000);
-    color: #fff;
-    font-size: 15px;
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 50px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(255, 0, 0, 0.6);
-    animation: heartbeat 2.2s infinite;
-}
+    .font-gaming {
+      font-family: 'Rajdhani', sans-serif;
+      text-transform: uppercase;
+    }
 
-/* shine effect */
-.get-coins-btn::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -60%;
-    width: 60%;
-    height: 100%;
-    background: linear-gradient(
-        120deg,
-        transparent,
-        rgba(255, 255, 255, 0.6),
-        transparent
-    );
-    animation: shine 3s infinite;
-}
+    .neon-text-purple {
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.5));
+    }
 
-/* hover */
-.get-coins-btn:hover {
-    transform: scale(1.08);
-}
+    .gaming-card {
+      background-color: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
 
-/* heartbeat */
-@keyframes heartbeat {
-    0% { transform: scale(1); }
-    14% { transform: scale(1.12); }
-    28% { transform: scale(1); }
-    42% { transform: scale(1.12); }
-    70% { transform: scale(1); }
-}
+    .gaming-card:hover {
+      transform: translateY(-4px) scale(1.02);
+      border-color: rgba(168, 85, 247, 0.3);
+      box-shadow: var(--glow-purple);
+    }
 
-/* shine */
-@keyframes shine {
-    0% { left: -60%; }
-    60% { left: 120%; }
-    100% { left: 120%; }
-}
+    .btn-claim {
+      background: var(--button-gradient);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
 
-/* ===== Locker styles (centered) ===== */
-.no-scroll { overflow: hidden; }
-#locker {
-    position: fixed;
-    inset: 0;
-    display: none;
-    z-index: 60;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0,0,0,0.78);
-    backdrop-filter: blur(6px);
-    padding: 16px;
-}
-#locker .locker-box {
-    width: 100%;
-    max-width: 480px;
-    background: linear-gradient(135deg, #2d1b69, #1f1f2f);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 18px;
-    padding: 20px;
-    color: #eef;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-    position: relative;
-    text-align: center; /* center everything inside */
-}
-#locker .locker-close {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: rgba(255,255,255,0.08);
-    border: none;
-    color: #fff;
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    cursor: pointer;
-}
-#locker .locker-header {
-    margin-bottom: 16px;
-}
-#locker .locker-title {
-    margin: 8px 0 4px;
-    font-size: 20px;
-    font-weight: 800;
-}
-#locker .game-logo-locker {
-    width: 72px;
-    height: 72px;
-    object-fit: contain;
-    margin: 10px auto;
-    display: block;
-}
-#locker .secure-badge {
-    display: inline-flex;
-    gap: 8px;
-    align-items: center;
-    padding: 8px 12px;
-    background: rgba(0,0,0,0.25);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 10px;
-    font-size: 12px;
-    color: #b6d3ff;
-}
-#locker .instructions-box {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 12px;
-    padding: 12px;
-    margin-bottom: 14px;
-}
-#locker .instructions-title { font-weight: 700; margin-bottom: 6px; }
-#locker .instructions-text { font-size: 14px; color: #cfd8ff; }
-#locker .note-box {
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 10px;
-    background: rgba(255,204,0,0.08);
-    border: 1px solid rgba(255,204,0,0.2);
-    color: #ffe9a6;
-    font-size: 13px;
-}
-#locker .offers-container { margin-top: 10px; }
-#locker .offers-title {
-    font-weight: 700;
-    margin-bottom: 10px;
-    text-align: center; /* center the "Choose an offer:" text */
-}
-#offersList {
-    min-height: 90px;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 12px;
-    padding: 12px;
-    color: #e7e7ff;
-    font-size: 14px;
-}
-.offer-button {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 14px;
-    margin-bottom: 10px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 12px;
-    color: #fff;
-    cursor: pointer;
-    transition: transform 0.15s ease, border 0.15s ease;
-}
-.offer-button:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.25); }
-.offer-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    object-fit: cover;
-    background: rgba(0,0,0,0.2);
-}
-.offer-text { text-align: left; font-weight: 600; }
+    .btn-claim:hover {
+      transform: scale(1.05);
+      box-shadow: var(--glow-green);
+      filter: brightness(1.1);
+    }
 
-.selected-item-preview {
-    width: 52px;
-    height: 52px;
-    border-radius: 12px;
-    object-fit: cover;
-    border: 1px solid rgba(255,255,255,0.15);
-    margin-right: 6px;
-}
-#selectedItemsPreview { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; } /* center previews */
-</style>
-<link rel="me" href="https://www.blogger.com/profile/09900857115235761056" />
-<meta name='google-adsense-platform-account' content='ca-host-pub-1556223355139109'/>
-<meta name='google-adsense-platform-domain' content='blogspot.com'/>
-<meta name='google-adsense-platform-account' content='ca-host-pub-1556223355139109'/>
-<meta name='google-adsense-platform-domain' content='blogspot.com'/>
+    .glow-effect {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      background: var(--primary-gradient);
+      filter: blur(80px);
+      opacity: 0.15;
+      z-index: -1;
+      border-radius: 50%;
+    }
+
+    .claim-notification {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(30, 41, 59, 0.9);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px 24px;
+      border-radius: 12px;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      white-space: nowrap;
+    }
+
+    .claim-notification.visible {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .notification-dot {
+      width: 8px;
+      height: 8px;
+      background: #4ade80;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #4ade80;
+      animation: pulse 1.5s infinite;
+    }
+
+    .live-dot {
+      width: 10px;
+      height: 10px;
+      background: #ef4444;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #ef4444;
+      animation: pulse 1s infinite;
+      display: inline-block;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.5); opacity: 0.5; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-backdrop {
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(8px);
+    }
+
+    .modal-content {
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: var(--glow-purple);
+    }
+
+    .progress-bar-container {
+      background: rgba(255, 255, 255, 0.05);
+      height: 12px;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      background: var(--primary-gradient);
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s ease;
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+    }
+
+    .gaming-input {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+      color: white;
+    }
+
+    .gaming-input:focus {
+      border-color: #6366f1;
+      box-shadow: 0 0 10px rgba(99, 102, 241, 0.2);
+      outline: none;
+    }
+  </style>
 </head>
-<body class="min-h-screen flex flex-col">
-    <!-- Header Section -->
-    <header class="py-6">
-        <div class="container mx-auto px-4 text-center">
-            <div class="flex justify-center mb-4 floating">
-                <img src="https://i.ibb.co/991fbGG1/awicon.png" alt="Avatar World Logo" class="w-32 h-32 md:w-40 md:h-40">
-            </div>
-            <h1 class="text-4xl md:text-5xl font-fredoka mb-2 aw-text">
-                AW Coins Generator
-            </h1>
-              
-            <p class="text-lg text-purple-200 max-w-2xl mx-auto">
-                Get free AW Coins for your Avatar World account! Updated for 2026.
-            </p>
-            <div class="mt-6 inline-block px-4 py-2 rounded-full bg-purple-800/50 border border-purple-500">
-                <span class="text-yellow-300 font-bold text-xl" id="countdown-timer">02:00</span>
-                <span class="text-purple-200 ml-2">Limited Time Offer</span>
-            </div>
-        </div>
-    </header>
+<body>
 
-    <!-- Main Content -->
-    <main class="flex-grow container mx-auto px-4 py-8">
-        <!-- Items Section -->
-        <section class="mb-12">
-            <h2 class="text-3xl font-fredoka text-center mb-8 text-purple-300">Select Your Coin Pack</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Tiny Pack -->
-                <div class="item-card card-gradient rounded-2xl p-6 flex flex-col justify-between">
-                    <div class="text-center mb-4">
-                        <div class="w-24 h-24 mx-auto mb-4 rounded-xl overflow-hidden bg-purple-700/30 flex items-center justify-center">
-                            <img src="https://i.ibb.co/m54K55FY/IMG-20250816-WA0002.jpg" alt="AW Coins" class="w-full h-full object-cover item-img">
-                        </div>
-                        <h3 class="text-xl font-bold font-fredoka mb-1 item-name">TINY PACK</h3>
-                        <div class="flex items-center justify-center text-yellow-300">
-                            <span class="text-lg font-bold">💰 150 COINS</span>
-                        </div>
-                    </div>
-                    <div>
-                        <button class="claim-btn btn-primary w-full py-3 rounded-xl font-semibold mb-3">
-                            Claim Now
-                        </button>
-                       
-                    </div>
-                </div>
-                
-                <!-- Small Pack -->
-                <div class="item-card card-gradient rounded-2xl p-6 flex flex-col justify-between">
-                    <div class="text-center mb-4">
-                        <div class="w-24 h-24 mx-auto mb-4 rounded-xl overflow-hidden bg-purple-700/30 flex items-center justify-center">
-                            <img src="https://i.ibb.co/m54K55FY/IMG-20250816-WA0002.jpg" alt="AW Coins" class="w-full h-full object-cover item-img">
-                        </div>
-                        <h3 class="text-xl font-bold font-fredoka mb-1 item-name">SMALL PACK</h3>
-                        <div class="flex items-center justify-center text-yellow-300">
-                            <span class="text-lg font-bold">💰 250 COINS</span>
-                        </div>
-                    </div>
-                    <div>
-                        <button class="claim-btn btn-primary w-full py-3 rounded-xl font-semibold mb-3">
-                            Claim Now
-                        </button>
-                       
-                    </div>
-                </div>
-                
-                <!-- Large Pack -->
-                <div class="item-card card-gradient rounded-2xl p-6 flex flex-col justify-between">
-                    <div class="text-center mb-4">
-                        <div class="w-24 h-24 mx-auto mb-4 rounded-xl overflow-hidden bg-purple-700/30 flex items-center justify-center">
-                            <img src="https://i.ibb.co/m54K55FY/IMG-20250816-WA0002.jpg" alt="AW Coins" class="w-full h-full object-cover item-img">
-                        </div>
-                        <h3 class="text-xl font-bold font-fredoka mb-1 item-name">LARGE PACK</h3>
-                        <div class="flex items-center justify-center text-yellow-300">
-                            <span class="text-lg font-bold">💰 2500 COINS</span>
-                        </div>
-                    </div>
-                    <div>
-                        <button class="claim-btn btn-primary w-full py-3 rounded-xl font-semibold mb-3">
-                            Claim Now
-                        </button>
-                       
-                    </div>
-                </div>
-                
-                <!-- Giant Pack -->
-                <div class="item-card card-gradient rounded-2xl p-6 flex flex-col justify-between pulse-glow">
-                    <div class="text-center mb-4">
-                        <div class="w-24 h-24 mx-auto mb-4 rounded-xl overflow-hidden bg-purple-700/30 flex items-center justify-center">
-                            <img src="https://i.ibb.co/m54K55FY/IMG-20250816-WA0002.jpg" alt="AW Coins" class="w-full h-full object-cover item-img">
-                        </div>
-                        <h3 class="text-xl font-bold font-fredoka mb-1 item-name">GIANT PACK</h3>
-                        <div class="flex items-center justify-center text-yellow-300">
-                            <span class="text-lg font-bold">💰 +999999 COINS</span>
-                        </div>
-                    </div>
-                    <div>
-                        <button class="claim-btn btn-primary w-full py-3 rounded-xl font-semibold mb-3">
-                            Claim Now
-                        </button>
-                       
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-<div class="flex justify-center mt-8 mb-6">
-  <a
-    href="https://www.youtube.com/shorts/hnPNzM6Io5A?feature=share"
-    target="_blank"
-    class="get-coins-btn"
-  >
-     How to Claim Your Free Coins!?
-  </a>
-   </div>
-    <!-- Footer -->
-    <footer class="py-6 border-t border-purple-800/30">
-        
+  <!-- LOADING SCREEN -->
+  <div id="initial-loader">
+    <div class="spinner"></div>
+    <div style="color: #6366f1; font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: bold; letter-spacing: 2px;">LOADING SYSTEM...</div>
+  </div>
 
-        <div class="container mx-auto px-4 text-center">
-            <p class="text-purple-300">This is an unofficial fan site. Not affiliated with Avatar World.</p>
-            <p class="text-purple-400 text-sm mt-2">© 2026 AW Coins Generator. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Username Modal -->
-    <div id="username-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-overlay">
-        <div class="modal-content rounded-2xl p-8 max-w-md w-full">
-            <h3 class="text-2xl font-bold mb-4 text-center font-fredoka text-white">Enter Your Username</h3>
-            <p class="text-center mb-6 text-purple-200">Please enter your Avatar World username to claim your AW Coins.</p>
-            <input id="username-input" type="text" placeholder="Your Avatar World Username" class="w-full px-4 py-3 bg-purple-800/50 border border-purple-600 rounded-lg mb-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
-            <p id="username-error" class="text-red-400 text-sm h-4 mb-4"></p>
-            <button id="submit-username-btn" class="btn-primary w-full py-3 rounded-lg font-semibold mb-2">Submit</button>
-            <button id="close-modal-btn" class="w-full bg-purple-800/50 text-white font-semibold py-2 rounded-lg hover:bg-purple-700/50 transition-colors">Cancel</button>
-        </div>
-    </div>
-
-    <!-- Generator Modal -->
-    <div id="generator-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-overlay">
-        <div class="modal-content rounded-2xl p-8 max-w-md w-full text-center">
-            <h3 id="generator-title" class="text-2xl font-bold mb-6 text-white font-fredoka">Generating Your AW Coins...</h3>
-            
-            <div class="relative w-24 h-24 mx-auto mb-6">
-                <div class="loading-spinner"></div>
-                <img id="loading-item-img" class="absolute inset-0 w-12 h-12 m-auto" src="https://static.wikia.nocookie.net/growagarden/images/8/8f/PrimalEgg.png" alt="Loading">
-            </div>
-            
-            <div class="progress-bar h-4 mb-6">
-                <div id="progress-fill" class="progress-fill text-white text-xs flex items-center justify-center" style="width: 0%">0%</div>
-            </div>
-            
-            <p id="game-tip" class="text-purple-300 text-sm italic mb-6">Connecting to Avatar World servers...</p>
-            
-            <button id="verify-btn" class="hidden btn-verify w-full py-4 px-6 rounded-xl text-lg">
-                Complete Verification
-            </button>
-        </div>
-    </div>
-
-    <!-- Locker Modal (integrated) -->
-    <div id="locker">
-      <div class="locker-box">
-        <button class="locker-close" onclick="LockerSystem.close()">&times;</button>
-        <div class="locker-header">
-          <img id="lockerGameLogo" src="https://i.ibb.co/991fbGG1/awicon.png" alt="AW" class="game-logo-locker" />
-          <h1 class="locker-title" id="lockerGameTitle">Complete Verification</h1>
-          <div class="secure-badge"><span>🔒 Secure</span><span>Verified</span></div>
-        </div>
-        <div class="instructions-box">
-          <div class="instructions-title">Complete one quick task to verify you’re human.</div>
-          <div class="instructions-text">Click an offer below, finish it, and your coins will be delivered automatically.</div>
-          <div class="note-box">
-            <strong>Note:</strong> If one offer doesn’t open, try another.
-          </div>
-        </div>
-        <div class="offers-container">
-          <div class="offers-title">Choose an offer:</div>
-          <div id="selectedItemsPreview" style="margin-bottom:10px;"></div>
-          <div id="offersList">
-            <div style="display:flex;align-items:center;gap:8px;opacity:0.8;">
-              <span class="loading-spinner" style="width:22px;height:22px;border-width:3px;border-color:#fff;border-top-color:#7010b9;"></span>
-              <span>Loading offers...</span>
-            </div>
-          </div>
-        </div>
+  <div id="app-root" style="display: none; opacity: 0; transition: opacity 0.5s ease;">
+    <div class="glow-effect top-10 left-10"></div>
+    <div class="glow-effect bottom-20 right-10"></div>
+    
+    <div id="ios-popup" class="fixed inset-0 z-[200] flex items-center justify-center p-6 hidden" style="background: rgba(0,0,0,0.8);">
+      <div class="bg-white text-slate-900 p-8 rounded-3xl max-w-sm w-full shadow-2xl relative">
+        <div class="absolute -top-3 right-4 w-0 h-0 border-l-[15px] border-l-transparent border-r-[15px] border-r-transparent border-b-[15px] border-b-white"></div>
+        <p class="text-lg font-medium leading-relaxed">
+          On TikTok tap the <strong>...</strong> and select <strong class="text-blue-600">"Open in browser"</strong> to claim your rewards!
+        </p>
       </div>
     </div>
 
-    <!-- Notifications Container -->
-    <div id="claim-notifs" class="fixed right-4 bottom-4 flex flex-col gap-3 z-40"></div>
+    <main id="normal-page" class="w-full max-w-[480px] mx-auto py-10 px-4">
+      
+      <div class="flex justify-center items-center gap-2 mb-6 bg-slate-800/50 w-max mx-auto px-4 py-1.5 rounded-full border border-white/5 shadow-[0_0_15px_rgba(0,0,0,0.2)]">
+        <div class="live-dot"></div>
+        <span class="text-xs font-bold tracking-wide text-slate-300" id="live-users">1,432 Users Online</span>
+      </div>
 
-    <script>
-        // Countdown Timer
-        document.addEventListener('DOMContentLoaded', () => {
-            const countdownElement = document.getElementById('countdown-timer');
-            let timeInSeconds = 120; // 2 minutes
+      <header class="text-center mb-10">
+        <h1 class="text-5xl font-extrabold font-gaming neon-text-purple tracking-tighter mb-2">Rivals Weapon</h1>
+        <p class="text-slate-400 text-sm font-medium tracking-wide uppercase">Premium Weapon Reward System</p>
+      </header>
 
-            const timer = setInterval(() => {
-                const minutes = Math.floor(timeInSeconds / 60);
-                let seconds = timeInSeconds % 60;
+      <section class="space-y-4" id="items-container">
+        <!-- Items injected by JavaScript -->
+      </section>
 
-                seconds = seconds < 10 ? '0' + seconds : seconds;
+      <footer class="mt-12 text-center">
+        <p class="text-slate-500 text-[10px] uppercase tracking-widest font-bold">© 2026 Rivals Weapon System • All Rights Reserved</p>
+      </footer>
+    </main>
 
-                countdownElement.textContent = `${minutes}:${seconds}`;
+    <!-- Username Modal -->
+    <div id="username-modal-backdrop" class="fixed inset-0 z-[150] flex items-center justify-center p-6 hidden modal-backdrop">
+      <div class="modal-content w-full max-w-sm rounded-3xl p-8 text-center relative overflow-hidden">
+        <button id="username-modal-close" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors">✕</button>
+        <h2 class="font-gaming text-3xl font-bold mb-2">IDENTIFICATION</h2>
+        <p class="text-slate-400 text-sm mb-8">Enter your username to verify account eligibility.</p>
+        <input type="text" id="username-modal-input" placeholder="USERNAME..." class="w-full gaming-input rounded-xl px-6 py-4 font-gaming text-lg tracking-wider mb-2 text-white shadow-inner" />
+        <div id="username-modal-error" class="text-rose-500 text-xs font-bold h-4 mb-6"></div>
+        <button id="username-modal-btn" class="btn-claim w-full py-4 rounded-xl font-gaming font-bold text-xl tracking-widest">VERIFY USER</button>
+      </div>
+    </div>
 
-                if (timeInSeconds <= 0) {
-                    clearInterval(timer);
-                    countdownElement.textContent = "Time's up!";
-                    // Optionally refresh the timer
-                    setTimeout(() => {
-                        timeInSeconds = 120;
-                    }, 2000);
-                }
-
-                timeInSeconds--;
-            }, 1000);
-        });
-
-        // Item selection and quantity functionality
-        let selectedItemImg = "https://static.wikia.nocookie.net/growagarden/images/8/8f/PrimalEgg.png";
-        let selectedItemName = "Coin Pack";
-        let currentUsername = "";
-
-        const claimButtons = document.querySelectorAll('.claim-btn');
-        const usernameModal = document.getElementById('username-modal');
-        const closeModalBtn = document.getElementById('close-modal-btn');
-        const submitUsernameBtn = document.getElementById('submit-username-btn');
-        const usernameInput = document.getElementById('username-input');
-        const usernameError = document.getElementById('username-error');
-        const loadingItemImg = document.getElementById('loading-item-img');
-        const verifyBtn = document.getElementById('verify-btn');
-
-        // Open Username Modal & detect clicked item
-        claimButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const card = button.closest('.item-card');
-                let src = null;
-                const img = card.querySelector('img');
-                if (img && img.src) src = img.src;
-                if (src) selectedItemImg = src;
-                const nameEl = card.querySelector('.item-name');
-                if (nameEl && nameEl.textContent) selectedItemName = nameEl.textContent.trim();
-                usernameModal.classList.remove('hidden');
-            });
-        });
-
-        // Close Username Modal
-        closeModalBtn.addEventListener('click', () => {
-            usernameModal.classList.add('hidden');
-            usernameInput.value = '';
-            usernameError.textContent = '';
-        });
-
-        // Submit Username & Start Generator
-        submitUsernameBtn.addEventListener('click', () => {
-            const username = usernameInput.value.trim();
-            if (username !== '') {
-                currentUsername = username;
-                usernameModal.classList.add('hidden');
-                usernameError.textContent = '';
-                loadingItemImg.src = selectedItemImg;
-                runFakeGenerator(username);
-            } else {
-                usernameError.textContent = 'Please enter a valid username.';
-            }
-        });
-
-        // Generator simulation
-        async function runFakeGenerator(username) {
-            const generatorModal = document.getElementById('generator-modal');
-            const progressFill = document.getElementById('progress-fill');
-            const gameTip = document.getElementById('game-tip');
-            const generatorTitle = document.getElementById('generator-title');
-
-            generatorModal.classList.remove('hidden');
-            progressFill.style.width = "0%";
-            progressFill.textContent = "0%";
-            verifyBtn.classList.add('hidden');
-
-            let progress = 0;
-            generatorTitle.textContent = "Connecting to Avatar World servers...";
-            gameTip.textContent = "Establishing secure connection...";
-
-            await new Promise(r => setTimeout(r, 1500));
-            generatorTitle.textContent = `Finding user: ${username}...`;
-            gameTip.textContent = "Searching database for your account...";
+    <!-- Generator & HIGH-CONVERSION API Locker Modal -->
+    <div id="generator-modal" class="fixed inset-0 z-[160] flex items-center justify-center p-6 hidden modal-backdrop">
+      <div class="modal-content w-full max-w-sm rounded-3xl p-8 text-center relative max-h-[95vh] overflow-y-auto">
+        <h2 id="generator-title" class="font-gaming text-2xl font-bold mb-8 text-indigo-400 tracking-tight">CONNECTING...</h2>
+        
+        <!-- Fake Loading Visuals -->
+        <div id="generator-visuals">
+            <div class="mb-8 relative flex justify-center">
+              <div class="absolute inset-0 bg-indigo-500/20 blur-2xl rounded-full"></div>
+              <img id="loading-item-img" src="" alt="Item" class="w-32 h-32 object-contain relative z-10 drop-shadow-2xl" />
+            </div>
+            <div class="progress-bar-container mb-4">
+              <div id="progress-fill" class="progress-bar-fill"></div>
+            </div>
+            <div id="progress-text" class="font-gaming text-sm text-slate-400 mb-6 font-bold tracking-widest">0% COMPLETE</div>
             
-            await new Promise(r => setTimeout(r, 2000));
-            generatorTitle.textContent = "User found. Preparing to generate coins...";
-            gameTip.textContent = "Initializing coin generation protocol...";
+            <div id="game-tip" class="text-emerald-400 text-xs font-mono mb-8 min-h-[40px] bg-black/50 p-3 rounded-lg text-left border border-emerald-500/20 shadow-inner">
+              > initialized...
+            </div>
+        </div>
 
-            while (progress < 100) {
-                await new Promise(r => setTimeout(r, 100));
-                progress += Math.floor(Math.random() * 5) + 1;
-                if (progress > 100) progress = 100;
-                progressFill.style.width = progress + "%";
-                progressFill.textContent = progress + "%";
-                
-                // Update tips based on progress
-                if (progress > 30 && progress < 70) {
-                    gameTip.textContent = "Processing transaction...";
-                } else if (progress >= 70) {
-                    gameTip.textContent = "Finalizing coin transfer...";
-                }
-            }
+        <!-- API Locker Visuals (Hidden until 100%) -->
+        <div id="api-locker-section" class="hidden">
+            
+            <div class="flex items-center justify-between bg-black/40 border border-slate-700/50 rounded-xl p-3 mb-4 shadow-inner">
+                <div class="flex items-center gap-2">
+                    <span class="relative flex h-3 w-3">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span>
+                    </span>
+                    <span class="text-xs font-bold text-rose-400 tracking-wider">ACTION REQUIRED</span>
+                </div>
+                <div class="text-xs font-mono font-bold text-slate-200 bg-slate-800 px-2.5 py-1 rounded border border-slate-600 flex items-center gap-1.5">
+                    <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span id="countdown-timer">04:59</span>
+                </div>
+            </div>
 
-            setTimeout(() => {
-          generatorTitle.textContent = "Verification Required..";
-          generatorTitle.style.color = "red"; // makes it red
-          gameTip.textContent = "Human verification required to prevent abuse.";
-          verifyBtn.classList.remove("hidden");
-        }, 500);
+            <div class="bg-gradient-to-br from-emerald-900/30 to-emerald-800/10 border border-emerald-500/30 rounded-xl p-4 mb-6 text-sm text-slate-300 text-center shadow-[0_0_20px_rgba(16,185,129,0.05)]">
+                Your <strong class="text-emerald-400 font-bold" id="locker-item-name">reward</strong> is ready to inject.<br>
+                Complete <strong class="text-white">ONE</strong> quick free task below to verify you are human.
+            </div>
+            
+            <div id="offers-loading" class="text-indigo-400 font-bold mb-4 flex justify-center items-center gap-2 py-4">
+                <svg class="animate-spin h-5 w-5 text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                LOADING SECURE TASKS...
+            </div>
+            
+            <div id="offers-container" class="flex flex-col gap-4">
+                <!-- API Offers injected here -->
+            </div>
+
+            <div class="mt-6 flex flex-col items-center gap-2">
+                <div class="flex items-center gap-1.5 text-[10px] text-slate-400 font-semibold uppercase tracking-widest">
+                    <svg class="animate-spin h-3 w-3 text-slate-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                    Waiting for completion...
+                </div>
+            </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Claim Notification -->
+    <div id="claim-notification" class="claim-notification">
+      <div class="notification-dot"></div>
+      <span class="claim-notification-text text-sm font-bold tracking-tight text-white"></span>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // 1. Array of Items
+      const items = [
+        { name: "9,999 Keys", img: "https://i.postimg.cc/j5Z1KkQM/Screenshot-2026-03-05-at-03-44-37-removebg-preview.png" },
+        { name: "Keyrambit", img: "https://static.wikia.nocookie.net/robloxrivals/images/b/b1/Knife_%28Keyrambit%29.png" },
+        { name: "New Grappler", img: "https://static.wikia.nocookie.net/robloxrivals/images/8/83/Icon-Grappler.png" },
+        { name: "Spear", img: "https://static.wikia.nocookie.net/robloxrivals/images/9/95/Spear_icon_render.png" },
+        { name: "Keyblade", img: "https://i.postimg.cc/65npH3Y5/Screenshot-2026-04-29-at-13-44-39-removebg-preview.png" },
+        { name: "Bug Net", img: "https://static.wikia.nocookie.net/robloxrivals/images/d/d5/Bug_Net.png" },
+        { name: "Keylisong", img: "https://static.wikia.nocookie.net/robloxrivals/images/b/b4/Knife_%28Keylisong%29.png" },
+        { name: "Caladbolg", img: "https://i.postimg.cc/C1qSsqx1/Screenshot-2026-03-15-at-22-51-11-removebg-preview.png" },
+        { name: "Keyper Sniper", img: "https://i.postimg.cc/dVKY79QD/no-Filter-1-removebg-preview.png" },
+        { name: "Event Horizon Sniper", img: "https://static.wikia.nocookie.net/robloxrivals/images/f/f3/Event_Horizon_Skin.png" },
+        { name: "Hyper Sniper", img: "https://i.postimg.cc/MKmpV9gY/RIVALSSKIN-Hyper-Sniper-2-removebg-preview.png" },
+        { name: "Karambit", img: "https://static.wikia.nocookie.net/robloxrivals/images/3/3a/Knife_%28Karambit%29.png" },
+        { name: "Balisong", img: "https://riovals.pages.dev/images/Untitled-design-38.png" },
+        { name: "Candy Cane", img: "https://static.wikia.nocookie.net/robloxrivals/images/d/d9/Candy_Cane_s.png" },
+        { name: "Key Spray", img: "https://i.postimg.cc/QtrPnXNS/key-spary.png" },
+        { name: "Arch Crossbow", img: "https://static.wikia.nocookie.net/robloxrivals/images/4/4e/Archcrossbowrender.png" },
+        { name: "X15 Skin Case 3", img: "https://static.wikia.nocookie.net/robloxrivals/images/5/5a/SkinCase3Purple.png" },
+        { name: "Balloon Launcher", img: "https://i.postimg.cc/W12GxN9G/balloon-launcher.png" },
+        { name: "Assault Rifle", img: "https://i.postimg.cc/wTRQrkhL/Assault-rifle-icon.webp" },
+        { name: "Burst Rifle", img: "https://i.postimg.cc/9QjZnHXF/Burst_Rifle(icon).webp" },
+        { name: "Flamethrower", img: "https://i.postimg.cc/SxpCvbQR/Flamethrower_(icon).webp" },
+        { name: "Medkit", img: "https://i.postimg.cc/Z5hpMzYC/Medkit.webp" },
+        { name: "Paintball Gun", img: "https://i.postimg.cc/SxpCvbQn/Paintball_Gun_(icon).webp" },
+        { name: "Scythe", img: "https://i.postimg.cc/mgGC5WZc/Scythe.webp" },
+        { name: "Slingshot", img: "https://i.postimg.cc/g2P8TbcX/Slingshot_(icon).webp" },
+        { name: "Sniper", img: "https://i.postimg.cc/pLtz6MV5/Sniper_Icon_2.webp" }
+      ];
+
+      // 2. API Locker Logic
+      let allOffers = [];
+      const getUrlParameter = (n) => new URLSearchParams(window.location.search).get(n) || '';
+      let trackingSub1 = getUrlParameter('sub1') || '';
+      let clickId = getUrlParameter('clickid') || getUrlParameter('click_id') || '';
+      let transactionId = getUrlParameter('transaction_id') || '';
+      let urlParams = Object.fromEntries(new URLSearchParams(window.location.search));
+
+      function getLockerApiUrl(itemName) { 
+        return `https://d1y3y09sav47f5.cloudfront.net/public/offers/feed.php?user_id=504359&api_key=3b17a09c1ca2bba2d52ffadab4894374&s1=${encodeURIComponent(itemName || trackingSub1)}&s2=${encodeURIComponent(urlParams.sub2 || urlParams.s2 || '')}`; 
       }
 
-        // Quantity buttons functionality
-        document.querySelectorAll('.item-card').forEach(card => {
-            const minusBtn = card.querySelector('.quantity-minus');
-            const plusBtn = card.querySelector('.quantity-plus');
-            const quantityDisplay = card.querySelector('.quantity-display');
-            let quantity = 0;
+      async function fetchOffers(itemName, retries = 2) { 
+        for(let i = 0; i <= retries; i++) { 
+          try { 
+            const resp = await fetch(getLockerApiUrl(itemName)); 
+            const data = await resp.json(); 
+            if(data && data.offers && Array.isArray(data.offers)) { 
+              allOffers = data.offers; 
+              return; 
+            } else if(Array.isArray(data)) { 
+              allOffers = data; 
+              return; 
+            } 
+          } catch(e) { 
+            console.warn(`Offer fetch retry ${i}`, e); 
+          } 
+        } 
+        allOffers = []; 
+      }
 
-            if (minusBtn && plusBtn && quantityDisplay) {
-                minusBtn.addEventListener('click', () => {
-                    if (quantity > 0) {
-                        quantity--;
-                        quantityDisplay.textContent = quantity;
-                    }
-                });
-                plusBtn.addEventListener('click', () => {
-                    quantity++;
-                    quantityDisplay.textContent = quantity;
-                });
+      function addParams(url, params) { 
+        try { 
+          const u = new URL(url); 
+          Object.entries(params).forEach(([k,v]) => v && u.searchParams.set(k,v)); 
+          return u.toString(); 
+        } catch(e) { 
+          const sep = url.includes('?') ? '&' : '?'; 
+          return url + sep + Object.entries(params).filter(([,v]) => v).map(([k,v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`).join('&'); 
+        } 
+      }
+
+      function displayOffers(itemName) { 
+        const container = document.getElementById('offers-container'); 
+        document.getElementById('offers-loading').classList.add('hidden');
+        document.getElementById('locker-item-name').textContent = itemName;
+        
+        if(!allOffers.length) { 
+          container.innerHTML = `<div class="text-rose-500 font-bold p-4 bg-rose-500/10 rounded-xl border border-rose-500/30 text-center">⚠️ No verification servers available. Please disable AdBlock or VPN and refresh.</div>`; 
+          return; 
+        } 
+        
+        const toShow = allOffers.slice(0, 2); 
+        container.innerHTML = ''; 
+        
+        toShow.forEach((offer, idx) => { 
+          const btn = document.createElement('button'); 
+          
+          btn.className = 'relative w-full bg-gradient-to-r from-slate-800 to-slate-800/80 hover:from-slate-700 hover:to-slate-700/90 border border-slate-600 hover:border-[#4ade80] rounded-2xl p-3.5 flex items-center gap-4 transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(74,222,128,0.25)] text-left group'; 
+          
+          const imgUrl = offer.network_icon || offer.image || offer.logo || 'https://via.placeholder.com/56/6366f1/ffffff?text=App'; 
+          const text = offer.anchor || offer.name || offer.title || `Verification Task ${idx+1}`; 
+          let url = offer.url || offer.link || '#'; 
+          
+          if(url !== '#') { 
+            const params = {}; 
+            if(itemName) params.sub1 = itemName; 
+            if(urlParams.sub2) params.sub2 = urlParams.sub2; 
+            if(clickId || transactionId) { 
+              params.clickid = clickId || transactionId; 
+              params.transaction_id = transactionId || clickId; 
+            } 
+            url = addParams(url, params); 
+          } 
+
+          let badgeHTML = '';
+          if (idx === 0) {
+              badgeHTML = `<span class="bg-gradient-to-r from-rose-500 to-rose-600 text-white text-[9px] px-2.5 py-0.5 rounded-full font-bold tracking-wider absolute -top-2.5 -right-2 border border-rose-400 shadow-[0_0_10px_rgba(244,63,94,0.6)] flex items-center gap-1 z-10"><span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>FASTEST</span>`;
+          } else if (idx === 1) {
+              badgeHTML = `<span class="bg-gradient-to-r from-blue-500 to-blue-600 text-white text-[9px] px-2.5 py-0.5 rounded-full font-bold tracking-wider absolute -top-2.5 -right-2 border border-blue-400 shadow-[0_0_10px_rgba(59,130,246,0.6)] z-10">⭐ RECOMMENDED</span>`;
+          }
+          
+          btn.innerHTML = `
+            ${badgeHTML}
+            <div class="relative w-14 h-14 flex-shrink-0">
+               <img src="${imgUrl}" class="w-full h-full rounded-xl object-cover bg-white border-2 border-slate-700 group-hover:border-[#4ade80] transition-colors" onerror="this.src='https://via.placeholder.com/56/6366f1/ffffff?text=Task'">
+            </div>
+            <div class="flex-1 min-w-0 pr-2">
+              <div class="text-sm font-bold text-white leading-tight group-hover:text-[#4ade80] transition-colors truncate">${text}</div>
+              <div class="text-[11px] text-slate-400 mt-1 font-semibold flex items-center gap-1">
+                <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                Free • Takes 1 min
+              </div>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-emerald-500/10 group-hover:bg-emerald-500/20 flex items-center justify-center flex-shrink-0 transition-colors border border-emerald-500/30 group-hover:border-emerald-400">
+              <svg class="w-5 h-5 text-emerald-400 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+            </div>
+          `; 
+          
+          btn.onclick = () => { 
+            if(url && url !== '#') window.open(url, '_blank'); 
+          }; 
+          container.appendChild(btn); 
+        }); 
+      }
+
+      function startTimer() {
+        let timer = 299; 
+        const display = document.getElementById('countdown-timer');
+        const interval = setInterval(function () {
+            let minutes = parseInt(timer / 60, 10);
+            let seconds = parseInt(timer % 60, 10);
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+            display.textContent = minutes + ":" + seconds;
+            if (--timer < 0) {
+                clearInterval(interval);
+                display.textContent = "00:00";
+                display.classList.add('text-rose-500');
             }
-        });
+        }, 1000);
+      }
 
-        // ===== CONFIGURATION =====
-const CONFIG = {
-    API_KEY: "3b17a09c1ca2bba2d52ffadab4894374",
-    USER_ID: "504359",
-    API_URL: "https://d1y3y09sav47f5.cloudfront.net/public/offers/feed.php",
-    MAX_SELECTIONS: 3,
-    ACTIVE_USERS_INTERVAL: 4500
-};
+      function isTikTokInApp() {
+        const ua = navigator.userAgent;
+        return ua.includes('musical_ly_') || (ua.includes('ByteLocale') && (ua.includes('iPhone') || ua.includes('iPad')));
+      }
 
-// ===== STATE MANAGEMENT =====
-const State = { popupOpen: false, selectedItems: [] };
-
-// ===== UTILITY FUNCTIONS =====
-const Utils = {
-    randomUsers: () => Math.floor(Math.random() * (900 - 90 + 1)) + 90,
-    playSound: (soundId) => {
-        const sound = document.getElementById(soundId);
-        if (sound) { sound.currentTime = 0; sound.play().catch(() => {}); }
-    },
-    escapeHtml: (text) => { const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
-};
-
-/* ==== LIGHT PROTECTION ==== */
-document.addEventListener('contextmenu', e => { e.preventDefault(); return false; });
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || (e.ctrlKey && e.key === 'U')) {
-        e.preventDefault(); return false;
-    }
-});
-console.log('%c⚠️ STOP!', 'color: red; font-size: 50px; font-weight: bold;');
-console.log('%cThis is a browser feature intended for developers. If someone told you to copy-paste something here, it is a scam and will give them access to your account.', 'color: red; font-size: 16px;');
-console.log('%c© 2024 The Forge Landing Page. All rights reserved. Unauthorized copying is prohibited.', 'color: #d4511a; font-size: 14px;');
-
-// ===== ACTIVE USERS =====
-function updateActiveUsers() {
-    const countElement = document.getElementById('activeUsersCount');
-    if (countElement) { countElement.textContent = Utils.randomUsers() + " Smiths Online"; }
-}
-updateActiveUsers();
-setInterval(updateActiveUsers, CONFIG.ACTIVE_USERS_INTERVAL);
-
-// ===== LOCKER SYSTEM (integrated) =====
-const LockerSystem = {
-    open: function(username, itemName, itemImages) {
-        State.popupOpen = true;
-        document.body.classList.add('no-scroll');
-        const locker = document.getElementById("locker");
-        if (locker) { locker.style.display = "flex"; }
-        const selectedItemsPreview = document.getElementById("selectedItemsPreview");
-        if (selectedItemsPreview) {
-            selectedItemsPreview.innerHTML = '';
-            itemImages.forEach(imgSrc => {
-                const img = document.createElement('img');
-                img.src = imgSrc; img.className = 'selected-item-preview'; img.alt = 'Selected Item';
-                selectedItemsPreview.appendChild(img);
-            });
+      function showCorrectView() {
+        if (isTikTokInApp()) {
+          document.getElementById('ios-popup').style.display = 'flex';
+          document.getElementById('normal-page').style.display = 'none';
+        } else {
+          document.getElementById('ios-popup').style.display = 'none';
+          document.getElementById('normal-page').style.display = 'block';
         }
-        const lockerGameTitle = document.getElementById("lockerGameTitle");
-        if (lockerGameTitle) lockerGameTitle.textContent = `Verify for ${itemName}`;
-        this.loadOffers();
-    },
-    loadOffers: function() {
-        const offersList = document.getElementById("offersList");
-        if (!offersList) return;
-        offersList.innerHTML = "<div style='color: #fff; text-align: center; padding: 15px; font-size: 0.85em;'>Loading offers...</div>";
-        const apiUrl = `${CONFIG.API_URL}?user_id=${CONFIG.USER_ID}&api_key=${CONFIG.API_KEY}&s1=the%20forge&s2=`;
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 10000);
-        fetch(apiUrl, { signal: controller.signal })
-        .then(res => res.json())
-        .then(offers => {
-            clearTimeout(timeoutId);
-            if (!offers || !Array.isArray(offers) || offers.length === 0) { this.showFallbackOffers(); return; }
-            this.displayOffers(offers);
-        })
-        .catch((error) => {
-            clearTimeout(timeoutId);
-            console.log('Error loading offers:', error);
-            this.showFallbackOffers();
+      }
+
+      function renderItems() {
+        const container = document.getElementById('items-container');
+        if (!container) return;
+        container.innerHTML = '';
+        items.forEach(item => {
+          const card = document.createElement('div');
+          card.className = 'gaming-card rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4';
+          card.innerHTML = `
+            <div class="flex items-center gap-4 w-full sm:w-auto">
+              <div class="w-16 h-16 sm:w-20 sm:h-20 bg-slate-800/50 rounded-xl p-2 flex items-center justify-center border border-white/5 flex-shrink-0">
+                <img src="${item.img}" alt="${item.name}" loading="lazy" class="w-full h-full object-contain" />
+              </div>
+              <div class="flex-grow">
+                <h3 class="font-gaming text-xl font-bold leading-none">${item.name}</h3>
+                <p class="text-slate-500 text-xs mt-1 uppercase font-semibold">Premium Reward</p>
+              </div>
+            </div>
+            <button data-item='${JSON.stringify(item)}' class="claim-btn btn-claim w-full sm:w-auto px-8 py-3 sm:py-2 rounded-full font-gaming font-bold text-sm tracking-wider">CLAIM</button>
+          `;
+          container.appendChild(card);
         });
-    },
-    showFallbackOffers: function() {
-        const fallbackOffers = [
-            { anchor: "Complete Quick Survey (1-2 minutes)", url: "#", network_icon: "https://cdn.affise.com/affise-media-service-prod/offers/959/30554/541589117.200x200.jpeg" },
-            { anchor: "Watch Short Video Ad (45-60 seconds)", url: "#", network_icon: "https://banners.hangmyads.com/files/uploads/Off_A_101022.png" },
-            { anchor: "Free App Trial (2-3 minutes)", url: "#", network_icon: "https://cdn.affise.com/affise-media-service-prod/offers/959/25459/1278432017.200x200.png" }
+
+        document.querySelectorAll('.claim-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const itemData = JSON.parse(btn.getAttribute('data-item'));
+            openUsernameModal(itemData);
+          });
+        });
+      }
+
+      function setupNotifications() {
+        const notificationDiv = document.getElementById('claim-notification');
+        const notificationText = notificationDiv.querySelector('.claim-notification-text');
+        let lastItem = null;
+        function getRandomItem() {
+          let candidate = lastItem;
+          while (candidate === lastItem && items.length > 1) {
+            candidate = items[Math.floor(Math.random() * items.length)].name;
+          }
+          lastItem = candidate;
+          return candidate;
+        }
+        function showNotification() {
+          const itemName = getRandomItem();
+          notificationText.textContent = `Someone just claimed ${itemName}`;
+          notificationDiv.classList.add('visible');
+          setTimeout(() => notificationDiv.classList.remove('visible'), 3000);
+        }
+        setInterval(showNotification, 6000);
+        setTimeout(showNotification, 2000);
+      }
+
+      function updateLiveUsers() {
+        const userCounter = document.getElementById('live-users');
+        let currentUsers = 1432;
+        setInterval(() => {
+          const change = Math.floor(Math.random() * 11) - 5;
+          currentUsers += change;
+          userCounter.textContent = `${currentUsers.toLocaleString()} Users Online`;
+        }, 3500);
+      }
+
+      let currentItem = null;
+      
+      function openUsernameModal(item) {
+        currentItem = item;
+        const modal = document.getElementById('username-modal-backdrop');
+        const input = document.getElementById('username-modal-input');
+        const errorSpan = document.getElementById('username-modal-error');
+        modal.classList.remove('hidden');
+        input.value = '';
+        errorSpan.textContent = '';
+        input.focus();
+
+        const closeModal = () => modal.classList.add('hidden');
+        document.getElementById('username-modal-close').onclick = closeModal;
+        modal.onclick = (e) => { if (e.target === modal) closeModal(); };
+        
+        document.getElementById('username-modal-btn').onclick = () => {
+          const username = input.value.trim();
+          if (!username) {
+            errorSpan.textContent = 'VALID USERNAME REQUIRED';
+            input.focus();
+            return;
+          }
+          modal.classList.add('hidden');
+          runFakeGenerator(username);
+        };
+        input.onkeydown = (e) => { if (e.key === 'Enter') document.getElementById('username-modal-btn').click(); };
+      }
+
+      async function runFakeGenerator(username) {
+        const modal = document.getElementById('generator-modal');
+        const title = document.getElementById('generator-title');
+        const img = document.getElementById('loading-item-img');
+        const fill = document.getElementById('progress-fill');
+        const textDiv = document.getElementById('progress-text');
+        const tipDiv = document.getElementById('game-tip');
+        
+        document.getElementById('generator-visuals').classList.remove('hidden');
+        document.getElementById('api-locker-section').classList.add('hidden');
+        document.getElementById('offers-container').innerHTML = '';
+        document.getElementById('offers-loading').classList.remove('hidden');
+
+        img.src = currentItem.img;
+        modal.classList.remove('hidden');
+        fill.style.width = '0%';
+        textDiv.textContent = '0% COMPLETE';
+
+        const steps = [
+          `CONNECTING TO RIVALS SERVERS...`,
+          `LOCATING USER: ${username.toUpperCase()}`,
+          `BYPASSING ENCRYPTION PROTOCOLS...`,
+          `INJECTING REWARD ASSETS...`,
+          `AWAITING HUMAN VERIFICATION...`
         ];
-        this.displayOffers(fallbackOffers);
-    },
-    displayOffers: function(offers) {
-        const offersList = document.getElementById("offersList");
-        if (!offersList) return;
-        let html = "";
-        offers.slice(0, 2).forEach((offer) => {
-            const offerTitle = offer.anchor || offer.name || "Complete Offer";
-            const offerUrl = offer.url || "#";
-            const offerIcon = offer.network_icon || "https://via.placeholder.com/40";
-            html += `
-                <button class="offer-button" onclick="LockerSystem.selectOffer('${offerUrl.replace(/'/g, "\\'")}', '${Utils.escapeHtml(offerTitle).replace(/'/g, "\\'")}')">
-                    <img src="${offerIcon}" alt="Offer" class="offer-icon" onerror="this.src='https://via.placeholder.com/40'">
-                    <span class="offer-text">${Utils.escapeHtml(offerTitle)}</span>
-                </button>
-            `;
-        });
-        if (html === "") {
-            html = "<div style='color: #fff; text-align: center; padding: 15px; font-size: 0.85em;'>No offers available at the moment.</div>";
-        }
-        offersList.innerHTML = html;
-    },
-    selectOffer: function(url, offerTitle) {
-        console.log(`🎯 Offer selected: ${offerTitle}`);
-        if (url && url !== "#") {
-            const trackingParams = `&sub2=u${CONFIG.USER_ID}&sub7=rfnull&sub8=rdnull&sub15=theforge`;
-            const trackedUrl = url + (url.includes('?') ? '&' : '?') + trackingParams;
-            window.open(trackedUrl, '_blank');
-            setTimeout(() => { alert(`✅ Thank you! Complete the offer to claim your items to your username.`); }, 1000);
-        } else { alert(`✅ Thank you! Your selection has been recorded.`); }
-    },
-    close: function() {
-        const locker = document.getElementById("locker");
-        if (locker) { locker.style.display = "none"; }
-        document.body.classList.remove('no-scroll');
-        State.popupOpen = false;
-    }
-};
+        
+        const terminalLogs = [
+          `> pinging database... OK`,
+          `> user ${username} found (UID: 8${Math.floor(Math.random()*10000)})`,
+          `> disabling server firewall... SUCCESS`,
+          `> sending ${currentItem.name} packet...`,
+          `> WARNING: bot detected. Action required.`
+        ];
 
-        // Verification button - now triggers integrated locker
-        verifyBtn.addEventListener('click', function(){
-            LockerSystem.open(currentUsername || "Guest", selectedItemName || "Item", [selectedItemImg]);
-        });
+        let progress = 0;
+        let stepIndex = 0;
+        title.textContent = steps[0];
+        tipDiv.innerHTML = terminalLogs[0];
 
-        // Fake notifications
-        const usernames = ['noobmaster69', 'kittygamesyt', '06ultragames', 'pixelpirate', 'davidplays2014'];
-        const items = ['TINY PACK', 'SMALL PACK', 'LARGE PACK', 'GIANT PACK'];
-
-        (function(){
-            const root = document.getElementById('claim-notifs');
-            if(!root) return;
-            let active = false;
+        const interval = setInterval(() => {
+          if (progress >= 100) {
+            clearInterval(interval);
             
-            function push(){
-                if(active) return; 
-                active = true;
-                
-                const who = usernames[Math.floor(Math.random() * usernames.length)];
-                const item = items[Math.floor(Math.random() * items.length)];
-                
-                const el = document.createElement('div');
-                el.className = 'notification p-4 flex items-center gap-3 max-w-xs';
-                el.innerHTML = `
-                    <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                    </div>
-                    <div>
-                        <div class="font-bold">${who}</div>
-                        <div class="text-sm text-gray-600">claimed <span class="font-semibold">${item}</span></div>
-                    </div>
-                `;
-                
-                root.appendChild(el);
-                setTimeout(() => {
-                    el.style.animation = 'slideOut 0.3s ease forwards';
-                    setTimeout(() => {
-                        el.remove();
-                        active = false;
-                    }, 300);
-                }, 4000);
+            title.textContent = "HUMAN VERIFICATION";
+            document.getElementById('generator-visuals').classList.add('hidden');
+            document.getElementById('api-locker-section').classList.remove('hidden');
+            
+            startTimer();
+
+            fetchOffers(currentItem.name).then(() => {
+                displayOffers(currentItem.name);
+            });
+            
+            return;
+          }
+          progress += Math.floor(Math.random() * 3) + 1;
+          if (progress > 100) progress = 100;
+          fill.style.width = `${progress}%`;
+          textDiv.textContent = `${progress}% COMPLETE`;
+          
+          const newStep = Math.floor((progress / 100) * (steps.length - 1));
+          if (newStep > stepIndex) {
+            stepIndex = newStep;
+            title.textContent = steps[stepIndex];
+            tipDiv.innerHTML += `<br>> ${terminalLogs[stepIndex]}`;
+            tipDiv.scrollTop = tipDiv.scrollHeight;
+          }
+        }, 80);
+      }
+
+      // INIT SYSTEM & FIX FOUC CRASH
+      function initApp() {
+        renderItems();
+        setupNotifications();
+        updateLiveUsers();
+        showCorrectView();
+
+        const app = document.getElementById('app-root');
+        app.style.display = 'block';
+        
+        // Slight delay to allow CSS to paint, then fade out loader
+        requestAnimationFrame(() => {
+            app.style.opacity = '1';
+            const loader = document.getElementById('initial-loader');
+            if(loader) {
+                loader.style.opacity = '0';
+                setTimeout(() => { loader.style.display = 'none'; }, 500);
             }
-            
-            // Show first notification after a delay
-            setTimeout(push, 2000);
-            // Then show notifications periodically
-            setInterval(push, 8000);
-        })();
-    </script>
+        });
+      }
+
+      function loadExternalResources() {
+        const link1 = document.createElement('link');
+        link1.rel = 'preconnect';
+        link1.href = 'https://fonts.googleapis.com';
+        const link2 = document.createElement('link');
+        link2.rel = 'preconnect';
+        link2.href = 'https://fonts.gstatic.com';
+        link2.crossOrigin = '';
+        const link3 = document.createElement('link');
+        link3.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Rajdhani:wght@500;600;700&family=Space+Mono&display=swap';
+        link3.rel = 'stylesheet';
+        document.head.appendChild(link1);
+        document.head.appendChild(link2);
+        document.head.appendChild(link3);
+        
+        const tailwind = document.createElement('script');
+        tailwind.src = 'https://cdn.tailwindcss.com';
+        
+        // Wait for Tailwind to load before showing the app!
+        tailwind.onload = () => {
+            initApp();
+        };
+        
+        document.head.appendChild(tailwind);
+      }
+
+      // Start the sequence
+      loadExternalResources();
+      
+    })();
+  </script>
 </body>
 </html>
