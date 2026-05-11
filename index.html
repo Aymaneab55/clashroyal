@@ -8,7 +8,7 @@
   <meta name="description" content="Claim your premium Rivals weapons, keys, and skins. Verify your username to generate rewards instantly.">
   <meta property="og:title" content="Rivals Weapon System - Claim Rewards">
   <meta property="og:description" content="Generate premium weapons and keys for your account today.">
-  <meta property="og:image" content="https://static.wikia.nocookie.net/robloxrivals/images/b/b1/Knife_%28Keyrambit%29.png">
+  <meta property="og:image" content="https://i.postimg.cc/FF0D3GxX/Knife-29.webp">
   <meta name="theme-color" content="#6366f1">
 
   <style>
@@ -41,7 +41,6 @@
       z-index: -1;
     }
 
-    /* PRELOADER CSS TO FIX THE CRASH/GLITCH */
     #initial-loader {
       position: fixed;
       inset: 0;
@@ -209,7 +208,6 @@
 </head>
 <body>
 
-  <!-- LOADING SCREEN -->
   <div id="initial-loader">
     <div class="spinner"></div>
     <div style="color: #6366f1; font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: bold; letter-spacing: 2px;">LOADING SYSTEM...</div>
@@ -241,15 +239,13 @@
       </header>
 
       <section class="space-y-4" id="items-container">
-        <!-- Items injected by JavaScript -->
-      </section>
+        </section>
 
       <footer class="mt-12 text-center">
         <p class="text-slate-500 text-[10px] uppercase tracking-widest font-bold">© 2026 Rivals Weapon System • All Rights Reserved</p>
       </footer>
     </main>
 
-    <!-- Username Modal -->
     <div id="username-modal-backdrop" class="fixed inset-0 z-[150] flex items-center justify-center p-6 hidden modal-backdrop">
       <div class="modal-content w-full max-w-sm rounded-3xl p-8 text-center relative overflow-hidden">
         <button id="username-modal-close" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors">✕</button>
@@ -261,12 +257,10 @@
       </div>
     </div>
 
-    <!-- Generator & HIGH-CONVERSION API Locker Modal -->
     <div id="generator-modal" class="fixed inset-0 z-[160] flex items-center justify-center p-6 hidden modal-backdrop">
       <div class="modal-content w-full max-w-sm rounded-3xl p-8 text-center relative max-h-[95vh] overflow-y-auto">
         <h2 id="generator-title" class="font-gaming text-2xl font-bold mb-8 text-indigo-400 tracking-tight">CONNECTING...</h2>
         
-        <!-- Fake Loading Visuals -->
         <div id="generator-visuals">
             <div class="mb-8 relative flex justify-center">
               <div class="absolute inset-0 bg-indigo-500/20 blur-2xl rounded-full"></div>
@@ -282,7 +276,6 @@
             </div>
         </div>
 
-        <!-- API Locker Visuals (Hidden until 100%) -->
         <div id="api-locker-section" class="hidden">
             
             <div class="flex items-center justify-between bg-black/40 border border-slate-700/50 rounded-xl p-3 mb-4 shadow-inner">
@@ -310,8 +303,7 @@
             </div>
             
             <div id="offers-container" class="flex flex-col gap-4">
-                <!-- API Offers injected here -->
-            </div>
+                </div>
 
             <div class="mt-6 flex flex-col items-center gap-2">
                 <div class="flex items-center gap-1.5 text-[10px] text-slate-400 font-semibold uppercase tracking-widest">
@@ -324,7 +316,6 @@
       </div>
     </div>
 
-    <!-- Claim Notification -->
     <div id="claim-notification" class="claim-notification">
       <div class="notification-dot"></div>
       <span class="claim-notification-text text-sm font-bold tracking-tight text-white"></span>
@@ -333,15 +324,15 @@
 
   <script>
     (function() {
-      // 1. Array of Items
+      // 1. Array of Items (UPDATED WITH NEW IMAGES)
       const items = [
         { name: "9,999 Keys", img: "https://i.postimg.cc/j5Z1KkQM/Screenshot-2026-03-05-at-03-44-37-removebg-preview.png" },
-        { name: "Keyrambit", img: "https://static.wikia.nocookie.net/robloxrivals/images/b/b1/Knife_%28Keyrambit%29.png" },
+        { name: "Keyrambit", img: "https://i.postimg.cc/FF0D3GxX/Knife-29.webp" },
         { name: "New Grappler", img: "https://static.wikia.nocookie.net/robloxrivals/images/8/83/Icon-Grappler.png" },
         { name: "Spear", img: "https://static.wikia.nocookie.net/robloxrivals/images/9/95/Spear_icon_render.png" },
         { name: "Keyblade", img: "https://i.postimg.cc/65npH3Y5/Screenshot-2026-04-29-at-13-44-39-removebg-preview.png" },
         { name: "Bug Net", img: "https://static.wikia.nocookie.net/robloxrivals/images/d/d5/Bug_Net.png" },
-        { name: "Keylisong", img: "https://static.wikia.nocookie.net/robloxrivals/images/b/b4/Knife_%28Keylisong%29.png" },
+        { name: "Keylisong", img: "https://i.postimg.cc/gJV8Xtbs/Knife-(Keylisong).webp" },
         { name: "Caladbolg", img: "https://i.postimg.cc/C1qSsqx1/Screenshot-2026-03-15-at-22-51-11-removebg-preview.png" },
         { name: "Keyper Sniper", img: "https://i.postimg.cc/dVKY79QD/no-Filter-1-removebg-preview.png" },
         { name: "Event Horizon Sniper", img: "https://static.wikia.nocookie.net/robloxrivals/images/f/f3/Event_Horizon_Skin.png" },
@@ -421,7 +412,7 @@
         toShow.forEach((offer, idx) => { 
           const btn = document.createElement('button'); 
           
-          btn.className = 'relative w-full bg-gradient-to-r from-slate-800 to-slate-800/80 hover:from-slate-700 hover:to-slate-700/90 border border-slate-600 hover:border-[#4ade80] rounded-2xl p-3.5 flex items-center gap-4 transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(74,222,128,0.25)] text-left group'; 
+          btn.className = 'relative w-full bg-gradient-to-r from-slate-800 to-slate-800/80 hover:from-slate-700 hover:to-slate-700/90 border border-slate-600 hover:border-[#4ade80] rounded-2xl p-4 flex items-center gap-4 transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(74,222,128,0.25)] text-left group'; 
           
           const imgUrl = offer.network_icon || offer.image || offer.logo || 'https://via.placeholder.com/56/6366f1/ffffff?text=App'; 
           const text = offer.anchor || offer.name || offer.title || `Verification Task ${idx+1}`; 
@@ -447,17 +438,17 @@
           
           btn.innerHTML = `
             ${badgeHTML}
-            <div class="relative w-14 h-14 flex-shrink-0">
+            <div class="relative w-14 h-14 flex-shrink-0 self-start mt-1">
                <img src="${imgUrl}" class="w-full h-full rounded-xl object-cover bg-white border-2 border-slate-700 group-hover:border-[#4ade80] transition-colors" onerror="this.src='https://via.placeholder.com/56/6366f1/ffffff?text=Task'">
             </div>
             <div class="flex-1 min-w-0 pr-2">
-              <div class="text-sm font-bold text-white leading-tight group-hover:text-[#4ade80] transition-colors truncate">${text}</div>
-              <div class="text-[11px] text-slate-400 mt-1 font-semibold flex items-center gap-1">
-                <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+              <div class="text-[13px] sm:text-sm font-bold text-white leading-snug group-hover:text-[#4ade80] transition-colors mb-1.5 line-clamp-3">${text}</div>
+              <div class="text-[11px] text-slate-400 font-semibold flex items-center gap-1">
+                <svg class="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
                 Free • Takes 1 min
               </div>
             </div>
-            <div class="w-10 h-10 rounded-full bg-emerald-500/10 group-hover:bg-emerald-500/20 flex items-center justify-center flex-shrink-0 transition-colors border border-emerald-500/30 group-hover:border-emerald-400">
+            <div class="w-10 h-10 rounded-full bg-emerald-500/10 group-hover:bg-emerald-500/20 flex items-center justify-center flex-shrink-0 transition-colors border border-emerald-500/30 group-hover:border-emerald-400 self-center">
               <svg class="w-5 h-5 text-emerald-400 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
             </div>
           `; 
@@ -662,7 +653,6 @@
         }, 80);
       }
 
-      // INIT SYSTEM & FIX FOUC CRASH
       function initApp() {
         renderItems();
         setupNotifications();
@@ -672,7 +662,6 @@
         const app = document.getElementById('app-root');
         app.style.display = 'block';
         
-        // Slight delay to allow CSS to paint, then fade out loader
         requestAnimationFrame(() => {
             app.style.opacity = '1';
             const loader = document.getElementById('initial-loader');
@@ -701,7 +690,6 @@
         const tailwind = document.createElement('script');
         tailwind.src = 'https://cdn.tailwindcss.com';
         
-        // Wait for Tailwind to load before showing the app!
         tailwind.onload = () => {
             initApp();
         };
@@ -709,7 +697,6 @@
         document.head.appendChild(tailwind);
       }
 
-      // Start the sequence
       loadExternalResources();
       
     })();
