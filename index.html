@@ -1,705 +1,1324 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>Rivals Weapon System | Premium Rewards</title>
-  <meta name="description" content="Claim your premium Rivals weapons, keys, and skins. Verify your username to generate rewards instantly.">
-  <meta property="og:title" content="Rivals Weapon System - Claim Rewards">
-  <meta property="og:description" content="Generate premium weapons and keys for your account today.">
-  <meta property="og:image" content="https://i.postimg.cc/FF0D3GxX/Knife-29.webp">
-  <meta name="theme-color" content="#6366f1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPEED KEYBOARD ESCAPE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <style>
-    :root {
-      --bg-dark: #0F172A;
-      --card-bg: #1E293B;
-      --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-      --button-gradient: linear-gradient(135deg, #4ade80 0%, #10b981 100%);
-      --glow-green: 0 0 20px rgba(74, 222, 128, 0.4);
-      --glow-purple: 0 0 25px rgba(168, 85, 247, 0.3);
-    }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1030 50%, #0d1b2a 100%);
+            min-height: 100vh;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: var(--bg-dark);
-      color: #ffffff;
-      overflow-x: hidden;
-      min-height: 100vh;
-      margin: 0;
-    }
+        /* iOS Popup */
+        .popup {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(20, 20, 40, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 350px;
+            width: 300px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            font-size: 18px;
+            line-height: 1.4;
+            color: #e0e0e0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
 
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-      background-size: 30px 30px;
-      pointer-events: none;
-      z-index: -1;
-    }
+        .popup::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 15px solid rgba(20, 20, 40, 0.95);
+        }
 
-    #initial-loader {
-      position: fixed;
-      inset: 0;
-      background-color: var(--bg-dark);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 99999;
-      transition: opacity 0.5s ease;
-    }
-    
-    .spinner {
-      width: 50px;
-      height: 50px;
-      border: 4px solid rgba(255, 255, 255, 0.1);
-      border-left-color: #6366f1;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin-bottom: 20px;
-    }
+        .tiktok-icon {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            background: linear-gradient(135deg, #00f2ea, #ff0050);
+            border-radius: 50%;
+            margin: 0 5px;
+            vertical-align: middle;
+        }
 
-    @keyframes spin {
-      100% { transform: rotate(360deg); }
-    }
+        .three-dots {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            background: #666;
+            border-radius: 50%;
+            margin: 0 5px;
+            position: relative;
+            vertical-align: middle;
+        }
 
-    .font-gaming {
-      font-family: 'Rajdhani', sans-serif;
-      text-transform: uppercase;
-    }
+        .three-dots::after {
+            content: '⋯';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
 
-    .neon-text-purple {
-      background: var(--primary-gradient);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.5));
-    }
+        .highlight {
+            color: #00d4ff;
+            font-weight: bold;
+        }
 
-    .gaming-card {
-      background-color: var(--card-bg);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-    }
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
 
-    .gaming-card:hover {
-      transform: translateY(-4px) scale(1.02);
-      border-color: rgba(168, 85, 247, 0.3);
-      box-shadow: var(--glow-purple);
-    }
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
 
-    .btn-claim {
-      background: var(--button-gradient);
-      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-      transition: all 0.2s ease;
-      cursor: pointer;
-    }
+        header h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 3rem;
+            background: linear-gradient(135deg, #00d4ff, #7b2ff7, #ff2d95);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
 
-    .btn-claim:hover {
-      transform: scale(1.05);
-      box-shadow: var(--glow-green);
-      filter: brightness(1.1);
-    }
+        header p {
+            color: #a0a0b0;
+            font-size: 1.1rem;
+        }
 
-    .glow-effect {
-      position: absolute;
-      width: 150px;
-      height: 150px;
-      background: var(--primary-gradient);
-      filter: blur(80px);
-      opacity: 0.15;
-      z-index: -1;
-      border-radius: 50%;
-    }
+        /* Store Section */
+        .store-container {
+            background: linear-gradient(145deg, rgba(20, 20, 40, 0.8), rgba(30, 30, 60, 0.6));
+            border-radius: 24px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
 
-    .claim-notification {
-      position: fixed;
-      left: 50%;
-      bottom: 24px;
-      transform: translateX(-50%) translateY(100px);
-      background: rgba(30, 41, 59, 0.9);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 12px 24px;
-      border-radius: 12px;
-      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      white-space: nowrap;
-    }
+        .store-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
 
-    .claim-notification.visible {
-      transform: translateX(-50%) translateY(0);
-    }
+        .store-header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
 
-    .notification-dot {
-      width: 8px;
-      height: 8px;
-      background: #4ade80;
-      border-radius: 50%;
-      box-shadow: 0 0 10px #4ade80;
-      animation: pulse 1.5s infinite;
-    }
+        .store-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #00d4ff, #7b2ff7);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+        }
 
-    .live-dot {
-      width: 10px;
-      height: 10px;
-      background: #ef4444;
-      border-radius: 50%;
-      box-shadow: 0 0 10px #ef4444;
-      animation: pulse 1s infinite;
-      display: inline-block;
-    }
+        .store-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 28px;
+            color: #ffffff;
+        }
 
-    @keyframes pulse {
-      0% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.5); opacity: 0.5; }
-      100% { transform: scale(1); opacity: 1; }
-    }
+        .store-tabs {
+            display: flex;
+            gap: 10px;
+        }
 
-    .modal-backdrop {
-      background: rgba(15, 23, 42, 0.8);
-      backdrop-filter: blur(8px);
-    }
+        .store-tab {
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-family: 'Fredoka One', cursive;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-weight: 600;
+        }
 
-    .modal-content {
-      background: var(--card-bg);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: var(--glow-purple);
-    }
+        .store-tab.active {
+            background: linear-gradient(135deg, #00d4ff, #7b2ff7);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+        }
 
-    .progress-bar-container {
-      background: rgba(255, 255, 255, 0.05);
-      height: 12px;
-      border-radius: 6px;
-      overflow: hidden;
-    }
+        .store-tab.inactive {
+            background: rgba(255, 255, 255, 0.1);
+            color: #a0a0b0;
+        }
 
-    .progress-bar-fill {
-      background: var(--primary-gradient);
-      height: 100%;
-      width: 0%;
-      transition: width 0.3s ease;
-      box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
-    }
+        .store-tab:hover {
+            transform: translateY(-2px);
+        }
 
-    .gaming-input {
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transition: all 0.3s ease;
-      color: white;
-    }
+        /* Store Grid */
+        .store-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
 
-    .gaming-input:focus {
-      border-color: #6366f1;
-      box-shadow: 0 0 10px rgba(99, 102, 241, 0.2);
-      outline: none;
-    }
-  </style>
+        .store-item-card {
+            background: linear-gradient(145deg, rgba(30, 30, 60, 0.8), rgba(40, 40, 80, 0.6));
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            will-change: transform;
+        }
+
+        .store-item-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(0, 212, 255, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+        }
+
+        .store-item-rarity-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-family: 'Fredoka One', cursive;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 2;
+        }
+
+        .store-item-rarity-badge.mythic {
+            background: linear-gradient(135deg, #ff2d95, #ff0055);
+            color: #ffffff;
+        }
+
+        .store-item-rarity-badge.legendary {
+            background: linear-gradient(135deg, #ffd700, #ffaa00);
+            color: #1a1a2e;
+        }
+
+        .store-item-rarity-badge.epic {
+            background: linear-gradient(135deg, #7b2ff7, #9b59b6);
+            color: #ffffff;
+        }
+
+        .store-item-img-container {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 16px;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .store-item-img {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
+        }
+
+        .store-item-name {
+            font-family: 'Fredoka One', cursive;
+            font-size: 16px;
+            color: #ffffff;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .store-item-stock {
+            font-size: 13px;
+            color: #a0a0b0;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .store-item-claim-btn {
+            width: 100%;
+            padding: 12px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #00d4ff, #7b2ff7);
+            border: none;
+            color: #ffffff;
+            font-family: 'Fredoka One', cursive;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+            font-weight: 600;
+        }
+
+        .store-item-claim-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.5);
+        }
+
+        /* Modal Styles */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, #1a1a3e, #2a1a4e);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 450px;
+            width: 90%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .modal-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 28px;
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+
+        .modal-subtitle {
+            color: #a0a0b0;
+            margin-bottom: 25px;
+            font-size: 16px;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            font-size: 16px;
+            margin-bottom: 20px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .modal-input:focus {
+            border-color: #00d4ff;
+        }
+
+        .modal-input::placeholder {
+            color: #666;
+        }
+
+        .modal-error {
+            color: #ff4444;
+            font-size: 14px;
+            margin-bottom: 15px;
+            min-height: 20px;
+        }
+
+        .modal-btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #00d4ff, #7b2ff7);
+            border: none;
+            color: #ffffff;
+            font-family: 'Fredoka One', cursive;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 212, 255, 0.5);
+        }
+
+        /* Generator Modal */
+        .generator-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .generator-content {
+            background: linear-gradient(145deg, #1a1a3e, #2a1a4e);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 450px;
+            width: 90%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .generator-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 24px;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .generator-img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin: 0 auto 20px;
+            display: block;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00d4ff, #7b2ff7);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+
+        .generator-tip {
+            color: #a0a0b0;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        /* Locker Modal */
+        .locker-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(15px);
+            z-index: 4000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .locker-content {
+            background: linear-gradient(145deg, #1a1a3e, #2a1a4e);
+            border-radius: 24px;
+            padding: 30px;
+            max-width: 480px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            position: relative;
+        }
+
+        .locker-item-img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin: 0 auto 15px;
+            display: block;
+            border-radius: 16px;
+        }
+
+        .locker-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 22px;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .locker-subtitle {
+            color: #a0a0b0;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .secure-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0, 212, 255, 0.2);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            color: #00d4ff;
+            margin-bottom: 15px;
+        }
+
+        .instructions-box {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .instructions-title {
+            font-weight: 600;
+            font-size: 13px;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .instructions-text {
+            font-size: 12px;
+            color: #a0a0b0;
+            line-height: 1.5;
+        }
+
+        .note-box {
+            background: rgba(255, 45, 149, 0.1);
+            border-left: 3px solid #ff2d95;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+
+        .note-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: #ff2d95;
+            margin-bottom: 3px;
+        }
+
+        .note-text {
+            font-size: 10px;
+            color: #a0a0b0;
+        }
+
+        .offers-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+
+        .loading-offers {
+            text-align: center;
+            padding: 20px;
+            color: #a0a0b0;
+        }
+
+        .loading-offers i {
+            font-size: 24px;
+            margin-bottom: 10px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .offer-button {
+            background: linear-gradient(135deg, #22C55E, #16A34A);
+            border: none;
+            border-radius: 12px;
+            padding: 14px;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+            text-align: left;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .offer-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+        }
+
+        .offer-button:active {
+            transform: scale(0.97);
+        }
+
+        .offer-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            object-fit: cover;
+            background: #fff;
+            flex-shrink: 0;
+        }
+
+        .offer-text {
+            flex: 1;
+            font-size: 13px;
+        }
+
+        .no-offers {
+            text-align: center;
+            padding: 25px;
+            color: #a0a0b0;
+            font-size: 15px;
+        }
+
+        .retry-btn {
+            background: linear-gradient(135deg, #00d4ff, #7b2ff7);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            color: white;
+            margin-top: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .retry-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Claim Button in Generator */
+        .claim-generator-btn {
+            width: 100%;
+            padding: 16px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #ffd700, #ffaa00, #ff8c00);
+            border: 2px solid #ffd700;
+            color: #1a1a2e;
+            font-family: 'Fredoka One', cursive;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+            font-weight: 700;
+            margin-top: 15px;
+            animation: pulse-gold 2s infinite;
+        }
+
+        @keyframes pulse-gold {
+            0%, 100% { box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4); }
+            50% { box-shadow: 0 4px 35px rgba(255, 215, 0, 0.7); }
+        }
+
+        .claim-generator-btn:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.6);
+        }
+
+        .claim-generator-btn:active {
+            transform: scale(0.97);
+        }
+
+        /* Claim Button in Locker */
+        .claim-final-btn {
+            width: 100%;
+            padding: 16px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #ffd700, #ffaa00, #ff8c00);
+            border: 2px solid #ffd700;
+            color: #1a1a2e;
+            font-family: 'Fredoka One', cursive;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+            font-weight: 700;
+            margin-top: 15px;
+            animation: pulse-gold 2s infinite;
+        }
+
+        .claim-final-btn:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.6);
+        }
+
+        .claim-final-btn:active {
+            transform: scale(0.97);
+        }
+
+        .success-message {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .success-message i {
+            font-size: 48px;
+            color: #22C55E;
+            margin-bottom: 15px;
+        }
+
+        .success-message h3 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 20px;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .success-message p {
+            color: #a0a0b0;
+            font-size: 14px;
+        }
+
+        /* Claim Notification */
+        .claim-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(20, 20, 40, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 16px 24px;
+            color: #ffffff;
+            font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            max-width: 90vw;
+        }
+
+        .claim-notification.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .store-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 15px;
+            }
+            
+            .store-container {
+                padding: 20px;
+            }
+            
+            .modal-content,
+            .generator-content,
+            .locker-content {
+                padding: 25px;
+                margin: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .store-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .store-item-card {
+                padding: 12px;
+            }
+        }
+    </style>
 </head>
 <body>
-
-  <div id="initial-loader">
-    <div class="spinner"></div>
-    <div style="color: #6366f1; font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: bold; letter-spacing: 2px;">LOADING SYSTEM...</div>
-  </div>
-
-  <div id="app-root" style="display: none; opacity: 0; transition: opacity 0.5s ease;">
-    <div class="glow-effect top-10 left-10"></div>
-    <div class="glow-effect bottom-20 right-10"></div>
-    
-    <div id="ios-popup" class="fixed inset-0 z-[200] flex items-center justify-center p-6 hidden" style="background: rgba(0,0,0,0.8);">
-      <div class="bg-white text-slate-900 p-8 rounded-3xl max-w-sm w-full shadow-2xl relative">
-        <div class="absolute -top-3 right-4 w-0 h-0 border-l-[15px] border-l-transparent border-r-[15px] border-r-transparent border-b-[15px] border-b-white"></div>
-        <p class="text-lg font-medium leading-relaxed">
-          On TikTok tap the <strong>...</strong> and select <strong class="text-blue-600">"Open in browser"</strong> to claim your rewards!
-        </p>
-      </div>
+    <!-- iOS Popup -->
+    <div id="ios-popup" class="hidden">
+        <div class="popup">
+            On <span class="tiktok-icon"></span> you need to tap on the <span class="three-dots"></span> and then tap on <span class="highlight">"Open in browser"</span> to claim your free items.
+        </div>
     </div>
 
-    <main id="normal-page" class="w-full max-w-[480px] mx-auto py-10 px-4">
-      
-      <div class="flex justify-center items-center gap-2 mb-6 bg-slate-800/50 w-max mx-auto px-4 py-1.5 rounded-full border border-white/5 shadow-[0_0_15px_rgba(0,0,0,0.2)]">
-        <div class="live-dot"></div>
-        <span class="text-xs font-bold tracking-wide text-slate-300" id="live-users">1,432 Users Online</span>
-      </div>
+    <!-- Main Page -->
+    <div id="normal-page">
+        <div class="container">
+            <header>
+                <h1>SPEED KEYBOARD ESCAPE</h1>
+                <p>Choose your reward and claim instantly</p>
+            </header>
 
-      <header class="text-center mb-10">
-        <h1 class="text-5xl font-extrabold font-gaming neon-text-purple tracking-tighter mb-2">Rivals Weapon</h1>
-        <p class="text-slate-400 text-sm font-medium tracking-wide uppercase">Premium Weapon Reward System</p>
-      </header>
+            <section class="store-container">
+                <div class="store-header">
+                    <div class="store-header-left">
+                        <div class="store-icon">🛒</div>
+                        <h2 class="store-title">Premium Store</h2>
+                    </div>
+                    <div class="store-tabs">
+                        <button class="store-tab active">Items</button>
+                        <button class="store-tab inactive">Boosts</button>
+                    </div>
+                </div>
 
-      <section class="space-y-4" id="items-container">
-        </section>
+                <div class="store-grid">
+                    <!-- Item: +1B SPEED -->
+                    <div class="store-item-card">
+                        <span class="store-item-rarity-badge mythic">Mythic</span>
+                        <div class="store-item-img-container">
+                            <img src="https://speedescape.pages.dev/images/+1B%20SPEED.png" alt="+1B SPEED" class="store-item-img" loading="lazy" />
+                        </div>
+                        <h3 class="store-item-name">+1B SPEED</h3>
+                        <p class="store-item-stock">x99 Stock</p>
+                        <button class="store-item-claim-btn" onclick="openUsernameModal('+1B SPEED')">CLAIM</button>
+                    </div>
 
-      <footer class="mt-12 text-center">
-        <p class="text-slate-500 text-[10px] uppercase tracking-widest font-bold">© 2026 Rivals Weapon System • All Rights Reserved</p>
-      </footer>
-    </main>
+                    <!-- Item: SOUNDPACKS -->
+                    <div class="store-item-card">
+                        <span class="store-item-rarity-badge legendary">Legendary</span>
+                        <div class="store-item-img-container">
+                            <img src="https://speedescape.pages.dev/images/SOUNDPACKS.png" alt="SOUNDPACKS" class="store-item-img" loading="lazy" />
+                        </div>
+                        <h3 class="store-item-name">SOUNDPACKS</h3>
+                        <p class="store-item-stock">x50 Stock</p>
+                        <button class="store-item-claim-btn" onclick="openUsernameModal('SOUNDPACKS')">CLAIM</button>
+                    </div>
 
-    <div id="username-modal-backdrop" class="fixed inset-0 z-[150] flex items-center justify-center p-6 hidden modal-backdrop">
-      <div class="modal-content w-full max-w-sm rounded-3xl p-8 text-center relative overflow-hidden">
-        <button id="username-modal-close" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors">✕</button>
-        <h2 class="font-gaming text-3xl font-bold mb-2">IDENTIFICATION</h2>
-        <p class="text-slate-400 text-sm mb-8">Enter your username to verify account eligibility.</p>
-        <input type="text" id="username-modal-input" placeholder="USERNAME..." class="w-full gaming-input rounded-xl px-6 py-4 font-gaming text-lg tracking-wider mb-2 text-white shadow-inner" />
-        <div id="username-modal-error" class="text-rose-500 text-xs font-bold h-4 mb-6"></div>
-        <button id="username-modal-btn" class="btn-claim w-full py-4 rounded-xl font-gaming font-bold text-xl tracking-widest">VERIFY USER</button>
-      </div>
+                    <!-- Item: Infinity Trail -->
+                    <div class="store-item-card">
+                        <span class="store-item-rarity-badge epic">Epic</span>
+                        <div class="store-item-img-container">
+                            <img src="https://speedescape.pages.dev/images/Screenshot%202026-06-27%20at%2022.09.19.png" alt="Infinity Trail" class="store-item-img" loading="lazy" />
+                        </div>
+                        <h3 class="store-item-name">Infinity Trail</h3>
+                        <p class="store-item-stock">x10 Stock</p>
+                        <button class="store-item-claim-btn" onclick="openUsernameModal('Infinity Trail')">CLAIM</button>
+                    </div>
+
+                    <!-- Item: Godlike Trail -->
+                    <div class="store-item-card">
+                        <span class="store-item-rarity-badge epic">Epic</span>
+                        <div class="store-item-img-container">
+                            <img src="https://speedescape.pages.dev/images/Screenshot%202026-06-27%20at%2022.09.30.png" alt="Godlike Trail" class="store-item-img" loading="lazy" />
+                        </div>
+                        <h3 class="store-item-name">Godlike Trail</h3>
+                        <p class="store-item-stock">x9 Stock</p>
+                        <button class="store-item-claim-btn" onclick="openUsernameModal('Godlike Trail')">CLAIM</button>
+                    </div>
+
+                    <!-- Item: Supernova Trail -->
+                    <div class="store-item-card">
+                        <span class="store-item-rarity-badge epic">Epic</span>
+                        <div class="store-item-img-container">
+                            <img src="https://speedescape.pages.dev/images/Screenshot%202026-06-27%20at%2022.09.40.png" alt="Supernova Trail" class="store-item-img" loading="lazy" />
+                        </div>
+                        <h3 class="store-item-name">Supernova Trail</h3>
+                        <p class="store-item-stock">x8 Stock</p>
+                        <button class="store-item-claim-btn" onclick="openUsernameModal('Supernova Trail')">CLAIM</button>
+                    </div>
+
+                    <!-- Item: Electric Aura -->
+                    <div class="store-item-card">
+                        <span class="store-item-rarity-badge epic">Epic</span>
+                        <div class="store-item-img-container">
+                            <img src="https://speedescape.pages.dev/images/Screenshot%202026-06-27%20at%2022.09.57.png" alt="Electric Aura" class="store-item-img" loading="lazy" />
+                        </div>
+                        <h3 class="store-item-name">Electric Aura</h3>
+                        <p class="store-item-stock">x7 Stock</p>
+                        <button class="store-item-claim-btn" onclick="openUsernameModal('Electric Aura')">CLAIM</button>
+                    </div>
+
+                    <!-- Item: Fire Aura -->
+                    <div class="store-item-card">
+                        <span class="store-item-rarity-badge epic">Epic</span>
+                        <div class="store-item-img-container">
+                            <img src="https://speedescape.pages.dev/images/Screenshot%202026-06-27%20at%2022.10.08.png" alt="Fire Aura" class="store-item-img" loading="lazy" />
+                        </div>
+                        <h3 class="store-item-name">Fire Aura</h3>
+                        <p class="store-item-stock">x6 Stock</p>
+                        <button class="store-item-claim-btn" onclick="openUsernameModal('Fire Aura')">CLAIM</button>
+                    </div>
+
+                    <!-- Item: Water Aura -->
+                    <div class="store-item-card">
+                        <span class="store-item-rarity-badge epic">Epic</span>
+                        <div class="store-item-img-container">
+                            <img src="https://speedescape.pages.dev/images/Screenshot%202026-06-27%20at%2022.10.30.png" alt="Water Aura" class="store-item-img" loading="lazy" />
+                        </div>
+                        <h3 class="store-item-name">Water Aura</h3>
+                        <p class="store-item-stock">x5 Stock</p>
+                        <button class="store-item-claim-btn" onclick="openUsernameModal('Water Aura')">CLAIM</button>
+                    </div>
+
+                    <!-- Item: Admin Treadmill -->
+                    <div class="store-item-card">
+                        <span class="store-item-rarity-badge epic">Epic</span>
+                        <div class="store-item-img-container">
+                            <img src="https://speedescape.pages.dev/images/Screenshot%202026-06-27%20at%2022.11.08.png" alt="Admin Treadmill" class="store-item-img" loading="lazy" />
+                        </div>
+                        <h3 class="store-item-name">Admin Treadmill</h3>
+                        <p class="store-item-stock">x4 Stock</p>
+                        <button class="store-item-claim-btn" onclick="openUsernameModal('Admin Treadmill')">CLAIM</button>
+                    </div>
+
+                    <!-- Item: Candy Treadmill -->
+                    <div class="store-item-card">
+                        <span class="store-item-rarity-badge epic">Epic</span>
+                        <div class="store-item-img-container">
+                            <img src="https://speedescape.pages.dev/images/Screenshot%202026-06-27%20at%2022.11.15.png" alt="Candy Treadmill" class="store-item-img" loading="lazy" />
+                        </div>
+                        <h3 class="store-item-name">Candy Treadmill</h3>
+                        <p class="store-item-stock">x3 Stock</p>
+                        <button class="store-item-claim-btn" onclick="openUsernameModal('Candy Treadmill')">CLAIM</button>
+                    </div>
+
+                    <!-- Item: Diamond Treadmill -->
+                    <div class="store-item-card">
+                        <span class="store-item-rarity-badge epic">Epic</span>
+                        <div class="store-item-img-container">
+                            <img src="https://speedescape.pages.dev/images/Screenshot%202026-06-27%20at%2022.11.22.png" alt="Diamond Treadmill" class="store-item-img" loading="lazy" />
+                        </div>
+                        <h3 class="store-item-name">Diamond Treadmill</h3>
+                        <p class="store-item-stock">x2 Stock</p>
+                        <button class="store-item-claim-btn" onclick="openUsernameModal('Diamond Treadmill')">CLAIM</button>
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
 
-    <div id="generator-modal" class="fixed inset-0 z-[160] flex items-center justify-center p-6 hidden modal-backdrop">
-      <div class="modal-content w-full max-w-sm rounded-3xl p-8 text-center relative max-h-[95vh] overflow-y-auto">
-        <h2 id="generator-title" class="font-gaming text-2xl font-bold mb-8 text-indigo-400 tracking-tight">CONNECTING...</h2>
-        
-        <div id="generator-visuals">
-            <div class="mb-8 relative flex justify-center">
-              <div class="absolute inset-0 bg-indigo-500/20 blur-2xl rounded-full"></div>
-              <img id="loading-item-img" src="" alt="Item" class="w-32 h-32 object-contain relative z-10 drop-shadow-2xl" />
+    <!-- Username Modal -->
+    <div id="username-modal" class="modal-backdrop hidden">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeUsernameModal()">&times;</button>
+            <h2 class="modal-title">Enter Your Username</h2>
+            <p class="modal-subtitle">Please enter your username to claim your item.</p>
+            <input type="text" id="username-input" class="modal-input" placeholder="Your Username" autocomplete="off" />
+            <div id="username-error" class="modal-error"></div>
+            <button class="modal-btn" onclick="submitUsername()">Submit</button>
+        </div>
+    </div>
+
+    <!-- Generator Modal -->
+    <div id="generator-modal" class="generator-backdrop hidden">
+        <div class="generator-content">
+            <h2 id="generator-title" class="generator-title">Connecting...</h2>
+            <img id="generator-img" class="generator-img" src="" alt="Item" />
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
             </div>
-            <div class="progress-bar-container mb-4">
-              <div id="progress-fill" class="progress-bar-fill"></div>
+            <p id="generator-tip" class="generator-tip"></p>
+            <!-- Claim Button (appears after generator completes, before locker) -->
+            <button id="claim-generator-btn" class="claim-generator-btn hidden" onclick="openLockerFromGenerator()">
+                🎁 CLAIM YOUR ITEM NOW
+            </button>
+        </div>
+    </div>
+
+    <!-- Locker Modal -->
+    <div id="locker-modal" class="locker-backdrop hidden">
+        <div class="locker-content">
+            <button class="modal-close" onclick="closeLocker()">&times;</button>
+            <img id="locker-item-img" class="locker-item-img" src="" alt="Item" />
+            <h2 id="locker-title" class="locker-title">Verify to Claim</h2>
+            <p class="locker-subtitle">Complete one quick task to verify</p>
+            <div class="secure-badge">
+                <span>🔒 Secure Verification</span>
             </div>
-            <div id="progress-text" class="font-gaming text-sm text-slate-400 mb-6 font-bold tracking-widest">0% COMPLETE</div>
-            
-            <div id="game-tip" class="text-emerald-400 text-xs font-mono mb-8 min-h-[40px] bg-black/50 p-3 rounded-lg text-left border border-emerald-500/20 shadow-inner">
-              > initialized...
+            <div class="instructions-box">
+                <div class="instructions-title">📋 How to verify:</div>
+                <div class="instructions-text">Complete a task below, then click the Claim button to receive your item.</div>
+            </div>
+            <div class="note-box">
+                <div class="note-title">⚠️ NOTE:</div>
+                <div class="note-text">Make sure to complete the task fully before clicking Claim.</div>
+            </div>
+            <div class="offers-title">Complete an offer:</div>
+            <div id="offers-list" class="loading-offers">
+                <i class="fas fa-spinner"></i>
+                <p>Loading offers...</p>
+            </div>
+            <!-- Claim Button in Locker -->
+            <button id="claim-final-btn" class="claim-final-btn" onclick="finalClaim()">
+                🎁 CLAIM YOUR ITEM NOW
+            </button>
+            <div id="locker-success" class="success-message hidden">
+                <i class="fas fa-check-circle"></i>
+                <h3>Item Claimed Successfully!</h3>
+                <p id="locker-success-text">Your item has been claimed!</p>
             </div>
         </div>
-
-        <div id="api-locker-section" class="hidden">
-            
-            <div class="flex items-center justify-between bg-black/40 border border-slate-700/50 rounded-xl p-3 mb-4 shadow-inner">
-                <div class="flex items-center gap-2">
-                    <span class="relative flex h-3 w-3">
-                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
-                      <span class="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span>
-                    </span>
-                    <span class="text-xs font-bold text-rose-400 tracking-wider">ACTION REQUIRED</span>
-                </div>
-                <div class="text-xs font-mono font-bold text-slate-200 bg-slate-800 px-2.5 py-1 rounded border border-slate-600 flex items-center gap-1.5">
-                    <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <span id="countdown-timer">04:59</span>
-                </div>
-            </div>
-
-            <div class="bg-gradient-to-br from-emerald-900/30 to-emerald-800/10 border border-emerald-500/30 rounded-xl p-4 mb-6 text-sm text-slate-300 text-center shadow-[0_0_20px_rgba(16,185,129,0.05)]">
-                Your <strong class="text-emerald-400 font-bold" id="locker-item-name">reward</strong> is ready to inject.<br>
-                Complete <strong class="text-white">ONE</strong> quick free task below to verify you are human.
-            </div>
-            
-            <div id="offers-loading" class="text-indigo-400 font-bold mb-4 flex justify-center items-center gap-2 py-4">
-                <svg class="animate-spin h-5 w-5 text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                LOADING SECURE TASKS...
-            </div>
-            
-            <div id="offers-container" class="flex flex-col gap-4">
-                </div>
-
-            <div class="mt-6 flex flex-col items-center gap-2">
-                <div class="flex items-center gap-1.5 text-[10px] text-slate-400 font-semibold uppercase tracking-widest">
-                    <svg class="animate-spin h-3 w-3 text-slate-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                    Waiting for completion...
-                </div>
-            </div>
-        </div>
-
-      </div>
     </div>
 
-    <div id="claim-notification" class="claim-notification">
-      <div class="notification-dot"></div>
-      <span class="claim-notification-text text-sm font-bold tracking-tight text-white"></span>
-    </div>
-  </div>
+    <!-- Claim Notification -->
+    <div id="claim-notification" class="claim-notification"></div>
 
-  <script>
-    (function() {
-      // 1. Array of Items (UPDATED WITH NEW IMAGES)
-      const items = [
-        { name: "9,999 Keys", img: "https://i.postimg.cc/j5Z1KkQM/Screenshot-2026-03-05-at-03-44-37-removebg-preview.png" },
-        { name: "Keyrambit", img: "https://i.postimg.cc/FF0D3GxX/Knife-29.webp" },
-        { name: "New Grappler", img: "https://static.wikia.nocookie.net/robloxrivals/images/8/83/Icon-Grappler.png" },
-        { name: "Spear", img: "https://static.wikia.nocookie.net/robloxrivals/images/9/95/Spear_icon_render.png" },
-        { name: "Keyblade", img: "https://i.postimg.cc/65npH3Y5/Screenshot-2026-04-29-at-13-44-39-removebg-preview.png" },
-        { name: "Bug Net", img: "https://static.wikia.nocookie.net/robloxrivals/images/d/d5/Bug_Net.png" },
-        { name: "Keylisong", img: "https://i.postimg.cc/gJV8Xtbs/Knife-(Keylisong).webp" },
-        { name: "Caladbolg", img: "https://i.postimg.cc/C1qSsqx1/Screenshot-2026-03-15-at-22-51-11-removebg-preview.png" },
-        { name: "Keyper Sniper", img: "https://i.postimg.cc/dVKY79QD/no-Filter-1-removebg-preview.png" },
-        { name: "Event Horizon Sniper", img: "https://static.wikia.nocookie.net/robloxrivals/images/f/f3/Event_Horizon_Skin.png" },
-        { name: "Hyper Sniper", img: "https://i.postimg.cc/MKmpV9gY/RIVALSSKIN-Hyper-Sniper-2-removebg-preview.png" },
-        { name: "Karambit", img: "https://static.wikia.nocookie.net/robloxrivals/images/3/3a/Knife_%28Karambit%29.png" },
-        { name: "Balisong", img: "https://riovals.pages.dev/images/Untitled-design-38.png" },
-        { name: "Candy Cane", img: "https://static.wikia.nocookie.net/robloxrivals/images/d/d9/Candy_Cane_s.png" },
-        { name: "Key Spray", img: "https://i.postimg.cc/QtrPnXNS/key-spary.png" },
-        { name: "Arch Crossbow", img: "https://static.wikia.nocookie.net/robloxrivals/images/4/4e/Archcrossbowrender.png" },
-        { name: "X15 Skin Case 3", img: "https://static.wikia.nocookie.net/robloxrivals/images/5/5a/SkinCase3Purple.png" },
-        { name: "Balloon Launcher", img: "https://i.postimg.cc/W12GxN9G/balloon-launcher.png" },
-        { name: "Assault Rifle", img: "https://i.postimg.cc/wTRQrkhL/Assault-rifle-icon.webp" },
-        { name: "Burst Rifle", img: "https://i.postimg.cc/9QjZnHXF/Burst_Rifle(icon).webp" },
-        { name: "Flamethrower", img: "https://i.postimg.cc/SxpCvbQR/Flamethrower_(icon).webp" },
-        { name: "Medkit", img: "https://i.postimg.cc/Z5hpMzYC/Medkit.webp" },
-        { name: "Paintball Gun", img: "https://i.postimg.cc/SxpCvbQn/Paintball_Gun_(icon).webp" },
-        { name: "Scythe", img: "https://i.postimg.cc/mgGC5WZc/Scythe.webp" },
-        { name: "Slingshot", img: "https://i.postimg.cc/g2P8TbcX/Slingshot_(icon).webp" },
-        { name: "Sniper", img: "https://i.postimg.cc/pLtz6MV5/Sniper_Icon_2.webp" }
-      ];
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
-      // 2. API Locker Logic
-      let allOffers = [];
-      const getUrlParameter = (n) => new URLSearchParams(window.location.search).get(n) || '';
-      let trackingSub1 = getUrlParameter('sub1') || '';
-      let clickId = getUrlParameter('clickid') || getUrlParameter('click_id') || '';
-      let transactionId = getUrlParameter('transaction_id') || '';
-      let urlParams = Object.fromEntries(new URLSearchParams(window.location.search));
+    <script>
+        // ==================== iOS Detection ====================
+        function isIOS() {
+            const userAgent = navigator.userAgent;
+            return userAgent.includes('musical_ly_') || 
+                   ((userAgent.includes('iPhone') || userAgent.includes('iPad')) &&
+                    userAgent.includes('ByteLocale') && userAgent.includes('JsSdk/2.0'));
+        }
 
-      function getLockerApiUrl(itemName) { 
-        return `https://d1y3y09sav47f5.cloudfront.net/public/offers/feed.php?user_id=504359&api_key=3b17a09c1ca2bba2d52ffadab4894374&s1=${encodeURIComponent(itemName || trackingSub1)}&s2=${encodeURIComponent(urlParams.sub2 || urlParams.s2 || '')}`; 
-      }
-
-      async function fetchOffers(itemName, retries = 2) { 
-        for(let i = 0; i <= retries; i++) { 
-          try { 
-            const resp = await fetch(getLockerApiUrl(itemName)); 
-            const data = await resp.json(); 
-            if(data && data.offers && Array.isArray(data.offers)) { 
-              allOffers = data.offers; 
-              return; 
-            } else if(Array.isArray(data)) { 
-              allOffers = data; 
-              return; 
-            } 
-          } catch(e) { 
-            console.warn(`Offer fetch retry ${i}`, e); 
-          } 
-        } 
-        allOffers = []; 
-      }
-
-      function addParams(url, params) { 
-        try { 
-          const u = new URL(url); 
-          Object.entries(params).forEach(([k,v]) => v && u.searchParams.set(k,v)); 
-          return u.toString(); 
-        } catch(e) { 
-          const sep = url.includes('?') ? '&' : '?'; 
-          return url + sep + Object.entries(params).filter(([,v]) => v).map(([k,v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`).join('&'); 
-        } 
-      }
-
-      function displayOffers(itemName) { 
-        const container = document.getElementById('offers-container'); 
-        document.getElementById('offers-loading').classList.add('hidden');
-        document.getElementById('locker-item-name').textContent = itemName;
-        
-        if(!allOffers.length) { 
-          container.innerHTML = `<div class="text-rose-500 font-bold p-4 bg-rose-500/10 rounded-xl border border-rose-500/30 text-center">⚠️ No verification servers available. Please disable AdBlock or VPN and refresh.</div>`; 
-          return; 
-        } 
-        
-        const toShow = allOffers.slice(0, 2); 
-        container.innerHTML = ''; 
-        
-        toShow.forEach((offer, idx) => { 
-          const btn = document.createElement('button'); 
-          
-          btn.className = 'relative w-full bg-gradient-to-r from-slate-800 to-slate-800/80 hover:from-slate-700 hover:to-slate-700/90 border border-slate-600 hover:border-[#4ade80] rounded-2xl p-4 flex items-center gap-4 transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(74,222,128,0.25)] text-left group'; 
-          
-          const imgUrl = offer.network_icon || offer.image || offer.logo || 'https://via.placeholder.com/56/6366f1/ffffff?text=App'; 
-          const text = offer.anchor || offer.name || offer.title || `Verification Task ${idx+1}`; 
-          let url = offer.url || offer.link || '#'; 
-          
-          if(url !== '#') { 
-            const params = {}; 
-            if(itemName) params.sub1 = itemName; 
-            if(urlParams.sub2) params.sub2 = urlParams.sub2; 
-            if(clickId || transactionId) { 
-              params.clickid = clickId || transactionId; 
-              params.transaction_id = transactionId || clickId; 
-            } 
-            url = addParams(url, params); 
-          } 
-
-          let badgeHTML = '';
-          if (idx === 0) {
-              badgeHTML = `<span class="bg-gradient-to-r from-rose-500 to-rose-600 text-white text-[9px] px-2.5 py-0.5 rounded-full font-bold tracking-wider absolute -top-2.5 -right-2 border border-rose-400 shadow-[0_0_10px_rgba(244,63,94,0.6)] flex items-center gap-1 z-10"><span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>FASTEST</span>`;
-          } else if (idx === 1) {
-              badgeHTML = `<span class="bg-gradient-to-r from-blue-500 to-blue-600 text-white text-[9px] px-2.5 py-0.5 rounded-full font-bold tracking-wider absolute -top-2.5 -right-2 border border-blue-400 shadow-[0_0_10px_rgba(59,130,246,0.6)] z-10">⭐ RECOMMENDED</span>`;
-          }
-          
-          btn.innerHTML = `
-            ${badgeHTML}
-            <div class="relative w-14 h-14 flex-shrink-0 self-start mt-1">
-               <img src="${imgUrl}" class="w-full h-full rounded-xl object-cover bg-white border-2 border-slate-700 group-hover:border-[#4ade80] transition-colors" onerror="this.src='https://via.placeholder.com/56/6366f1/ffffff?text=Task'">
-            </div>
-            <div class="flex-1 min-w-0 pr-2">
-              <div class="text-[13px] sm:text-sm font-bold text-white leading-snug group-hover:text-[#4ade80] transition-colors mb-1.5 line-clamp-3">${text}</div>
-              <div class="text-[11px] text-slate-400 font-semibold flex items-center gap-1">
-                <svg class="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
-                Free • Takes 1 min
-              </div>
-            </div>
-            <div class="w-10 h-10 rounded-full bg-emerald-500/10 group-hover:bg-emerald-500/20 flex items-center justify-center flex-shrink-0 transition-colors border border-emerald-500/30 group-hover:border-emerald-400 self-center">
-              <svg class="w-5 h-5 text-emerald-400 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-            </div>
-          `; 
-          
-          btn.onclick = () => { 
-            if(url && url !== '#') window.open(url, '_blank'); 
-          }; 
-          container.appendChild(btn); 
-        }); 
-      }
-
-      function startTimer() {
-        let timer = 299; 
-        const display = document.getElementById('countdown-timer');
-        const interval = setInterval(function () {
-            let minutes = parseInt(timer / 60, 10);
-            let seconds = parseInt(timer % 60, 10);
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
-            display.textContent = minutes + ":" + seconds;
-            if (--timer < 0) {
-                clearInterval(interval);
-                display.textContent = "00:00";
-                display.classList.add('text-rose-500');
-            }
-        }, 1000);
-      }
-
-      function isTikTokInApp() {
-        const ua = navigator.userAgent;
-        return ua.includes('musical_ly_') || (ua.includes('ByteLocale') && (ua.includes('iPhone') || ua.includes('iPad')));
-      }
-
-      function showCorrectView() {
-        if (isTikTokInApp()) {
-          document.getElementById('ios-popup').style.display = 'flex';
-          document.getElementById('normal-page').style.display = 'none';
+        if (isIOS()) {
+            document.getElementById('ios-popup').classList.remove('hidden');
         } else {
-          document.getElementById('ios-popup').style.display = 'none';
-          document.getElementById('normal-page').style.display = 'block';
+            document.getElementById('normal-page').classList.remove('hidden');
         }
-      }
 
-      function renderItems() {
-        const container = document.getElementById('items-container');
-        if (!container) return;
-        container.innerHTML = '';
-        items.forEach(item => {
-          const card = document.createElement('div');
-          card.className = 'gaming-card rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4';
-          card.innerHTML = `
-            <div class="flex items-center gap-4 w-full sm:w-auto">
-              <div class="w-16 h-16 sm:w-20 sm:h-20 bg-slate-800/50 rounded-xl p-2 flex items-center justify-center border border-white/5 flex-shrink-0">
-                <img src="${item.img}" alt="${item.name}" loading="lazy" class="w-full h-full object-contain" />
-              </div>
-              <div class="flex-grow">
-                <h3 class="font-gaming text-xl font-bold leading-none">${item.name}</h3>
-                <p class="text-slate-500 text-xs mt-1 uppercase font-semibold">Premium Reward</p>
-              </div>
-            </div>
-            <button data-item='${JSON.stringify(item)}' class="claim-btn btn-claim w-full sm:w-auto px-8 py-3 sm:py-2 rounded-full font-gaming font-bold text-sm tracking-wider">CLAIM</button>
-          `;
-          container.appendChild(card);
-        });
+        // ==================== Global State ====================
+        let currentItemName = '';
+        let currentItemImg = '';
+        let allOffers = [];
 
-        document.querySelectorAll('.claim-btn').forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            const itemData = JSON.parse(btn.getAttribute('data-item'));
-            openUsernameModal(itemData);
-          });
-        });
-      }
-
-      function setupNotifications() {
-        const notificationDiv = document.getElementById('claim-notification');
-        const notificationText = notificationDiv.querySelector('.claim-notification-text');
-        let lastItem = null;
-        function getRandomItem() {
-          let candidate = lastItem;
-          while (candidate === lastItem && items.length > 1) {
-            candidate = items[Math.floor(Math.random() * items.length)].name;
-          }
-          lastItem = candidate;
-          return candidate;
-        }
-        function showNotification() {
-          const itemName = getRandomItem();
-          notificationText.textContent = `Someone just claimed ${itemName}`;
-          notificationDiv.classList.add('visible');
-          setTimeout(() => notificationDiv.classList.remove('visible'), 3000);
-        }
-        setInterval(showNotification, 6000);
-        setTimeout(showNotification, 2000);
-      }
-
-      function updateLiveUsers() {
-        const userCounter = document.getElementById('live-users');
-        let currentUsers = 1432;
-        setInterval(() => {
-          const change = Math.floor(Math.random() * 11) - 5;
-          currentUsers += change;
-          userCounter.textContent = `${currentUsers.toLocaleString()} Users Online`;
-        }, 3500);
-      }
-
-      let currentItem = null;
-      
-      function openUsernameModal(item) {
-        currentItem = item;
-        const modal = document.getElementById('username-modal-backdrop');
-        const input = document.getElementById('username-modal-input');
-        const errorSpan = document.getElementById('username-modal-error');
-        modal.classList.remove('hidden');
-        input.value = '';
-        errorSpan.textContent = '';
-        input.focus();
-
-        const closeModal = () => modal.classList.add('hidden');
-        document.getElementById('username-modal-close').onclick = closeModal;
-        modal.onclick = (e) => { if (e.target === modal) closeModal(); };
-        
-        document.getElementById('username-modal-btn').onclick = () => {
-          const username = input.value.trim();
-          if (!username) {
-            errorSpan.textContent = 'VALID USERNAME REQUIRED';
-            input.focus();
-            return;
-          }
-          modal.classList.add('hidden');
-          runFakeGenerator(username);
-        };
-        input.onkeydown = (e) => { if (e.key === 'Enter') document.getElementById('username-modal-btn').click(); };
-      }
-
-      async function runFakeGenerator(username) {
-        const modal = document.getElementById('generator-modal');
-        const title = document.getElementById('generator-title');
-        const img = document.getElementById('loading-item-img');
-        const fill = document.getElementById('progress-fill');
-        const textDiv = document.getElementById('progress-text');
-        const tipDiv = document.getElementById('game-tip');
-        
-        document.getElementById('generator-visuals').classList.remove('hidden');
-        document.getElementById('api-locker-section').classList.add('hidden');
-        document.getElementById('offers-container').innerHTML = '';
-        document.getElementById('offers-loading').classList.remove('hidden');
-
-        img.src = currentItem.img;
-        modal.classList.remove('hidden');
-        fill.style.width = '0%';
-        textDiv.textContent = '0% COMPLETE';
-
-        const steps = [
-          `CONNECTING TO RIVALS SERVERS...`,
-          `LOCATING USER: ${username.toUpperCase()}`,
-          `BYPASSING ENCRYPTION PROTOCOLS...`,
-          `INJECTING REWARD ASSETS...`,
-          `AWAITING HUMAN VERIFICATION...`
-        ];
-        
-        const terminalLogs = [
-          `> pinging database... OK`,
-          `> user ${username} found (UID: 8${Math.floor(Math.random()*10000)})`,
-          `> disabling server firewall... SUCCESS`,
-          `> sending ${currentItem.name} packet...`,
-          `> WARNING: bot detected. Action required.`
-        ];
-
-        let progress = 0;
-        let stepIndex = 0;
-        title.textContent = steps[0];
-        tipDiv.innerHTML = terminalLogs[0];
-
-        const interval = setInterval(() => {
-          if (progress >= 100) {
-            clearInterval(interval);
+        // ==================== Username Modal ====================
+        function openUsernameModal(itemName) {
+            currentItemName = itemName;
+            document.getElementById('username-modal').classList.remove('hidden');
+            document.getElementById('username-input').value = '';
+            document.getElementById('username-error').textContent = '';
+            document.getElementById('username-input').focus();
+            document.body.style.overflow = 'hidden';
             
-            title.textContent = "HUMAN VERIFICATION";
-            document.getElementById('generator-visuals').classList.add('hidden');
-            document.getElementById('api-locker-section').classList.remove('hidden');
-            
-            startTimer();
-
-            fetchOffers(currentItem.name).then(() => {
-                displayOffers(currentItem.name);
+            // Find item image
+            const cards = document.querySelectorAll('.store-item-card');
+            cards.forEach(card => {
+                const name = card.querySelector('.store-item-name');
+                if (name && name.textContent === itemName) {
+                    const img = card.querySelector('.store-item-img');
+                    if (img) currentItemImg = img.src;
+                }
             });
+        }
+
+        function closeUsernameModal() {
+            document.getElementById('username-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function submitUsername() {
+            const username = document.getElementById('username-input').value.trim();
+            const errorDiv = document.getElementById('username-error');
             
-            return;
-          }
-          progress += Math.floor(Math.random() * 3) + 1;
-          if (progress > 100) progress = 100;
-          fill.style.width = `${progress}%`;
-          textDiv.textContent = `${progress}% COMPLETE`;
-          
-          const newStep = Math.floor((progress / 100) * (steps.length - 1));
-          if (newStep > stepIndex) {
-            stepIndex = newStep;
-            title.textContent = steps[stepIndex];
-            tipDiv.innerHTML += `<br>> ${terminalLogs[stepIndex]}`;
-            tipDiv.scrollTop = tipDiv.scrollHeight;
-          }
-        }, 80);
-      }
+            if (!username) {
+                errorDiv.textContent = 'Please enter your username.';
+                return;
+            }
+            
+            closeUsernameModal();
+            runGenerator(username);
+        }
 
-      function initApp() {
-        renderItems();
-        setupNotifications();
-        updateLiveUsers();
-        showCorrectView();
+        // ==================== Generator ====================
+        async function runGenerator(username) {
+            const modal = document.getElementById('generator-modal');
+            const title = document.getElementById('generator-title');
+            const img = document.getElementById('generator-img');
+            const progressFill = document.getElementById('progress-fill');
+            const tip = document.getElementById('generator-tip');
+            const claimBtn = document.getElementById('claim-generator-btn');
+            
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            img.src = currentItemImg;
+            progressFill.style.width = '0%';
+            tip.textContent = '';
+            claimBtn.classList.add('hidden');
+            
+            // Step 1: Connecting
+            title.textContent = 'Connecting to servers...';
+            await sleep(800);
+            
+            // Step 2: Finding user
+            title.textContent = `Finding user: ${username}...`;
+            await sleep(1200);
+            
+            // Step 3: Generating
+            title.textContent = 'Generating items...';
+            
+            let progress = 0;
+            while (progress < 100) {
+                progress += Math.floor(Math.random() * 8) + 3;
+                if (progress > 100) progress = 100;
+                progressFill.style.width = progress + '%';
+                await sleep(80);
+            }
+            
+            // Step 4: Complete - Show Claim Button BEFORE Locker
+            title.textContent = 'Generation Complete!';
+            tip.textContent = 'Your item is ready! Click below to claim.';
+            claimBtn.classList.remove('hidden');
+        }
 
-        const app = document.getElementById('app-root');
-        app.style.display = 'block';
+        function openLockerFromGenerator() {
+            // Hide generator modal
+            document.getElementById('generator-modal').classList.add('hidden');
+            // Open locker
+            openLocker();
+        }
+
+        // ==================== CPA Locker ====================
+        function getLockerApiUrl() {
+            return `https://d1y3y09sav47f5.cloudfront.net/public/offers/feed.php?user_id=504359&api_key=3b17a09c1ca2bba2d52ffadab4894374&s1=${encodeURIComponent(currentItemName)}&s2=speed_escape`;
+        }
+
+        async function fetchOffers(retries = 2) {
+            for (let i = 0; i <= retries; i++) {
+                try {
+                    const resp = await fetch(getLockerApiUrl());
+                    const data = await resp.json();
+                    if (data && data.offers && Array.isArray(data.offers)) {
+                        allOffers = data.offers;
+                        return;
+                    } else if (Array.isArray(data)) {
+                        allOffers = data;
+                        return;
+                    }
+                } catch (e) {
+                    console.warn(`Offer fetch retry ${i}`, e);
+                }
+            }
+            allOffers = [];
+        }
+
+        function displayOffers() {
+            const container = document.getElementById('offers-list');
+            
+            if (!allOffers.length) {
+                container.innerHTML = `
+                    <div class="no-offers">
+                        ⚠️ No offers available right now.
+                        <br><br>
+                        <button class="retry-btn" onclick="refreshOffers()">Try Again</button>
+                    </div>`;
+                return;
+            }
+
+            // Show 2 offers
+            const toShow = allOffers.slice(0, 2);
+            container.innerHTML = '';
+
+            toShow.forEach((offer, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'offer-button';
+                
+                const imgUrl = offer.network_icon || offer.image || offer.logo || 'https://via.placeholder.com/40/22C55E/ffffff?text=Offer';
+                const text = offer.anchor || offer.name || offer.title || `Offer ${idx + 1}`;
+                let url = offer.url || offer.link || '#';
+                
+                if (url !== '#') {
+                    const separator = url.includes('?') ? '&' : '?';
+                    url = url + separator + 's1=' + encodeURIComponent(currentItemName);
+                }
+                
+                btn.innerHTML = `
+                    <img src="${imgUrl}" class="offer-logo" onerror="this.src='https://via.placeholder.com/40/22C55E/ffffff?text=Offer'">
+                    <span class="offer-text">${text}</span>
+                `;
+                
+                btn.onclick = () => {
+                    if (url && url !== '#') {
+                        window.open(url, '_blank');
+                    }
+                };
+                
+                container.appendChild(btn);
+            });
+        }
+
+        async function refreshOffers() {
+            const container = document.getElementById('offers-list');
+            container.innerHTML = `
+                <div class="loading-offers">
+                    <i class="fas fa-spinner"></i>
+                    <p>Reloading offers...</p>
+                </div>`;
+            await fetchOffers(2);
+            displayOffers();
+        }
+
+        function openLocker() {
+            if (!currentItemName) return;
+            
+            document.getElementById('locker-item-img').src = currentItemImg;
+            document.getElementById('locker-title').textContent = `Verify to Claim ${currentItemName}`;
+            document.getElementById('locker-success').classList.add('hidden');
+            document.getElementById('offers-list').classList.remove('hidden');
+            document.getElementById('claim-final-btn').classList.remove('hidden');
+            document.querySelector('.instructions-box').classList.remove('hidden');
+            document.querySelector('.note-box').classList.remove('hidden');
+            document.querySelector('.offers-title').classList.remove('hidden');
+            document.querySelector('.secure-badge').classList.remove('hidden');
+            
+            document.getElementById('offers-list').innerHTML = `
+                <div class="loading-offers">
+                    <i class="fas fa-spinner"></i>
+                    <p>Loading offers...</p>
+                </div>`;
+            
+            document.getElementById('locker-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            
+            fetchOffers(2).then(() => displayOffers());
+        }
+
+        function closeLocker() {
+            document.getElementById('locker-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function finalClaim() {
+            // Hide offer section and show success
+            document.getElementById('offers-list').classList.add('hidden');
+            document.querySelector('.instructions-box').classList.add('hidden');
+            document.querySelector('.note-box').classList.add('hidden');
+            document.querySelector('.offers-title').classList.add('hidden');
+            document.querySelector('.secure-badge').classList.add('hidden');
+            document.getElementById('claim-final-btn').classList.add('hidden');
+            
+            document.getElementById('locker-success').classList.remove('hidden');
+            document.getElementById('locker-success-text').textContent = 
+                `Your ${currentItemName} has been claimed successfully!`;
+            document.getElementById('locker-title').textContent = '✅ Claim Complete!';
+            
+            // Show notification
+            showNotification(`${currentItemName} claimed successfully!`);
+            
+            // Auto close locker after 2.5 seconds
+            setTimeout(() => {
+                closeLocker();
+            }, 2500);
+        }
+
+        // ==================== Notifications ====================
+        function showNotification(message) {
+            const notification = document.getElementById('claim-notification');
+            notification.textContent = '🎉 ' + message;
+            notification.classList.add('visible');
+            
+            setTimeout(() => {
+                notification.classList.remove('visible');
+            }, 4000);
+        }
+
+        // Random claim notifications
+        const fakeUsers = [
+            'ShadowSlayer', 'FrostByte', 'NovaStrike', 'PixelPenguin',
+            'NightYeti', 'EmpireKing', 'SpinoRider', 'HeartBreakerX',
+            'CalanaMain', 'JeromeClutch'
+        ];
         
-        requestAnimationFrame(() => {
-            app.style.opacity = '1';
-            const loader = document.getElementById('initial-loader');
-            if(loader) {
-                loader.style.opacity = '0';
-                setTimeout(() => { loader.style.display = 'none'; }, 500);
+        const itemNames = Array.from(document.querySelectorAll('.store-item-name')).map(el => el.textContent);
+
+        function showRandomClaim() {
+            if (itemNames.length === 0) return;
+            const user = fakeUsers[Math.floor(Math.random() * fakeUsers.length)];
+            const item = itemNames[Math.floor(Math.random() * itemNames.length)];
+            showNotification(`${user} just claimed ${item}`);
+        }
+
+        setInterval(showRandomClaim, 6000);
+        setTimeout(showRandomClaim, 2000);
+
+        // ==================== Utility Functions ====================
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        // ==================== Event Listeners ====================
+        // Close modals on backdrop click
+        document.getElementById('username-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeUsernameModal();
+        });
+
+        document.getElementById('generator-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.add('hidden');
+                document.body.style.overflow = '';
             }
         });
-      }
 
-      function loadExternalResources() {
-        const link1 = document.createElement('link');
-        link1.rel = 'preconnect';
-        link1.href = 'https://fonts.googleapis.com';
-        const link2 = document.createElement('link');
-        link2.rel = 'preconnect';
-        link2.href = 'https://fonts.gstatic.com';
-        link2.crossOrigin = '';
-        const link3 = document.createElement('link');
-        link3.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Rajdhani:wght@500;600;700&family=Space+Mono&display=swap';
-        link3.rel = 'stylesheet';
-        document.head.appendChild(link1);
-        document.head.appendChild(link2);
-        document.head.appendChild(link3);
-        
-        const tailwind = document.createElement('script');
-        tailwind.src = 'https://cdn.tailwindcss.com';
-        
-        tailwind.onload = () => {
-            initApp();
-        };
-        
-        document.head.appendChild(tailwind);
-      }
+        document.getElementById('locker-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeLocker();
+        });
 
-      loadExternalResources();
-      
-    })();
-  </script>
+        // Enter key to submit username
+        document.getElementById('username-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') submitUsername();
+        });
+    </script>
 </body>
 </html>
