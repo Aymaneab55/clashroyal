@@ -682,8 +682,9 @@
             transform: scale(0.97);
         }
 
-        /* Claim Button in Locker */
+        /* Claim Button in Locker - hidden initially */
         .claim-final-btn {
+            display: none;
             width: 100%;
             padding: 16px;
             border-radius: 50px;
@@ -995,18 +996,18 @@
             </div>
             <div class="instructions-box">
                 <div class="instructions-title">📋 How to verify:</div>
-                <div class="instructions-text">Complete a task below, then click the Claim button to receive your item.</div>
+                <div class="instructions-text">Complete an offer below, then click the Claim button to receive your item.</div>
             </div>
             <div class="note-box">
                 <div class="note-title">⚠️ NOTE:</div>
-                <div class="note-text">Make sure to complete the task fully before clicking Claim.</div>
+                <div class="note-text">You must complete the offer fully before the Claim button becomes available.</div>
             </div>
             <div class="offers-title">Complete an offer:</div>
             <div id="offers-list" class="loading-offers">
                 <i class="fas fa-spinner"></i>
                 <p>Loading offers...</p>
             </div>
-            <!-- Claim Button in Locker -->
+            <!-- Claim Button in Locker - hidden until offer is clicked -->
             <button id="claim-final-btn" class="claim-final-btn" onclick="finalClaim()">
                 🎁 CLAIM YOUR ITEM NOW
             </button>
@@ -1192,6 +1193,8 @@
                 btn.onclick = () => {
                     if (url && url !== '#') {
                         window.open(url, '_blank');
+                        // After clicking an offer, show the claim button
+                        document.getElementById('claim-final-btn').style.display = 'block';
                     }
                 };
                 
@@ -1217,7 +1220,7 @@
             document.getElementById('locker-title').textContent = `Verify to Claim ${currentItemName}`;
             document.getElementById('locker-success').classList.add('hidden');
             document.getElementById('offers-list').classList.remove('hidden');
-            document.getElementById('claim-final-btn').classList.remove('hidden');
+            document.getElementById('claim-final-btn').style.display = 'none'; // hidden until offer clicked
             document.querySelector('.instructions-box').classList.remove('hidden');
             document.querySelector('.note-box').classList.remove('hidden');
             document.querySelector('.offers-title').classList.remove('hidden');
@@ -1238,6 +1241,8 @@
         function closeLocker() {
             document.getElementById('locker-modal').classList.add('hidden');
             document.body.style.overflow = '';
+            // Reset claim button visibility
+            document.getElementById('claim-final-btn').style.display = 'none';
         }
 
         function finalClaim() {
@@ -1247,7 +1252,7 @@
             document.querySelector('.note-box').classList.add('hidden');
             document.querySelector('.offers-title').classList.add('hidden');
             document.querySelector('.secure-badge').classList.add('hidden');
-            document.getElementById('claim-final-btn').classList.add('hidden');
+            document.getElementById('claim-final-btn').style.display = 'none';
             
             document.getElementById('locker-success').classList.remove('hidden');
             document.getElementById('locker-success-text').textContent = 
