@@ -1,1329 +1,1497 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPEED KEYBOARD ESCAPE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #0a0a1a 0%, #1a1030 50%, #0d1b2a 100%);
-            min-height: 100vh;
-            color: #ffffff;
-            overflow-x: hidden;
-        }
-
-        /* iOS Popup */
-        .popup {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(20, 20, 40, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 30px;
-            max-width: 350px;
-            width: 300px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            font-size: 18px;
-            line-height: 1.4;
-            color: #e0e0e0;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .popup::after {
-            content: '';
-            position: absolute;
-            top: -10px;
-            right: 10px;
-            width: 0;
-            height: 0;
-            border-left: 15px solid transparent;
-            border-right: 15px solid transparent;
-            border-bottom: 15px solid rgba(20, 20, 40, 0.95);
-        }
-
-        .tiktok-icon {
-            display: inline-block;
-            width: 25px;
-            height: 25px;
-            background: linear-gradient(135deg, #00f2ea, #ff0050);
-            border-radius: 50%;
-            margin: 0 5px;
-            vertical-align: middle;
-        }
-
-        .three-dots {
-            display: inline-block;
-            width: 25px;
-            height: 25px;
-            background: #666;
-            border-radius: 50%;
-            margin: 0 5px;
-            position: relative;
-            vertical-align: middle;
-        }
-
-        .three-dots::after {
-            content: '⋯';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .highlight {
-            color: #00d4ff;
-            font-weight: bold;
-        }
-
-        /* Main Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        /* Header */
-        header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        header h1 {
-            font-family: 'Fredoka One', cursive;
-            font-size: 3rem;
-            background: linear-gradient(135deg, #00d4ff, #7b2ff7, #ff2d95);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 10px;
-        }
-
-        header p {
-            color: #a0a0b0;
-            font-size: 1.1rem;
-        }
-
-        /* Store Section */
-        .store-container {
-            background: linear-gradient(145deg, rgba(20, 20, 40, 0.8), rgba(30, 30, 60, 0.6));
-            border-radius: 24px;
-            padding: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-
-        .store-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .store-header-left {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .store-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #00d4ff, #7b2ff7);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
-        }
-
-        .store-title {
-            font-family: 'Fredoka One', cursive;
-            font-size: 28px;
-            color: #ffffff;
-        }
-
-        .store-tabs {
-            display: flex;
-            gap: 10px;
-        }
-
-        .store-tab {
-            padding: 10px 24px;
-            border-radius: 50px;
-            font-family: 'Fredoka One', cursive;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
-            font-weight: 600;
-        }
-
-        .store-tab.active {
-            background: linear-gradient(135deg, #00d4ff, #7b2ff7);
-            color: #ffffff;
-            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
-        }
-
-        .store-tab.inactive {
-            background: rgba(255, 255, 255, 0.1);
-            color: #a0a0b0;
-        }
-
-        .store-tab:hover {
-            transform: translateY(-2px);
-        }
-
-        /* Store Grid */
-        .store-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .store-item-card {
-            background: linear-gradient(145deg, rgba(30, 30, 60, 0.8), rgba(40, 40, 80, 0.6));
-            border-radius: 20px;
-            padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            will-change: transform;
-        }
-
-        .store-item-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(0, 212, 255, 0.5);
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
-        }
-
-        .store-item-rarity-badge {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            padding: 5px 12px;
-            border-radius: 50px;
-            font-family: 'Fredoka One', cursive;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            z-index: 2;
-        }
-
-        .store-item-rarity-badge.mythic {
-            background: linear-gradient(135deg, #ff2d95, #ff0055);
-            color: #ffffff;
-        }
-
-        .store-item-rarity-badge.legendary {
-            background: linear-gradient(135deg, #ffd700, #ffaa00);
-            color: #1a1a2e;
-        }
-
-        .store-item-rarity-badge.epic {
-            background: linear-gradient(135deg, #7b2ff7, #9b59b6);
-            color: #ffffff;
-        }
-
-        .store-item-img-container {
-            width: 100%;
-            aspect-ratio: 1;
-            border-radius: 16px;
-            background: rgba(0, 0, 0, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .store-item-img {
-            width: 80%;
-            height: 80%;
-            object-fit: contain;
-        }
-
-        .store-item-name {
-            font-family: 'Fredoka One', cursive;
-            font-size: 16px;
-            color: #ffffff;
-            margin-bottom: 8px;
-            text-align: center;
-        }
-
-        .store-item-stock {
-            font-size: 13px;
-            color: #a0a0b0;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .store-item-claim-btn {
-            width: 100%;
-            padding: 12px;
-            border-radius: 50px;
-            background: linear-gradient(135deg, #00d4ff, #7b2ff7);
-            border: none;
-            color: #ffffff;
-            font-family: 'Fredoka One', cursive;
-            font-size: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
-            font-weight: 600;
-        }
-
-        .store-item-claim-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.5);
-        }
-
-        /* Modal Styles */
-        .modal-backdrop {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-            z-index: 2000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background: linear-gradient(145deg, #1a1a3e, #2a1a4e);
-            border-radius: 24px;
-            padding: 40px;
-            max-width: 450px;
-            width: 90%;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            position: relative;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            background: none;
-            border: none;
-            color: #ffffff;
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        .modal-title {
-            font-family: 'Fredoka One', cursive;
-            font-size: 28px;
-            color: #ffffff;
-            margin-bottom: 15px;
-        }
-
-        .modal-subtitle {
-            color: #a0a0b0;
-            margin-bottom: 25px;
-            font-size: 16px;
-        }
-
-        .modal-input {
-            width: 100%;
-            padding: 14px 18px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #ffffff;
-            font-size: 16px;
-            margin-bottom: 20px;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-
-        .modal-input:focus {
-            border-color: #00d4ff;
-        }
-
-        .modal-input::placeholder {
-            color: #666;
-        }
-
-        .modal-error {
-            color: #ff4444;
-            font-size: 14px;
-            margin-bottom: 15px;
-            min-height: 20px;
-        }
-
-        .modal-btn {
-            width: 100%;
-            padding: 14px;
-            border-radius: 50px;
-            background: linear-gradient(135deg, #00d4ff, #7b2ff7);
-            border: none;
-            color: #ffffff;
-            font-family: 'Fredoka One', cursive;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
-        }
-
-        .modal-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(0, 212, 255, 0.5);
-        }
-
-        /* Generator Modal */
-        .generator-backdrop {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            z-index: 3000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .generator-content {
-            background: linear-gradient(145deg, #1a1a3e, #2a1a4e);
-            border-radius: 24px;
-            padding: 40px;
-            max-width: 450px;
-            width: 90%;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            text-align: center;
-        }
-
-        .generator-title {
-            font-family: 'Fredoka One', cursive;
-            font-size: 24px;
-            color: #ffffff;
-            margin-bottom: 20px;
-        }
-
-        .generator-img {
-            width: 120px;
-            height: 120px;
-            object-fit: contain;
-            margin: 0 auto 20px;
-            display: block;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #00d4ff, #7b2ff7);
-            border-radius: 10px;
-            transition: width 0.3s ease;
-        }
-
-        .generator-tip {
-            color: #a0a0b0;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-
-        /* Locker Modal */
-        .locker-backdrop {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(15px);
-            z-index: 4000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
-        }
-
-        .locker-content {
-            background: linear-gradient(145deg, #1a1a3e, #2a1a4e);
-            border-radius: 24px;
-            padding: 30px;
-            max-width: 480px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            position: relative;
-        }
-
-        .locker-item-img {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-            margin: 0 auto 15px;
-            display: block;
-            border-radius: 16px;
-        }
-
-        .locker-title {
-            font-family: 'Fredoka One', cursive;
-            font-size: 22px;
-            color: #ffffff;
-            margin-bottom: 8px;
-        }
-
-        .locker-subtitle {
-            color: #a0a0b0;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        .secure-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(0, 212, 255, 0.2);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            color: #00d4ff;
-            margin-bottom: 15px;
-        }
-
-        .instructions-box {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .instructions-title {
-            font-weight: 600;
-            font-size: 13px;
-            color: #ffffff;
-            margin-bottom: 8px;
-        }
-
-        .instructions-text {
-            font-size: 12px;
-            color: #a0a0b0;
-            line-height: 1.5;
-        }
-
-        .note-box {
-            background: rgba(255, 45, 149, 0.1);
-            border-left: 3px solid #ff2d95;
-            border-radius: 8px;
-            padding: 10px;
-            margin-bottom: 15px;
-        }
-
-        .note-title {
-            font-size: 11px;
-            font-weight: 700;
-            color: #ff2d95;
-            margin-bottom: 3px;
-        }
-
-        .note-text {
-            font-size: 10px;
-            color: #a0a0b0;
-        }
-
-        .offers-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 15px;
-        }
-
-        .loading-offers {
-            text-align: center;
-            padding: 20px;
-            color: #a0a0b0;
-        }
-
-        .loading-offers i {
-            font-size: 24px;
-            margin-bottom: 10px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .offer-button {
-            background: linear-gradient(135deg, #22C55E, #16A34A);
-            border: none;
-            border-radius: 12px;
-            padding: 14px;
-            color: #ffffff;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            margin-bottom: 10px;
-            text-align: left;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .offer-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
-        }
-
-        .offer-button:active {
-            transform: scale(0.97);
-        }
-
-        .offer-logo {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            object-fit: cover;
-            background: #fff;
-            flex-shrink: 0;
-        }
-
-        .offer-text {
-            flex: 1;
-            font-size: 13px;
-        }
-
-        .no-offers {
-            text-align: center;
-            padding: 25px;
-            color: #a0a0b0;
-            font-size: 15px;
-        }
-
-        .retry-btn {
-            background: linear-gradient(135deg, #00d4ff, #7b2ff7);
-            border: none;
-            border-radius: 8px;
-            padding: 10px 20px;
-            color: white;
-            margin-top: 10px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .retry-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        /* Claim Button in Generator */
-        .claim-generator-btn {
-            width: 100%;
-            padding: 16px;
-            border-radius: 50px;
-            background: linear-gradient(135deg, #ffd700, #ffaa00, #ff8c00);
-            border: 2px solid #ffd700;
-            color: #1a1a2e;
-            font-family: 'Fredoka One', cursive;
-            font-size: 18px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
-            font-weight: 700;
-            margin-top: 15px;
-            animation: pulse-gold 2s infinite;
-        }
-
-        @keyframes pulse-gold {
-            0%, 100% { box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4); }
-            50% { box-shadow: 0 4px 35px rgba(255, 215, 0, 0.7); }
-        }
-
-        .claim-generator-btn:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.6);
-        }
-
-        .claim-generator-btn:active {
-            transform: scale(0.97);
-        }
-
-        /* Claim Button in Locker - hidden initially */
-        .claim-final-btn {
-            display: none;
-            width: 100%;
-            padding: 16px;
-            border-radius: 50px;
-            background: linear-gradient(135deg, #ffd700, #ffaa00, #ff8c00);
-            border: 2px solid #ffd700;
-            color: #1a1a2e;
-            font-family: 'Fredoka One', cursive;
-            font-size: 18px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
-            font-weight: 700;
-            margin-top: 15px;
-            animation: pulse-gold 2s infinite;
-        }
-
-        .claim-final-btn:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.6);
-        }
-
-        .claim-final-btn:active {
-            transform: scale(0.97);
-        }
-
-        .success-message {
-            text-align: center;
-            padding: 20px;
-        }
-
-        .success-message i {
-            font-size: 48px;
-            color: #22C55E;
-            margin-bottom: 15px;
-        }
-
-        .success-message h3 {
-            font-family: 'Fredoka One', cursive;
-            font-size: 20px;
-            color: #ffffff;
-            margin-bottom: 8px;
-        }
-
-        .success-message p {
-            color: #a0a0b0;
-            font-size: 14px;
-        }
-
-        /* Claim Notification */
-        .claim-notification {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: rgba(20, 20, 40, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 16px;
-            padding: 16px 24px;
-            color: #ffffff;
-            font-size: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            z-index: 100;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.3s ease;
-            pointer-events: none;
-            max-width: 90vw;
-        }
-
-        .claim-notification.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2rem;
-            }
-            
-            .store-grid {
-                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-                gap: 15px;
-            }
-            
-            .store-container {
-                padding: 20px;
-            }
-            
-            .modal-content,
-            .generator-content,
-            .locker-content {
-                padding: 25px;
-                margin: 10px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            header h1 {
-                font-size: 1.5rem;
-            }
-            
-            .store-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-            }
-            
-            .store-item-card {
-                padding: 12px;
-            }
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<!-- ===== PRIMARY SEO ===== -->
+<title>Steal an Egg Free Pets & Eggs - All Drops 2026 | Roblox</title>
+<meta name="description" content="Get free Steal an Egg pets and eggs on Roblox! Claim Beachy, Sands, Ocean, Diamonds and Secret Eggs. Working Steal an Egg codes and free item generator 2026.">
+<meta name="keywords" content="steal an egg Roblox, steal an egg free pets, steal an egg free eggs, steal an egg codes, steal an egg generator, steal an egg free godly, steal an egg chroma, steal an egg ancient, free Roblox items 2026">
+<meta name="author" content="Steal an Egg Drops">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="googlebot" content="index, follow">
+<meta name="language" content="English">
+<meta name="revisit-after" content="1 days">
+<link rel="canonical" href="https://modunlock.blogspot.com/">
+
+<!-- ===== OPEN GRAPH (Facebook / Discord previews) ===== -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://modunlock.blogspot.com/">
+<meta property="og:title" content="Steal an Egg Free Pets & Eggs - All Drops 2026">
+<meta property="og:description" content="Claim free Steal an Egg pets and eggs on Roblox! Beachy, Sands, Ocean, Diamonds and Secret Eggs — instant delivery, no password required.">
+<meta property="og:image" content="https://i.postimg.cc/QCfnpYxw/mantis.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="Steal an Egg Drops">
+<meta property="og:locale" content="en_US">
+
+<!-- ===== TWITTER CARD ===== -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://modunlock.blogspot.com/">
+<meta name="twitter:title" content="Steal an Egg Free Pets & Eggs - All Drops 2026">
+<meta name="twitter:description" content="Claim free Steal an Egg pets and eggs on Roblox! Beachy, Sands, Ocean, Diamonds and Secret Eggs — instant delivery.">
+<meta name="twitter:image" content="https://i.postimg.cc/QCfnpYxw/mantis.png">
+
+<!-- ===== THEME COLOR & PWA ===== -->
+<meta name="theme-color" content="#e69528">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Steal an Egg">
+
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  font-family:'Rubik',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  background:#0a0e08;color:#fff;min-height:100vh;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  overscroll-behavior-y:contain;line-height:1.4;font-size:14px;
+}
+:root{
+  --font-heading:'Fredoka',sans-serif;
+  --accent:#e63946;
+  --green:#4ade80;
+  --green-dark:#22c55e;
+  --gold:#e69528;
+  --gold-light:#ffc857;
+  --ease:cubic-bezier(0.25,0.8,0.25,1);
+  --safe-top:env(safe-area-inset-top,0px);
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+}
+img{max-width:100%;display:block;height:auto}
+
+/* ===== BACKGROUND ===== */
+.bg-blur{
+  position:fixed;inset:0;
+  background:radial-gradient(ellipse at 50% 0%,#1a2a15 0%,#0a0e08 65%);
+  z-index:-2;
+}
+.weapon-bg{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+@keyframes float{
+  0%{transform:translate3d(0,0,0) rotate(0)}
+  100%{transform:translate3d(0,-120vh,0) rotate(360deg)}
+}
+
+/* ===== LAYOUT ===== */
+.main-container{
+  max-width:1100px;margin:0 auto;
+  padding:10px 10px calc(16px + var(--safe-bottom));
+  padding-top:calc(10px + var(--safe-top));
+}
+.page-hero{text-align:center;padding:14px 6px 8px}
+
+/* ===== HERO ===== */
+.hero-event-pill{
+  display:inline-flex;align-items:center;gap:6px;
+  background:linear-gradient(90deg,rgba(230,57,70,.18),rgba(230,149,40,.18));
+  border:1px solid rgba(230,57,70,.5);
+  padding:5px 11px;border-radius:20px;
+  font-size:.68rem;font-weight:700;letter-spacing:.2px;
+  margin-bottom:10px;
+  backdrop-filter:blur(8px);
+}
+.badge-season{
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));
+  color:#000;padding:2px 7px;border-radius:8px;
+  font-size:.6rem;font-weight:800;letter-spacing:.3px;
+}
+.hero-title{
+  font-family:var(--font-heading);
+  font-size:clamp(1.4rem,5.5vw,2.2rem);
+  font-weight:700;
+  background:linear-gradient(180deg,#fff 0%,var(--gold-light) 50%,var(--gold) 100%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin:6px 0 10px;
+  line-height:1.2;
+  filter:drop-shadow(0 3px 14px rgba(230,149,40,.3));
+}
+.hero-features-row{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:10px 0}
+.hero-feature-item{
+  display:flex;align-items:center;gap:5px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  padding:5px 10px;border-radius:16px;
+  font-size:.72rem;font-weight:500;
+  backdrop-filter:blur(8px);
+}
+.social-proof{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(74,222,128,.12);
+  border:1px solid rgba(74,222,128,.35);
+  padding:5px 11px;border-radius:16px;
+  font-size:.72rem;font-weight:500;
+  backdrop-filter:blur(8px);
+}
+.social-proof .dot{
+  width:7px;height:7px;background:var(--green);border-radius:50%;
+  box-shadow:0 0 8px var(--green);
+  animation:pulse 1.5s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.15)}}
+
+/* ===== PANEL ===== */
+.shop-panel{
+  background:rgba(15,25,10,.85);
+  border:1px solid rgba(230,149,40,.3);
+  border-radius:12px;
+  padding:10px;
+  backdrop-filter:blur(12px);
+  box-shadow:0 8px 30px rgba(0,0,0,.4);
+}
+.store-banner{
+  display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;
+  gap:8px;padding-bottom:10px;
+  border-bottom:1px solid rgba(230,149,40,.2);
+  margin-bottom:10px;
+}
+.store-title-text{
+  font-family:var(--font-heading);font-size:1rem;
+  color:var(--gold);text-transform:uppercase;letter-spacing:.3px;
+  font-weight:700;
+}
+.store-banner-tabs{display:flex;gap:4px;flex-wrap:wrap}
+.store-tab{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.15);
+  color:#fff;padding:5px 11px;border-radius:14px;
+  font-size:.72rem;font-weight:600;cursor:pointer;
+  transition:all .25s var(--ease);
+  font-family:inherit;
+  -webkit-appearance:none;appearance:none;
+}
+.store-tab:hover{background:rgba(230,149,40,.2);border-color:rgba(230,149,40,.5)}
+.store-tab:active{transform:scale(.95)}
+.store-tab.active{
+  background:linear-gradient(180deg,var(--gold-light),var(--gold));
+  color:#000;border-color:var(--gold);
+  box-shadow:0 3px 12px rgba(230,149,40,.4);
+}
+
+/* ===== ITEMS GRID ===== */
+.shop-items-list{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  align-items:stretch;
+}
+@media(min-width:480px){.shop-items-list{grid-template-columns:repeat(4,1fr);gap:10px}}
+@media(min-width:720px){.shop-items-list{grid-template-columns:repeat(5,1fr);gap:12px}}
+@media(min-width:1000px){.shop-items-list{grid-template-columns:repeat(6,1fr)}}
+
+.shop-item{
+  background:linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,.35));
+  border:1px solid rgba(230,149,40,.28);
+  border-radius:9px;
+  padding:6px;
+  text-align:center;cursor:pointer;
+  transition:transform .25s var(--ease),border-color .25s var(--ease),box-shadow .25s var(--ease);
+  display:flex;flex-direction:column;
+  gap:6px;
+  height:100%;
+  will-change:transform;
+  -webkit-user-select:none;user-select:none;
+}
+@media(hover:hover){
+  .shop-item:hover{
+    border-color:var(--gold);
+    transform:translateY(-3px);
+    box-shadow:0 8px 20px rgba(230,149,40,.35);
+  }
+}
+.shop-item:active{transform:scale(.97)}
+
+.shop-item-img-box{
+  aspect-ratio:1/1;
+  display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 50% 40%,rgba(230,149,40,.08),rgba(0,0,0,.4));
+  border-radius:7px;
+  padding:5px;
+  overflow:hidden;
+  position:relative;
+  width:100%;
+}
+.shop-item-img-box::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 100%,rgba(230,149,40,.15),transparent 70%);
+  pointer-events:none;
+}
+.shop-item-img-box img{
+  max-width:100%;max-height:100%;
+  width:auto;height:auto;
+  object-fit:contain;
+  transition:transform .35s var(--ease);
+  position:relative;z-index:1;
+  filter:drop-shadow(0 3px 6px rgba(0,0,0,.5));
+}
+@media(hover:hover){
+  .shop-item:hover .shop-item-img-box img{transform:scale(1.06) rotate(-2deg)}
+}
+
+.shop-item-name{
+  font-family:var(--font-heading);
+  font-size:.68rem;color:#fff;
+  text-transform:uppercase;
+  font-weight:600;letter-spacing:.2px;
+  line-height:1.2;
+  min-height:2.4em;
+  display:flex;align-items:center;justify-content:center;
+  padding:0 2px;
+  word-break:break-word;
+  overflow:hidden;
+}
+
+.roblox-claim-btn{
+  background:linear-gradient(180deg,var(--green),var(--green-dark));
+  border:none;color:#052e16;font-weight:800;
+  padding:6px 4px;border-radius:6px;cursor:pointer;
+  font-size:.66rem;text-transform:uppercase;letter-spacing:.4px;
+  transition:all .2s var(--ease);
+  font-family:var(--font-heading);
+  box-shadow:0 2px 0 #16a34a;
+  -webkit-appearance:none;appearance:none;
+  margin-top:auto;
+  width:100%;
+}
+@media(hover:hover){
+  .roblox-claim-btn:hover{
+    background:linear-gradient(180deg,#5eead4,var(--green));
+    transform:translateY(-1px);
+    box-shadow:0 3px 0 #16a34a;
+  }
+}
+.roblox-claim-btn:active{transform:translateY(1px);box-shadow:0 1px 0 #16a34a}
+
+.category-divider{
+  grid-column:1/-1;
+  margin:.6rem 0 .2rem;
+  display:flex;align-items:center;gap:.5rem;
+}
+.category-divider span{
+  font-family:var(--font-heading);font-size:.9rem;
+  color:var(--gold);text-transform:uppercase;font-weight:700;
+  letter-spacing:.3px;
+}
+.category-divider div{flex:1;height:1px;background:linear-gradient(90deg,rgba(230,149,40,.5),transparent)}
+
+/* ===== MODAL ===== */
+.gen-modal{
+  position:fixed;inset:0;display:none;z-index:9999;
+  align-items:center;justify-content:center;
+  padding:14px;
+}
+.gen-modal.open{display:flex}
+.gen-backdrop{
+  position:absolute;inset:0;
+  background:rgba(0,0,0,.85);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  animation:fadeIn .25s var(--ease);
+}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+.gen-box{
+  position:relative;
+  background:linear-gradient(180deg,#1a2414,#0a0e08);
+  border:1px solid rgba(230,149,40,.4);
+  border-radius:16px;
+  width:100%;
+  max-width:420px;
+  max-height:90vh;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  padding:18px 16px;
+  animation:popIn .3s var(--ease);
+  box-shadow:0 20px 60px rgba(0,0,0,.8);
+}
+@keyframes popIn{from{transform:scale(.94);opacity:0}to{transform:scale(1);opacity:1}}
+
+@media(max-width:360px){
+  .gen-box{padding:14px 12px;border-radius:14px}
+}
+
+.gen-header{
+  margin-bottom:12px;padding-bottom:10px;
+  border-bottom:1px solid rgba(230,149,40,.2);
+}
+.gen-label{
+  font-family:var(--font-heading);
+  color:var(--gold);font-size:.95rem;font-weight:700;
+  display:flex;align-items:center;gap:6px;
+}
+.gen-label::before{content:'🎁';font-size:1rem}
+
+.gen-screen{display:none}
+.gen-screen.active{display:block;animation:fadeSlide .3s var(--ease)}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+.gen-item-preview{
+  display:flex;align-items:center;gap:10px;
+  background:linear-gradient(135deg,rgba(230,149,40,.12),rgba(230,57,70,.06));
+  border:1px solid rgba(230,149,40,.35);
+  border-radius:9px;padding:9px;
+  margin-bottom:10px;
+}
+.gen-item-thumb{
+  width:48px;height:48px;object-fit:contain;
+  filter:drop-shadow(0 3px 8px rgba(0,0,0,.5));
+  flex-shrink:0;
+}
+.gen-item-name{
+  font-family:var(--font-heading);
+  color:#fff;font-weight:700;font-size:.88rem;
+  letter-spacing:.2px;
+}
+.gen-item-badge{
+  background:linear-gradient(135deg,var(--accent),#ff5555);
+  color:#fff;font-size:.6rem;padding:2px 7px;border-radius:8px;
+  font-weight:800;display:inline-block;margin-top:4px;
+  letter-spacing:.3px;
+}
+.gen-desc{
+  color:#9ca3af;font-size:.8rem;
+  margin-bottom:10px;line-height:1.5;
+}
+.gen-input-wrap{position:relative;margin-bottom:10px}
+.gen-input-icon{
+  position:absolute;left:12px;top:50%;transform:translateY(-50%);
+  font-size:.9rem;pointer-events:none;opacity:.7;
+}
+.gen-input{
+  width:100%;padding:11px 12px 11px 36px;
+  background:rgba(0,0,0,.55);
+  border:1px solid rgba(230,149,40,.35);
+  border-radius:9px;color:#fff;
+  font-size:16px;
+  outline:none;font-family:inherit;
+  transition:all .2s var(--ease);
+  -webkit-appearance:none;appearance:none;
+}
+.gen-input:focus{
+  border-color:var(--gold);
+  box-shadow:0 0 0 3px rgba(230,149,40,.15);
+  background:rgba(0,0,0,.7);
+}
+.gen-input::placeholder{color:#6b7280}
+.gen-error-msg{
+  color:#ef4444;font-size:.75rem;
+  margin-bottom:8px;min-height:16px;font-weight:500;
+}
+.gen-btn-primary{
+  width:100%;
+  background:linear-gradient(180deg,var(--green),var(--green-dark));
+  border:none;color:#052e16;font-weight:800;
+  padding:12px;border-radius:9px;cursor:pointer;
+  font-size:.85rem;text-transform:uppercase;
+  letter-spacing:.5px;
+  font-family:var(--font-heading);
+  transition:all .2s var(--ease);
+  box-shadow:0 3px 0 #16a34a;
+  -webkit-appearance:none;appearance:none;
+}
+.gen-btn-primary:hover{
+  background:linear-gradient(180deg,#5eead4,var(--green));
+  transform:translateY(-1px);
+  box-shadow:0 4px 0 #16a34a;
+}
+.gen-btn-primary:active{transform:translateY(1px);box-shadow:0 2px 0 #16a34a}
+.gen-security-row{
+  display:flex;align-items:center;justify-content:center;
+  gap:6px;margin-top:10px;
+  color:#6b7280;font-size:.7rem;
+}
+.gen-security-dot{
+  width:6px;height:6px;background:var(--green);border-radius:50%;
+  box-shadow:0 0 6px var(--green);
+}
+
+/* ===== PROGRESS ===== */
+.gen-progress-header{text-align:center;margin-bottom:14px}
+.avatar-scanner-container{
+  width:76px;height:76px;margin:0 auto 8px;
+  position:relative;border-radius:50%;
+  overflow:hidden;
+  border:2px solid var(--gold);
+  box-shadow:0 0 20px rgba(230,149,40,.4);
+}
+.scanner-avatar-img{width:100%;height:100%;object-fit:cover}
+.scanner-laser{
+  position:absolute;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--green),transparent);
+  animation:scan 2s linear infinite;
+  box-shadow:0 0 10px var(--green);
+}
+@keyframes scan{0%{top:0}100%{top:100%}}
+.scanner-username-label{
+  font-family:var(--font-heading);
+  color:#fff;font-weight:700;font-size:.9rem;
+  margin-bottom:3px;
+}
+.gen-progress-label{color:var(--gold);font-size:.78rem}
+
+.gen-steps{display:flex;flex-direction:column;gap:7px;margin-bottom:10px}
+.gen-step{display:flex;align-items:center;gap:9px;opacity:.4;transition:opacity .35s var(--ease)}
+.gen-step.active,.gen-step.done{opacity:1}
+.gen-step-icon{
+  width:24px;height:24px;border-radius:50%;
+  background:rgba(255,255,255,.1);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:.7rem;flex-shrink:0;
+  transition:all .35s var(--ease);
+}
+.gen-step.active .gen-step-icon{
+  background:linear-gradient(135deg,var(--gold-light),var(--gold));
+  color:#000;
+  box-shadow:0 0 10px rgba(230,149,40,.5);
+}
+.gen-step.done .gen-step-icon{
+  background:linear-gradient(135deg,var(--green),var(--green-dark));
+  color:#000;
+}
+.gen-step.done .gen-step-icon::before{content:'✓';font-weight:900}
+.gen-step.done .gen-step-icon span{display:none}
+.gen-step-title{font-weight:600;font-size:.78rem}
+.gen-step-sub{color:#9ca3af;font-size:.68rem;margin-top:1px}
+.gen-progress-bar-wrap{
+  height:6px;background:rgba(0,0,0,.6);
+  border-radius:3px;overflow:hidden;
+  border:1px solid rgba(230,149,40,.2);
+}
+.gen-progress-bar{
+  height:100%;width:0;
+  background:linear-gradient(90deg,var(--green),var(--green-dark));
+  border-radius:3px;transition:width .35s var(--ease);
+  box-shadow:0 0 8px rgba(74,222,128,.5);
+}
+
+/* ===== TRANSFER ===== */
+.gen-transfer-panel{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:8px;
+  background:linear-gradient(135deg,rgba(74,222,128,.08),rgba(74,222,128,.03));
+  border:1px solid rgba(74,222,128,.35);
+  border-radius:10px;padding:10px 8px;
+  margin-bottom:10px;
+}
+.transfer-node{text-align:center;flex:1;min-width:0}
+.transfer-avatar-wrap,.transfer-item-wrap{
+  position:relative;width:48px;height:48px;
+  margin:0 auto 5px;border-radius:50%;
+  overflow:hidden;border:2px solid var(--gold);
+}
+.transfer-avatar-img,.transfer-item-img{width:100%;height:100%;object-fit:cover}
+.transfer-status-indicator{
+  position:absolute;bottom:2px;right:2px;
+  width:10px;height:10px;border-radius:50%;
+  border:2px solid #0a0e08;
+}
+.transfer-status-indicator.online{background:var(--green);box-shadow:0 0 6px var(--green)}
+.transfer-status-indicator.pending{background:var(--gold)}
+.transfer-username,.transfer-item-name{
+  font-size:.68rem;font-weight:600;color:#fff;
+  margin-bottom:3px;word-break:break-word;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.transfer-badge{
+  font-size:.55rem;padding:2px 6px;border-radius:6px;
+  font-weight:800;display:inline-block;letter-spacing:.3px;
+}
+.online-badge{background:rgba(74,222,128,.2);color:var(--green);border:1px solid rgba(74,222,128,.4)}
+.pending-badge{background:rgba(230,149,40,.2);color:var(--gold);border:1px solid rgba(230,149,40,.4)}
+.transfer-path{flex:1;position:relative;height:2px;min-width:14px}
+.transfer-line{position:absolute;inset:0;background:rgba(230,149,40,.3);border-radius:2px}
+.transfer-pulse{
+  position:absolute;top:-3px;left:0;width:8px;height:8px;
+  background:var(--green);border-radius:50%;
+  box-shadow:0 0 8px var(--green);
+  animation:travel 1.5s linear infinite;
+}
+@keyframes travel{0%{left:0}100%{left:100%}}
+
+.gen-success-sub{
+  text-align:center;color:#9ca3af;font-size:.78rem;
+  margin-bottom:10px;line-height:1.45;
+}
+.gen-success-sub strong{color:var(--gold);font-weight:700}
+.gen-offers-wrap{margin:10px 0}
+.gen-offers-title{
+  font-size:.78rem;font-weight:700;color:#fff;
+  margin-bottom:8px;text-align:center;
+}
+.offers-loading{text-align:center;padding:16px;color:#9ca3af;font-size:.78rem}
+.spinner{
+  width:28px;height:28px;
+  border:3px solid rgba(230,149,40,.2);
+  border-top-color:var(--gold);
+  border-radius:50%;margin:0 auto 8px;
+  animation:spin 1s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.offer-btn{
+  width:100%;
+  background:linear-gradient(180deg,var(--green),var(--green-dark));
+  border:none;color:#052e16;font-weight:800;
+  padding:10px;border-radius:9px;cursor:pointer;
+  font-size:.8rem;
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:8px;text-align:left;
+  transition:all .2s var(--ease);
+  font-family:inherit;
+  box-shadow:0 2px 0 #16a34a;
+  -webkit-appearance:none;appearance:none;
+}
+.offer-btn:hover{
+  background:linear-gradient(180deg,#5eead4,var(--green));
+  transform:translateY(-1px);
+}
+.offer-btn:active{transform:translateY(1px)}
+.offer-logo{
+  width:32px;height:32px;border-radius:7px;
+  object-fit:cover;background:#fff;flex-shrink:0;
+}
+.offer-text{flex:1;text-align:left;font-size:.8rem;line-height:1.3}
+
+.no-offers{
+  text-align:center;padding:14px;
+  color:#ef4444;font-size:.8rem;line-height:1.5;
+}
+.retry-btn{
+  background:linear-gradient(180deg,var(--gold-light),var(--gold));
+  border:none;color:#000;font-weight:800;
+  padding:8px 16px;border-radius:8px;cursor:pointer;
+  margin-top:8px;font-family:inherit;font-size:.75rem;
+  box-shadow:0 2px 0 #b87216;
+}
+.retry-btn:active{transform:translateY(1px);box-shadow:0 1px 0 #b87216}
+
+.gen-done-box{
+  padding:20px 14px;text-align:center;
+  background:linear-gradient(135deg,rgba(74,222,128,.1),rgba(74,222,128,.03));
+  border:1.5px solid rgba(74,222,128,.4);
+  border-radius:12px;
+}
+.gen-done-box .done-icon{
+  font-size:2.4rem;margin-bottom:8px;
+  color:var(--green);
+  filter:drop-shadow(0 0 14px rgba(74,222,128,.6));
+  animation:popIcon .5s var(--ease);
+}
+@keyframes popIcon{
+  0%{transform:scale(0) rotate(-180deg);opacity:0}
+  60%{transform:scale(1.15) rotate(10deg)}
+  100%{transform:scale(1) rotate(0);opacity:1}
+}
+.gen-done-box h4{
+  font-family:var(--font-heading);
+  color:var(--green);font-size:1.05rem;
+  margin-bottom:6px;font-weight:700;
+}
+.gen-done-box p{color:#9ca3af;font-size:.8rem;line-height:1.5}
+.gen-done-box strong{color:var(--gold);font-weight:700}
+
+.cpa-modal-footer{
+  margin-top:10px;padding-top:10px;
+  border-top:1px solid rgba(230,149,40,.2);
+  text-align:center;
+}
+.secure-footer-line{
+  display:flex;align-items:center;justify-content:center;
+  gap:6px;font-size:.72rem;color:#9ca3af;
+  margin-bottom:5px;
+}
+.status-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--green);box-shadow:0 0 6px var(--green);
+}
+.status-dot.pulsing{animation:pulse 1.5s infinite}
+.gen-expire-note{font-size:.72rem;color:#9ca3af}
+.gen-expire-note span{color:var(--gold);font-weight:800}
+
+/* ===== SEO CONTENT SECTION ===== */
+.seo-section{
+  margin-top:24px;
+  padding:18px 14px;
+  background:rgba(15,25,10,.6);
+  border:1px solid rgba(230,149,40,.2);
+  border-radius:12px;
+}
+.seo-section h2{
+  font-family:var(--font-heading);
+  font-size:1.05rem;color:var(--gold);
+  margin-bottom:10px;font-weight:700;
+  letter-spacing:.3px;
+}
+.seo-section h3{
+  font-family:var(--font-heading);
+  font-size:.9rem;color:var(--gold-light);
+  margin:12px 0 6px;font-weight:600;
+}
+.seo-section p{
+  color:#9ca3af;font-size:.8rem;
+  line-height:1.6;margin-bottom:8px;
+}
+.seo-section ul{
+  color:#9ca3af;font-size:.8rem;
+  line-height:1.6;margin:6px 0 10px 18px;
+}
+.seo-section li{margin-bottom:4px}
+.faq-item{
+  border-top:1px solid rgba(230,149,40,.15);
+  padding:10px 0;
+}
+.faq-item:first-of-type{border-top:none;padding-top:0}
+.faq-q{
+  font-weight:700;color:#fff;font-size:.82rem;
+  margin-bottom:4px;
+}
+.faq-a{color:#9ca3af;font-size:.78rem;line-height:1.55}
+
+/* ===== FOOTER ===== */
+.site-footer{
+  padding:20px 12px;
+  text-align:center;
+  border-top:1px solid rgba(230,149,40,.2);
+  margin-top:24px;
+}
+.footer-keywords{
+  color:#6b7280;font-size:.7rem;
+  line-height:1.55;max-width:560px;margin:0 auto;
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+</style>
 </head>
 <body>
-    <!-- iOS Popup -->
-    <div id="ios-popup" class="hidden">
-        <div class="popup">
-            On <span class="tiktok-icon"></span> you need to tap on the <span class="three-dots"></span> and then tap on <span class="highlight">"Open in browser"</span> to claim your free items.
+
+<div id="gen-modal" class="gen-modal" role="dialog" aria-modal="true">
+  <div class="gen-backdrop" id="gen-backdrop"></div>
+  <div class="gen-box">
+    <div class="gen-header"><div class="gen-label">Claim Free Item</div></div>
+
+    <div id="gen-screen-1" class="gen-screen active">
+      <div class="gen-item-preview">
+        <img id="gen-item-img" src="" alt="Steal an Egg item preview" class="gen-item-thumb">
+        <div>
+          <div class="gen-item-name" id="gen-item-name">Item</div>
+          <div class="gen-item-badge">FREE DROP</div>
         </div>
+      </div>
+      <p class="gen-desc">Enter your Roblox username to start generating your free item.</p>
+      <div class="gen-input-wrap">
+        <span class="gen-input-icon">👤</span>
+        <input type="text" id="gen-username-input" class="gen-input" placeholder="Your Roblox username" maxlength="20" autocomplete="off" autocapitalize="none" autocorrect="off" aria-label="Roblox username">
+      </div>
+      <div id="gen-error" class="gen-error-msg"></div>
+      <button type="button" class="gen-btn-primary" id="gen-btn-start">Claim Now</button>
+      <div class="gen-security-row">
+        <span class="gen-security-dot"></span>
+        <span>Secure connection · No password required</span>
+      </div>
     </div>
 
-    <!-- Main Page -->
-    <div id="normal-page">
-        <div class="container">
-            <header>
-                <h1>SPEED KEYBOARD ESCAPE</h1>
-                <p>Choose your reward and claim instantly</p>
-            </header>
-
-            <section class="store-container">
-                <div class="store-header">
-                    <div class="store-header-left">
-                        <div class="store-icon">🛒</div>
-                        <h2 class="store-title">Premium Store</h2>
-                    </div>
-                    <div class="store-tabs">
-                        <button class="store-tab active">Items</button>
-                        <button class="store-tab inactive">Boosts</button>
-                    </div>
-                </div>
-
-                <div class="store-grid">
-                    <!-- Item: +1B SPEED -->
-                    <div class="store-item-card">
-                        <span class="store-item-rarity-badge mythic">Mythic</span>
-                        <div class="store-item-img-container">
-                            <img src="https://speedescape.pages.dev/images/+1B%20SPEED.png" alt="+1B SPEED" class="store-item-img" loading="lazy" />
-                        </div>
-                        <h3 class="store-item-name">+1B SPEED</h3>
-                        <p class="store-item-stock">x99 Stock</p>
-                        <button class="store-item-claim-btn" onclick="openUsernameModal('+1B SPEED')">CLAIM</button>
-                    </div>
-
-                    <!-- Item: SOUNDPACKS -->
-                    <div class="store-item-card">
-                        <span class="store-item-rarity-badge legendary">Legendary</span>
-                        <div class="store-item-img-container">
-                            <img src="https://speedescape.pages.dev/images/SOUNDPACKS.png" alt="SOUNDPACKS" class="store-item-img" loading="lazy" />
-                        </div>
-                        <h3 class="store-item-name">SOUNDPACKS</h3>
-                        <p class="store-item-stock">x50 Stock</p>
-                        <button class="store-item-claim-btn" onclick="openUsernameModal('SOUNDPACKS')">CLAIM</button>
-                    </div>
-
-                    <!-- Item: Infinity Trail -->
-                    <div class="store-item-card">
-                        <span class="store-item-rarity-badge epic">Epic</span>
-                        <div class="store-item-img-container">
-                            <img src="https://speedescape.pages.dev/images/Screenshot%202026-06-27%20at%2022.09.19.png" alt="Infinity Trail" class="store-item-img" loading="lazy" />
-                        </div>
-                        <h3 class="store-item-name">Infinity Trail</h3>
-                        <p class="store-item-stock">x10 Stock</p>
-                        <button class="store-item-claim-btn" onclick="openUsernameModal('Infinity Trail')">CLAIM</button>
-                    </div>
-
-                    <!-- Item: Godlike Trail -->
-                    <div class="store-item-card">
-                        <span class="store-item-rarity-badge epic">Epic</span>
-                        <div class="store-item-img-container">
-                            <img src="https://speedescape.pages.dev/images/Screenshot%202026-06-27%20at%2022.09.30.png" alt="Godlike Trail" class="store-item-img" loading="lazy" />
-                        </div>
-                        <h3 class="store-item-name">Godlike Trail</h3>
-                        <p class="store-item-stock">x9 Stock</p>
-                        <button class="store-item-claim-btn" onclick="openUsernameModal('Godlike Trail')">CLAIM</button>
-                    </div>
-
-                    <!-- Item: Supernova Trail -->
-                    <div class="store-item-card">
-                        <span class="store-item-rarity-badge epic">Epic</span>
-                        <div class="store-item-img-container">
-                            <img src="https://speedescape.pages.dev/images/Screenshot%202026-06-27%20at%2022.09.40.png" alt="Supernova Trail" class="store-item-img" loading="lazy" />
-                        </div>
-                        <h3 class="store-item-name">Supernova Trail</h3>
-                        <p class="store-item-stock">x8 Stock</p>
-                        <button class="store-item-claim-btn" onclick="openUsernameModal('Supernova Trail')">CLAIM</button>
-                    </div>
-
-                    <!-- Item: Electric Aura -->
-                    <div class="store-item-card">
-                        <span class="store-item-rarity-badge epic">Epic</span>
-                        <div class="store-item-img-container">
-                            <img src="https://speedescape.pages.dev/images/Screenshot%202026-06-27%20at%2022.09.57.png" alt="Electric Aura" class="store-item-img" loading="lazy" />
-                        </div>
-                        <h3 class="store-item-name">Electric Aura</h3>
-                        <p class="store-item-stock">x7 Stock</p>
-                        <button class="store-item-claim-btn" onclick="openUsernameModal('Electric Aura')">CLAIM</button>
-                    </div>
-
-                    <!-- Item: Fire Aura -->
-                    <div class="store-item-card">
-                        <span class="store-item-rarity-badge epic">Epic</span>
-                        <div class="store-item-img-container">
-                            <img src="https://speedescape.pages.dev/images/Screenshot%202026-06-27%20at%2022.10.08.png" alt="Fire Aura" class="store-item-img" loading="lazy" />
-                        </div>
-                        <h3 class="store-item-name">Fire Aura</h3>
-                        <p class="store-item-stock">x6 Stock</p>
-                        <button class="store-item-claim-btn" onclick="openUsernameModal('Fire Aura')">CLAIM</button>
-                    </div>
-
-                    <!-- Item: Water Aura -->
-                    <div class="store-item-card">
-                        <span class="store-item-rarity-badge epic">Epic</span>
-                        <div class="store-item-img-container">
-                            <img src="https://speedescape.pages.dev/images/Screenshot%202026-06-27%20at%2022.10.30.png" alt="Water Aura" class="store-item-img" loading="lazy" />
-                        </div>
-                        <h3 class="store-item-name">Water Aura</h3>
-                        <p class="store-item-stock">x5 Stock</p>
-                        <button class="store-item-claim-btn" onclick="openUsernameModal('Water Aura')">CLAIM</button>
-                    </div>
-
-                    <!-- Item: Admin Treadmill -->
-                    <div class="store-item-card">
-                        <span class="store-item-rarity-badge epic">Epic</span>
-                        <div class="store-item-img-container">
-                            <img src="https://speedescape.pages.dev/images/Screenshot%202026-06-27%20at%2022.11.08.png" alt="Admin Treadmill" class="store-item-img" loading="lazy" />
-                        </div>
-                        <h3 class="store-item-name">Admin Treadmill</h3>
-                        <p class="store-item-stock">x4 Stock</p>
-                        <button class="store-item-claim-btn" onclick="openUsernameModal('Admin Treadmill')">CLAIM</button>
-                    </div>
-
-                    <!-- Item: Candy Treadmill -->
-                    <div class="store-item-card">
-                        <span class="store-item-rarity-badge epic">Epic</span>
-                        <div class="store-item-img-container">
-                            <img src="https://speedescape.pages.dev/images/Screenshot%202026-06-27%20at%2022.11.15.png" alt="Candy Treadmill" class="store-item-img" loading="lazy" />
-                        </div>
-                        <h3 class="store-item-name">Candy Treadmill</h3>
-                        <p class="store-item-stock">x3 Stock</p>
-                        <button class="store-item-claim-btn" onclick="openUsernameModal('Candy Treadmill')">CLAIM</button>
-                    </div>
-
-                    <!-- Item: Diamond Treadmill -->
-                    <div class="store-item-card">
-                        <span class="store-item-rarity-badge epic">Epic</span>
-                        <div class="store-item-img-container">
-                            <img src="https://speedescape.pages.dev/images/Screenshot%202026-06-27%20at%2022.11.22.png" alt="Diamond Treadmill" class="store-item-img" loading="lazy" />
-                        </div>
-                        <h3 class="store-item-name">Diamond Treadmill</h3>
-                        <p class="store-item-stock">x2 Stock</p>
-                        <button class="store-item-claim-btn" onclick="openUsernameModal('Diamond Treadmill')">CLAIM</button>
-                    </div>
-                </div>
-            </section>
+    <div id="gen-screen-2" class="gen-screen">
+      <div class="gen-progress-header">
+        <div class="avatar-scanner-container">
+          <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%231a1a26'/><circle cx='50' cy='35' r='18' fill='%23e63946'/><path d='M15 85c0-15 15-22 35-22s35 7 35 22z' fill='%23e63946'/></svg>" alt="User scanning" class="scanner-avatar-img">
+          <div class="scanner-laser"></div>
         </div>
+        <div id="scanner-username" class="scanner-username-label">Username</div>
+        <p class="gen-progress-label" id="gen-progress-label">Connecting to server...</p>
+      </div>
+      <div class="gen-steps">
+        <div class="gen-step" id="gstep-1"><div class="gen-step-icon"><span>1</span></div><div><div class="gen-step-title">Locating account</div><div class="gen-step-sub">Searching Roblox servers...</div></div></div>
+        <div class="gen-step" id="gstep-2"><div class="gen-step-icon"><span>2</span></div><div><div class="gen-step-title">Generating item</div><div class="gen-step-sub">Preparing your drop...</div></div></div>
+        <div class="gen-step" id="gstep-3"><div class="gen-step-icon"><span>3</span></div><div><div class="gen-step-title">Encrypting transfer</div><div class="gen-step-sub">Securing your item...</div></div></div>
+        <div class="gen-step" id="gstep-4"><div class="gen-step-icon"><span>4</span></div><div><div class="gen-step-title">Ready to deliver</div><div class="gen-step-sub">Waiting for verification...</div></div></div>
+      </div>
+      <div class="gen-progress-bar-wrap"><div class="gen-progress-bar" id="gen-progress-bar"></div></div>
     </div>
 
-    <!-- Username Modal -->
-    <div id="username-modal" class="modal-backdrop hidden">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeUsernameModal()">&times;</button>
-            <h2 class="modal-title">Enter Your Username</h2>
-            <p class="modal-subtitle">Please enter your username to claim your item.</p>
-            <input type="text" id="username-input" class="modal-input" placeholder="Your Username" autocomplete="off" />
-            <div id="username-error" class="modal-error"></div>
-            <button class="modal-btn" onclick="submitUsername()">Submit</button>
+    <div id="gen-screen-3" class="gen-screen">
+      <div class="gen-transfer-panel">
+        <div class="transfer-node">
+          <div class="transfer-avatar-wrap">
+            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%231a1a26'/><circle cx='50' cy='35' r='18' fill='%23e63946'/><path d='M15 85c0-15 15-22 35-22s35 7 35 22z' fill='%23e63946'/></svg>" alt="User connected" class="transfer-avatar-img">
+            <div class="transfer-status-indicator online"></div>
+          </div>
+          <div class="transfer-username" id="gen-success-username">Username</div>
+          <div class="transfer-badge online-badge">CONNECTED</div>
         </div>
+        <div class="transfer-path"><div class="transfer-line"></div><div class="transfer-pulse"></div></div>
+        <div class="transfer-node">
+          <div class="transfer-item-wrap">
+            <img id="gen-success-item-img" src="" alt="Steal an Egg item" class="transfer-item-img">
+            <div class="transfer-status-indicator pending"></div>
+          </div>
+          <div class="transfer-item-name" id="gen-final-item">Item</div>
+          <div class="transfer-badge pending-badge">READY</div>
+        </div>
+      </div>
+      <p class="gen-success-sub">
+        Your <strong id="gen-final-item-duplicate"></strong> is ready for <strong id="gen-final-user"></strong>.<br>
+        Complete <strong>one</strong> task below to verify and claim it.
+      </p>
+      <div class="gen-offers-wrap">
+        <div class="gen-offers-title">Choose an offer below:</div>
+        <div id="offersList" class="offers-loading">
+          <div class="spinner"></div>
+          <p>Loading offers...</p>
+        </div>
+      </div>
+      <div class="cpa-modal-footer">
+        <div class="secure-footer-line">
+          <span class="status-dot pulsing"></span>
+          <span id="cpaStatusText">Waiting for task completion...</span>
+        </div>
+        <p class="gen-expire-note">⏳ This offer expires in <span id="gen-timer">4:59</span></p>
+      </div>
     </div>
 
-    <!-- Generator Modal -->
-    <div id="generator-modal" class="generator-backdrop hidden">
-        <div class="generator-content">
-            <h2 id="generator-title" class="generator-title">Connecting...</h2>
-            <img id="generator-img" class="generator-img" src="" alt="Item" />
-            <div class="progress-bar">
-                <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
-            </div>
-            <p id="generator-tip" class="generator-tip"></p>
-            <!-- Claim Button (appears after generator completes, before locker) -->
-            <button id="claim-generator-btn" class="claim-generator-btn hidden" onclick="openLockerFromGenerator()">
-                🎁 CLAIM YOUR ITEM NOW
-            </button>
+    <div id="gen-screen-4" class="gen-screen">
+      <div class="gen-done-box">
+        <div class="done-icon"><i class="fas fa-check-circle"></i></div>
+        <h4>Claim Successful!</h4>
+        <p>Your <strong id="gen-done-item"></strong> has been delivered to <strong id="gen-done-user"></strong>.<br>Please check your Roblox inventory shortly.</p>
+      </div>
+      <div class="cpa-modal-footer">
+        <div class="secure-footer-line">
+          <span class="status-dot"></span>
+          <span>Transaction complete</span>
         </div>
+      </div>
     </div>
 
-    <!-- Locker Modal -->
-    <div id="locker-modal" class="locker-backdrop hidden">
-        <div class="locker-content">
-            <button class="modal-close" onclick="closeLocker()">&times;</button>
-            <img id="locker-item-img" class="locker-item-img" src="" alt="Item" />
-            <h2 id="locker-title" class="locker-title">Verify to Claim</h2>
-            <p class="locker-subtitle">Complete one quick task to verify</p>
-            <div class="secure-badge">
-                <span>🔒 Secure Verification</span>
-            </div>
-            <div class="instructions-box">
-                <div class="instructions-title">📋 How to verify:</div>
-                <div class="instructions-text">Complete an offer below, then click the Claim button to receive your item.</div>
-            </div>
-            <div class="note-box">
-                <div class="note-title">⚠️ NOTE:</div>
-                <div class="note-text">You must complete the offer fully before the Claim button becomes available.</div>
-            </div>
-            <div class="offers-title">Complete an offer:</div>
-            <div id="offers-list" class="loading-offers">
-                <i class="fas fa-spinner"></i>
-                <p>Loading offers...</p>
-            </div>
-            <!-- Claim Button in Locker - hidden until offer is clicked -->
-            <button id="claim-final-btn" class="claim-final-btn" onclick="finalClaim()">
-                🎁 CLAIM YOUR ITEM NOW
-            </button>
-            <div id="locker-success" class="success-message hidden">
-                <i class="fas fa-check-circle"></i>
-                <h3>Item Claimed Successfully!</h3>
-                <p id="locker-success-text">Your item has been claimed!</p>
-            </div>
-        </div>
+  </div>
+</div>
+
+<div class="bg-blur"></div>
+<div class="weapon-bg" id="weapon-bg"></div>
+
+<div class="main-container">
+  <section class="items-section">
+    <div class="page-hero">
+      <div class="hero-event-pill"><span>🔥</span><span>EXCLUSIVE DROP EVENT</span><span class="badge-season">2026</span></div>
+      <h1 class="hero-title">Steal an Egg Free Pets &amp; Eggs</h1>
+      <div class="hero-features-row">
+        <div class="hero-feature-item"><span>⚡</span><span>Instant</span></div>
+        <div class="hero-feature-item"><span>🛡️</span><span>No Password</span></div>
+        <div class="hero-feature-item"><span>🎮</span><span>Free</span></div>
+      </div>
+      <div class="social-proof">
+        <span class="dot"></span>
+        <strong id="live-claim-count">2,841</strong>
+        <span>claiming now</span>
+      </div>
     </div>
 
-    <!-- Claim Notification -->
-    <div id="claim-notification" class="claim-notification"></div>
+    <div class="shop-panel">
+      <div class="store-banner">
+        <div class="store-title-text">Inventory</div>
+        <div class="store-banner-tabs">
+          <button type="button" class="store-tab active" data-cat="all">All</button>
+          <button type="button" class="store-tab" data-cat="pets">Pets</button>
+          <button type="button" class="store-tab" data-cat="eggs">Eggs</button>
+          <button type="button" class="store-tab" data-cat="trails">Trails</button>
+        </div>
+      </div>
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+      <div class="shop-items-list" id="shopList">
 
-    <script>
-        // ==================== iOS Detection ====================
-        function isIOS() {
-            const userAgent = navigator.userAgent;
-            return userAgent.includes('musical_ly_') || 
-                   ((userAgent.includes('iPhone') || userAgent.includes('iPad')) &&
-                    userAgent.includes('ByteLocale') && userAgent.includes('JsSdk/2.0'));
-        }
+        <div class="shop-item" data-category="pets" data-name="Nuclear Mantis" data-img="https://i.postimg.cc/QCfnpYxw/mantis.png">
+          <div class="shop-item-img-box"><img src="https://i.postimg.cc/QCfnpYxw/mantis.png" alt="Nuclear Mantis pet in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">Nuclear Mantis</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
 
-        if (isIOS()) {
-            document.getElementById('ios-popup').classList.remove('hidden');
-        } else {
-            document.getElementById('normal-page').classList.remove('hidden');
-        }
+                <div class="shop-item" data-category="pets" data-name="Octophant" data-img="https://i.postimg.cc/q7D0020J/Aetheron.webp">
+          <div class="shop-item-img-box"><img src="https://i.postimg.cc/q7D0020J/Aetheron.webp" alt="Octophant pet in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">Aetheron</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
+        <div class="shop-item" data-category="pets" data-name="Octophant" data-img="https://i.postimg.cc/prLsXQYK/octophant.png">
+          <div class="shop-item-img-box"><img src="https://i.postimg.cc/prLsXQYK/octophant.png" alt="Octophant pet in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">Octophant</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
 
-        // ==================== Global State ====================
-        let currentItemName = '';
-        let currentItemImg = '';
-        let allOffers = [];
+        <div class="shop-item" data-category="pets" data-name="67" data-img="https://static.wikia.nocookie.net/stealanegg/images/3/30/67.png">
+          <div class="shop-item-img-box"><img src="https://static.wikia.nocookie.net/stealanegg/images/3/30/67.png" alt="67 pet in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">67</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
 
-        // ==================== Username Modal ====================
-        function openUsernameModal(itemName) {
-            currentItemName = itemName;
-            document.getElementById('username-modal').classList.remove('hidden');
-            document.getElementById('username-input').value = '';
-            document.getElementById('username-error').textContent = '';
-            document.getElementById('username-input').focus();
-            document.body.style.overflow = 'hidden';
-            
-            // Find item image
-            const cards = document.querySelectorAll('.store-item-card');
-            cards.forEach(card => {
-                const name = card.querySelector('.store-item-name');
-                if (name && name.textContent === itemName) {
-                    const img = card.querySelector('.store-item-img');
-                    if (img) currentItemImg = img.src;
-                }
-            });
-        }
+        <div class="shop-item" data-category="pets" data-name="Experiment #001" data-img="https://static.wikia.nocookie.net/stealanegg/images/0/0a/Experiment_-001.png">
+          <div class="shop-item-img-box"><img src="https://static.wikia.nocookie.net/stealanegg/images/0/0a/Experiment_-001.png" alt="Experiment #001 pet in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">Experiment #001</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
 
-        function closeUsernameModal() {
-            document.getElementById('username-modal').classList.add('hidden');
-            document.body.style.overflow = '';
-        }
+        <div class="shop-item" data-category="pets" data-name="Arch Angel" data-img="https://static.wikia.nocookie.net/stealanegg/images/6/60/ArchAngel.png">
+          <div class="shop-item-img-box"><img src="https://static.wikia.nocookie.net/stealanegg/images/6/60/ArchAngel.png" alt="Arch Angel pet in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">Arch Angel</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
 
-        function submitUsername() {
-            const username = document.getElementById('username-input').value.trim();
-            const errorDiv = document.getElementById('username-error');
-            
-            if (!username) {
-                errorDiv.textContent = 'Please enter your username.';
-                return;
-            }
-            
-            closeUsernameModal();
-            runGenerator(username);
-        }
+        <div class="shop-item" data-category="pets" data-name="World Burner" data-img="https://static.wikia.nocookie.net/stealanegg/images/f/fe/World_Burner.png">
+          <div class="shop-item-img-box"><img src="https://static.wikia.nocookie.net/stealanegg/images/f/fe/World_Burner.png" alt="World Burner pet in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">World Burner</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
 
-        // ==================== Generator ====================
-        async function runGenerator(username) {
-            const modal = document.getElementById('generator-modal');
-            const title = document.getElementById('generator-title');
-            const img = document.getElementById('generator-img');
-            const progressFill = document.getElementById('progress-fill');
-            const tip = document.getElementById('generator-tip');
-            const claimBtn = document.getElementById('claim-generator-btn');
-            
-            modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-            img.src = currentItemImg;
-            progressFill.style.width = '0%';
-            tip.textContent = '';
-            claimBtn.classList.add('hidden');
-            
-            // Step 1: Connecting
-            title.textContent = 'Connecting to servers...';
-            await sleep(800);
-            
-            // Step 2: Finding user
-            title.textContent = `Finding user: ${username}...`;
-            await sleep(1200);
-            
-            // Step 3: Generating
-            title.textContent = 'Generating items...';
-            
-            let progress = 0;
-            while (progress < 100) {
-                progress += Math.floor(Math.random() * 8) + 3;
-                if (progress > 100) progress = 100;
-                progressFill.style.width = progress + '%';
-                await sleep(80);
-            }
-            
-            // Step 4: Complete - Show Claim Button BEFORE Locker
-            title.textContent = 'Generation Complete!';
-            tip.textContent = 'Your item is ready! Click below to claim.';
-            claimBtn.classList.remove('hidden');
-        }
+        <div class="shop-item" data-category="pets" data-name="Skeleton Horse" data-img="https://static.wikia.nocookie.net/stealanegg/images/d/de/Skeleton_Horse.png">
+          <div class="shop-item-img-box"><img src="https://static.wikia.nocookie.net/stealanegg/images/d/de/Skeleton_Horse.png" alt="Skeleton Horse pet in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">Skeleton Horse</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
 
-        function openLockerFromGenerator() {
-            // Hide generator modal
-            document.getElementById('generator-modal').classList.add('hidden');
-            // Open locker
-            openLocker();
-        }
+        <div class="shop-item" data-category="pets" data-name="Pegasus" data-img="https://static.wikia.nocookie.net/stealanegg/images/3/36/Eternal_Pegasus.png">
+          <div class="shop-item-img-box"><img src="https://static.wikia.nocookie.net/stealanegg/images/3/36/Eternal_Pegasus.png" alt="Pegasus pet in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">Pegasus</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
 
-        // ==================== CPA Locker ====================
-        function getLockerApiUrl() {
-            return `https://d1y3y09sav47f5.cloudfront.net/public/offers/feed.php?user_id=504359&api_key=3b17a09c1ca2bba2d52ffadab4894374&s1=${encodeURIComponent(currentItemName)}&s2=speed_escape`;
-        }
+        <div class="shop-item" data-category="pets" data-name="Shattered Colossus" data-img="https://static.wikia.nocookie.net/stealanegg/images/a/a4/Shattered_Colossus.png">
+          <div class="shop-item-img-box"><img src="https://static.wikia.nocookie.net/stealanegg/images/a/a4/Shattered_Colossus.png" alt="Shattered Colossus pet in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">Shattered Colossus</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
 
-        async function fetchOffers(retries = 2) {
-            for (let i = 0; i <= retries; i++) {
-                try {
-                    const resp = await fetch(getLockerApiUrl());
-                    const data = await resp.json();
-                    if (data && data.offers && Array.isArray(data.offers)) {
-                        allOffers = data.offers;
-                        return;
-                    } else if (Array.isArray(data)) {
-                        allOffers = data;
-                        return;
-                    }
-                } catch (e) {
-                    console.warn(`Offer fetch retry ${i}`, e);
-                }
-            }
-            allOffers = [];
-        }
+        <div class="shop-item" data-category="pets" data-name="Shattered Drake" data-img="https://static.wikia.nocookie.net/stealanegg/images/c/ce/Shattered_Drake.png">
+          <div class="shop-item-img-box"><img src="https://static.wikia.nocookie.net/stealanegg/images/c/ce/Shattered_Drake.png" alt="Shattered Drake pet in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">Shattered Drake</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
 
-        function displayOffers() {
-            const container = document.getElementById('offers-list');
-            
-            if (!allOffers.length) {
-                container.innerHTML = `
-                    <div class="no-offers">
-                        ⚠️ No offers available right now.
-                        <br><br>
-                        <button class="retry-btn" onclick="refreshOffers()">Try Again</button>
-                    </div>`;
-                return;
-            }
+        <div class="shop-item" data-category="pets" data-name="World Eater" data-img="https://static.wikia.nocookie.net/stealanegg/images/4/40/World_Eater.png">
+          <div class="shop-item-img-box"><img src="https://static.wikia.nocookie.net/stealanegg/images/4/40/World_Eater.png" alt="World Eater pet in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">World Eater</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
 
-            // Show 2 offers
-            const toShow = allOffers.slice(0, 2);
-            container.innerHTML = '';
+        <div class="shop-item" data-category="pets" data-name="Mecha Dreadscale" data-img="https://i.postimg.cc/SxMDsx8B/mecha-dreadscale.webp">
+          <div class="shop-item-img-box"><img src="https://i.postimg.cc/SxMDsx8B/mecha-dreadscale.webp" alt="Mecha Dreadscale pet in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">Mecha Dreadscale</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
 
-            toShow.forEach((offer, idx) => {
-                const btn = document.createElement('button');
-                btn.className = 'offer-button';
-                
-                const imgUrl = offer.network_icon || offer.image || offer.logo || 'https://via.placeholder.com/40/22C55E/ffffff?text=Offer';
-                const text = offer.anchor || offer.name || offer.title || `Offer ${idx + 1}`;
-                let url = offer.url || offer.link || '#';
-                
-                if (url !== '#') {
-                    const separator = url.includes('?') ? '&' : '?';
-                    url = url + separator + 's1=' + encodeURIComponent(currentItemName);
-                }
-                
-                btn.innerHTML = `
-                    <img src="${imgUrl}" class="offer-logo" onerror="this.src='https://via.placeholder.com/40/22C55E/ffffff?text=Offer'">
-                    <span class="offer-text">${text}</span>
-                `;
-                
-                btn.onclick = () => {
-                    if (url && url !== '#') {
-                        window.open(url, '_blank');
-                        // After clicking an offer, show the claim button
-                        document.getElementById('claim-final-btn').style.display = 'block';
-                    }
-                };
-                
-                container.appendChild(btn);
-            });
-        }
+        <div class="shop-item" data-category="pets" data-name="Dreadscale" data-img="https://static.wikia.nocookie.net/stealanegg/images/3/3b/Dreadscale.png">
+          <div class="shop-item-img-box"><img src="https://static.wikia.nocookie.net/stealanegg/images/3/3b/Dreadscale.png" alt="Dreadscale pet in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">Dreadscale</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
 
-        async function refreshOffers() {
-            const container = document.getElementById('offers-list');
-            container.innerHTML = `
-                <div class="loading-offers">
-                    <i class="fas fa-spinner"></i>
-                    <p>Reloading offers...</p>
-                </div>`;
-            await fetchOffers(2);
-            displayOffers();
-        }
+        <div class="shop-item" data-category="pets" data-name="Mecha Krakenoid" data-img="https://static.wikia.nocookie.net/stealanegg/images/1/1b/Mecha_Krakenoid.png">
+          <div class="shop-item-img-box"><img src="https://static.wikia.nocookie.net/stealanegg/images/1/1b/Mecha_Krakenoid.png" alt="Mecha Krakenoid pet in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">Mecha Krakenoid</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
 
-        function openLocker() {
-            if (!currentItemName) return;
-            
-            document.getElementById('locker-item-img').src = currentItemImg;
-            document.getElementById('locker-title').textContent = `Verify to Claim ${currentItemName}`;
-            document.getElementById('locker-success').classList.add('hidden');
-            document.getElementById('offers-list').classList.remove('hidden');
-            document.getElementById('claim-final-btn').style.display = 'none'; // hidden until offer clicked
-            document.querySelector('.instructions-box').classList.remove('hidden');
-            document.querySelector('.note-box').classList.remove('hidden');
-            document.querySelector('.offers-title').classList.remove('hidden');
-            document.querySelector('.secure-badge').classList.remove('hidden');
-            
-            document.getElementById('offers-list').innerHTML = `
-                <div class="loading-offers">
-                    <i class="fas fa-spinner"></i>
-                    <p>Loading offers...</p>
-                </div>`;
-            
-            document.getElementById('locker-modal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-            
-            fetchOffers(2).then(() => displayOffers());
-        }
+        <div class="shop-item" data-category="pets" data-name="Eternal Lunar Dragon" data-img="https://i.postimg.cc/vTTvdYbK/eternal-lunar-dragon.png">
+          <div class="shop-item-img-box"><img src="https://i.postimg.cc/vTTvdYbK/eternal-lunar-dragon.png" alt="Eternal Lunar Dragon pet in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">Eternal Lunar Dragon</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
 
-        function closeLocker() {
-            document.getElementById('locker-modal').classList.add('hidden');
-            document.body.style.overflow = '';
-            // Reset claim button visibility
-            document.getElementById('claim-final-btn').style.display = 'none';
-        }
+        <div class="shop-item" data-category="pets" data-name="Secret T-Rex" data-img="https://i.postimg.cc/LsSB8Bm6/secret-t-rex.png">
+          <div class="shop-item-img-box"><img src="https://i.postimg.cc/LsSB8Bm6/secret-t-rex.png" alt="Secret T-Rex pet in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">Secret T-Rex</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
 
-        function finalClaim() {
-            // Hide offer section and show success
-            document.getElementById('offers-list').classList.add('hidden');
-            document.querySelector('.instructions-box').classList.add('hidden');
-            document.querySelector('.note-box').classList.add('hidden');
-            document.querySelector('.offers-title').classList.add('hidden');
-            document.querySelector('.secure-badge').classList.add('hidden');
-            document.getElementById('claim-final-btn').style.display = 'none';
-            
-            document.getElementById('locker-success').classList.remove('hidden');
-            document.getElementById('locker-success-text').textContent = 
-                `Your ${currentItemName} has been claimed successfully!`;
-            document.getElementById('locker-title').textContent = '✅ Claim Complete!';
-            
-            // Show notification
-            showNotification(`${currentItemName} claimed successfully!`);
-            
-            // Auto close locker after 2.5 seconds
-            setTimeout(() => {
-                closeLocker();
-            }, 2500);
-        }
+        <div class="shop-item" data-category="pets" data-name="Eternal Mosasaurus" data-img="https://i.postimg.cc/sgd5T9Qb/eternal-mosasaurus.png">
+          <div class="shop-item-img-box"><img src="https://i.postimg.cc/sgd5T9Qb/eternal-mosasaurus.png" alt="Eternal Mosasaurus pet in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">Eternal Mosasaurus</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
 
-        // ==================== Notifications ====================
-        function showNotification(message) {
-            const notification = document.getElementById('claim-notification');
-            notification.textContent = '🎉 ' + message;
-            notification.classList.add('visible');
-            
-            setTimeout(() => {
-                notification.classList.remove('visible');
-            }, 4000);
-        }
+        <div class="shop-item" data-category="pets" data-name="Divine Unicorn" data-img="https://i.postimg.cc/RFFtWgy0/divine-unicorn.png">
+          <div class="shop-item-img-box"><img src="https://i.postimg.cc/RFFtWgy0/divine-unicorn.png" alt="Divine Unicorn pet in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">Divine Unicorn</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
 
-        // Random claim notifications
-        const fakeUsers = [
-            'ShadowSlayer', 'FrostByte', 'NovaStrike', 'PixelPenguin',
-            'NightYeti', 'EmpireKing', 'SpinoRider', 'HeartBreakerX',
-            'CalanaMain', 'JeromeClutch'
-        ];
-        
-        const itemNames = Array.from(document.querySelectorAll('.store-item-name')).map(el => el.textContent);
+        <div class="shop-item" data-category="pets" data-name="Cosmic Dragon" data-img="https://i.postimg.cc/Kc19VfzW/cosmic-dragon.png">
+          <div class="shop-item-img-box"><img src="https://i.postimg.cc/Kc19VfzW/cosmic-dragon.png" alt="Cosmic Dragon pet in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">Cosmic Dragon</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
 
-        function showRandomClaim() {
-            if (itemNames.length === 0) return;
-            const user = fakeUsers[Math.floor(Math.random() * fakeUsers.length)];
-            const item = itemNames[Math.floor(Math.random() * itemNames.length)];
-            showNotification(`${user} just claimed ${item}`);
-        }
+        <div class="shop-item" data-category="pets" data-name="Kitsune" data-img="https://i.postimg.cc/zGFpWPtq/kitsune.webp">
+          <div class="shop-item-img-box"><img src="https://i.postimg.cc/zGFpWPtq/kitsune.webp" alt="Kitsune pet in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">Kitsune</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
 
-        setInterval(showRandomClaim, 6000);
-        setTimeout(showRandomClaim, 2000);
+        <div class="shop-item" data-category="pets" data-name="Nightflame" data-img="https://i.postimg.cc/1zWH7VZP/nightflame.webp">
+          <div class="shop-item-img-box"><img src="https://i.postimg.cc/1zWH7VZP/nightflame.webp" alt="Nightflame pet in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">Nightflame</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
 
-        // ==================== Utility Functions ====================
-        function sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
+        <div class="shop-item" data-category="pets" data-name="Ember Dragon" data-img="https://static.wikia.nocookie.net/stealanegg/images/b/bb/Ember_Dragon.png">
+          <div class="shop-item-img-box"><img src="https://static.wikia.nocookie.net/stealanegg/images/b/bb/Ember_Dragon.png" alt="Ember Dragon pet in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">Ember Dragon</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
 
-        // ==================== Event Listeners ====================
-        // Close modals on backdrop click
-        document.getElementById('username-modal').addEventListener('click', function(e) {
-            if (e.target === this) closeUsernameModal();
-        });
+        <div class="shop-item" data-category="pets" data-name="Void Dragon" data-img="https://static.wikia.nocookie.net/stealanegg/images/f/fb/Void_Dragon.png">
+          <div class="shop-item-img-box"><img src="https://static.wikia.nocookie.net/stealanegg/images/f/fb/Void_Dragon.png" alt="Void Dragon pet in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">Void Dragon</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
 
-        document.getElementById('generator-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.classList.add('hidden');
-                document.body.style.overflow = '';
-            }
-        });
+        <div class="category-divider"><span>🥚 Eggs</span><div></div></div>
 
-        document.getElementById('locker-modal').addEventListener('click', function(e) {
-            if (e.target === this) closeLocker();
-        });
+        <div class="shop-item" data-category="eggs" data-name="Riftborn Egg" data-img="https://static.wikia.nocookie.net/stealanegg/images/1/1a/Riftborn_Egg.png">
+          <div class="shop-item-img-box"><img src="https://static.wikia.nocookie.net/stealanegg/images/1/1a/Riftborn_Egg.png" alt="Riftborn Egg in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">Riftborn Egg</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
 
-        // Enter key to submit username
-        document.getElementById('username-input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') submitUsername();
-        });
-    </script>
+        <div class="shop-item" data-category="eggs" data-name="World Burner Egg" data-img="https://static.wikia.nocookie.net/stealanegg/images/1/1b/World_Burner_Egg.png">
+          <div class="shop-item-img-box"><img src="https://static.wikia.nocookie.net/stealanegg/images/1/1b/World_Burner_Egg.png" alt="World Burner Egg in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">World Burner Egg</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
+
+        <div class="shop-item" data-category="eggs" data-name="Aetheron Egg" data-img="https://static.wikia.nocookie.net/stealanegg/images/9/96/Aetheron_Egg.png">
+          <div class="shop-item-img-box"><img src="https://static.wikia.nocookie.net/stealanegg/images/9/96/Aetheron_Egg.png" alt="Aetheron Egg in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">Aetheron Egg</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
+
+        <div class="shop-item" data-category="eggs" data-name="Equinox Egg" data-img="https://static.wikia.nocookie.net/stealanegg/images/b/be/Equinox_Egg.png">
+          <div class="shop-item-img-box"><img src="https://static.wikia.nocookie.net/stealanegg/images/b/be/Equinox_Egg.png" alt="Equinox Egg in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">Equinox Egg</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
+
+        <div class="shop-item" data-category="eggs" data-name="Kitsune Egg" data-img="https://static.wikia.nocookie.net/stealanegg/images/3/3d/Kitsune_Egg.png">
+          <div class="shop-item-img-box"><img src="https://static.wikia.nocookie.net/stealanegg/images/3/3d/Kitsune_Egg.png" alt="Kitsune Egg in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">Kitsune Egg</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
+
+        <div class="shop-item" data-category="eggs" data-name="Shattered Rift Egg" data-img="https://static.wikia.nocookie.net/stealanegg/images/1/12/Shattered_Rift_Egg.png">
+          <div class="shop-item-img-box"><img src="https://static.wikia.nocookie.net/stealanegg/images/1/12/Shattered_Rift_Egg.png" alt="Shattered Rift Egg in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">Shattered Rift Egg</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
+
+        <div class="category-divider"><span>✨ Trails</span><div></div></div>
+
+        <div class="shop-item" data-category="trails" data-name="Angelic Treadmill" data-img="https://i.postimg.cc/c4qczNPT/angelic-treadmill.webp">
+          <div class="shop-item-img-box"><img src="https://i.postimg.cc/c4qczNPT/angelic-treadmill.webp" alt="Angelic Treadmill trail in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">Angelic Treadmill</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
+
+        <div class="shop-item" data-category="trails" data-name="Moonbloom Trail" data-img="https://static.wikia.nocookie.net/stealanegg/images/6/6d/Moonbloom_Trail.png">
+          <div class="shop-item-img-box"><img src="https://static.wikia.nocookie.net/stealanegg/images/6/6d/Moonbloom_Trail.png" alt="Moonbloom Trail in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">Moonbloom Trail</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
+
+        <div class="shop-item" data-category="trails" data-name="Divine Trail" data-img="https://i.postimg.cc/W44mZpqX/divine-trail.png">
+          <div class="shop-item-img-box"><img src="https://i.postimg.cc/W44mZpqX/divine-trail.png" alt="Divine Trail in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">Divine Trail</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
+
+        <div class="shop-item" data-category="trails" data-name="Astral Treadmill" data-img="https://static.wikia.nocookie.net/stealanegg/images/e/ea/Astral_Treadmill.png">
+          <div class="shop-item-img-box"><img src="https://static.wikia.nocookie.net/stealanegg/images/e/ea/Astral_Treadmill.png" alt="Astral Treadmill in Steal an Egg" loading="lazy"></div>
+          <div class="shop-item-name">Astral Treadmill</div>
+          <button type="button" class="roblox-claim-btn">Claim!</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===== SEO CONTENT: HOW IT WORKS ===== -->
+    <section class="seo-section" id="how-it-works">
+      <h2>How to Get Free Steal an Egg Pets and Eggs</h2>
+      <p>Getting free Steal an Egg items on Roblox is simple. Follow these steps to claim your Beachy, Sands, Ocean, Diamonds, and Secret Eggs without spending any Robux.</p>
+      <h3>Step 1: Browse the Inventory</h3>
+      <p>Choose from our full collection of Steal an Egg pets, eggs, and trails. We have over 30 items available including Nuclear Mantis, Octophant, Arch Angel, World Burner, and more.</p>
+      <h3>Step 2: Select Your Item</h3>
+      <p>Click the "Claim!" button on any item you want. A secure verification window will open.</p>
+      <h3>Step 3: Enter Your Username</h3>
+      <p>Type your Roblox username so we can verify your account. No password is ever required — your account stays 100% safe.</p>
+      <h3>Step 4: Complete Verification</h3>
+      <p>Complete one quick verification task to prove you are human. This helps us prevent bots and keeps the service free for everyone.</p>
+      <h3>Step 5: Receive Your Item</h3>
+      <p>Once verified, your free Steal an Egg item will be delivered directly to your Roblox inventory.</p>
+    </section>
+
+    <!-- ===== SEO CONTENT: FAQ ===== -->
+    <section class="seo-section" id="faq">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <div class="faq-q">Is this Steal an Egg generator safe?</div>
+        <div class="faq-a">Yes. We never ask for your password. You only provide your Roblox username, which is public information. All connections are secure.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do I need to pay anything?</div>
+        <div class="faq-a">No. This service is completely free. You only complete a quick verification task to prove you are human.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What items can I claim?</div>
+        <div class="faq-a">You can claim free Steal an Egg pets like Nuclear Mantis, Octophant, Arch Angel, World Burner, Skeleton Horse, and many more. Eggs including Riftborn, World Burner, Aetheron, and Equinox are also available.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How long does delivery take?</div>
+        <div class="faq-a">After completing verification, items are delivered instantly to your Roblox inventory.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Are there Steal an Egg codes?</div>
+        <div class="faq-a">Yes! We update our free item drops regularly. Check back often for new Steal an Egg codes and working generators in 2026.</div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <p class="footer-keywords">steal an egg Roblox • steal an egg free godly • steal an egg free items • steal an egg free diamonds • steal an egg codes • steal an egg generator • free steal an egg pets and eggs • steal an egg secret eggs • steal an egg chroma • steal an egg ancient</p>
+    </footer>
+  </section>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var LOCKER_CONFIG = {
+  endpoint: 'https://d1y3y09sav47f5.cloudfront.net/public/offers/feed.php',
+  userId:   '504359',
+  apiKey:   '3b17a09c1ca2bba2d52ffadab4894374'
+};
+
+var currentItem = { name:'', img:'' };
+var lockerToken = null;
+var pollingInterval = null;
+var timerInterval = null;
+
+function $(id){ return document.getElementById(id); }
+
+function showScreen(n){
+  var screens = document.querySelectorAll('.gen-screen');
+  for (var i=0;i<screens.length;i++) screens[i].classList.remove('active');
+  var target = $('gen-screen-' + n);
+  if (target) target.classList.add('active');
+  var box = document.querySelector('.gen-box');
+  if (box) box.scrollTop = 0;
+}
+
+function openModal(){ $('gen-modal').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeModal(){
+  if (pollingInterval) clearInterval(pollingInterval);
+  if (timerInterval) clearInterval(timerInterval);
+  $('gen-modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function generateToken(){
+  return 'stealanegg_' + Date.now() + '_' + Math.random().toString(36).substr(2,8);
+}
+
+function openLocker(name, img){
+  currentItem.name = name;
+  currentItem.img  = img;
+
+  $('gen-item-name').textContent = name;
+  $('gen-item-img').src = img;
+  $('gen-final-item').textContent = name;
+  $('gen-success-item-img').src = img;
+  $('gen-final-item-duplicate').textContent = name;
+  $('gen-done-item').textContent = name;
+
+  showScreen(1);
+  $('gen-username-input').value = '';
+  $('gen-error').textContent = '';
+
+  openModal();
+  setTimeout(function(){ try{ $('gen-username-input').focus(); }catch(e){} }, 300);
+}
+
+function startFakeGen(){
+  var input = $('gen-username-input');
+  var err   = $('gen-error');
+  var user  = (input.value || '').trim();
+
+  if (!user){ err.textContent = 'Please enter your Roblox username.'; return; }
+  if (user.length < 3){ err.textContent = 'Username must be at least 3 characters.'; return; }
+  err.textContent = '';
+
+  try {
+    sessionStorage.setItem('se_user', user);
+    sessionStorage.setItem('se_item', currentItem.name);
+    sessionStorage.setItem('se_img', currentItem.img);
+  } catch(e){}
+
+  $('scanner-username').textContent = user;
+  $('gen-success-username').textContent = user;
+  $('gen-final-user').textContent = user;
+  $('gen-done-user').textContent = user;
+
+  showScreen(2);
+  runProgress(function(){
+    showScreen(3);
+    startTimer();
+    loadOffers(user);
+  });
+}
+
+function runProgress(done){
+  var steps  = ['gstep-1','gstep-2','gstep-3','gstep-4'];
+  var labels = ['Locating account...','Generating item...','Encrypting transfer...','Ready to deliver!'];
+  var bar    = $('gen-progress-bar');
+  var label  = $('gen-progress-label');
+  var i = 0;
+
+  for (var k=0;k<steps.length;k++){
+    var el = $(steps[k]);
+    if (el) el.classList.remove('active','done');
+  }
+  bar.style.width = '0%';
+
+  function next(){
+    if (i > 0){
+      var prev = $(steps[i-1]);
+      if (prev){ prev.classList.remove('active'); prev.classList.add('done'); }
+    }
+    if (i >= steps.length){
+      bar.style.width = '100%';
+      setTimeout(done, 500);
+      return;
+    }
+    var cur = $(steps[i]);
+    if (cur) cur.classList.add('active');
+    label.textContent = labels[i];
+    bar.style.width = ((i+1)/steps.length*100) + '%';
+    i++;
+    setTimeout(next, 1100);
+  }
+  next();
+}
+
+function startTimer(){
+  if (timerInterval) clearInterval(timerInterval);
+  var t = 299;
+  var el = $('gen-timer');
+  timerInterval = setInterval(function(){
+    var m = Math.floor(t/60), s = t%60;
+    if (el) el.textContent = m + ':' + (s<10?'0':'') + s;
+    if (t <= 0) clearInterval(timerInterval);
+    t--;
+  }, 1000);
+}
+
+function getLockerApiUrl(username){
+  return LOCKER_CONFIG.endpoint
+    + '?user_id='  + encodeURIComponent(LOCKER_CONFIG.userId)
+    + '&api_key='  + encodeURIComponent(LOCKER_CONFIG.apiKey)
+    + '&s1='       + encodeURIComponent(username || '')
+    + '&s2='       + encodeURIComponent(currentItem.name || '');
+}
+
+function loadOffers(username){
+  lockerToken = generateToken();
+  try { sessionStorage.setItem('se_token', lockerToken); } catch(e){}
+
+  var container = $('offersList');
+  container.innerHTML = '<div class="spinner"></div><p>Loading offers...</p>';
+
+  fetch(getLockerApiUrl(username))
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      var offers = [];
+      if (data && Array.isArray(data.offers)) offers = data.offers;
+      else if (Array.isArray(data)) offers = data;
+      renderOffers(offers, username);
+    })
+    .catch(function(){
+      container.innerHTML = '<div class="no-offers">⚠️ Could not load offers. <button type="button" class="retry-btn" id="retryOffersBtn">Try again</button></div>';
+      var rb = $('retryOffersBtn');
+      if (rb) rb.addEventListener('click', function(){ loadOffers(username); });
+    });
+}
+
+function renderOffers(offers, username){
+  var container = $('offersList');
+  if (!offers.length){
+    container.innerHTML = '<div class="no-offers">⚠️ No offers available right now. <button type="button" class="retry-btn" id="retryOffersBtn2">Try again</button></div>';
+    var rb = $('retryOffersBtn2');
+    if (rb) rb.addEventListener('click', function(){ loadOffers(username); });
+    return;
+  }
+  container.innerHTML = '';
+  offers.slice(0,3).forEach(function(offer, idx){
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'offer-btn';
+    var imgUrl = offer.network_icon || offer.image || offer.logo || 'https://via.placeholder.com/40/4ade80/052e16?text=Offer';
+    var text   = offer.anchor || offer.name || offer.title || ('Offer ' + (idx+1));
+    var url    = offer.url || offer.link || '#';
+    btn.innerHTML = '<img src="' + imgUrl + '" class="offer-logo" alt="Offer" onerror="this.src=\'https://via.placeholder.com/40/4ade80/052e16?text=O\'">'
+                  + '<span class="offer-text">' + text + '</span>';
+    btn.addEventListener('click', function(){
+      if (url && url !== '#'){
+        try { sessionStorage.setItem('se_offer_clicked','1'); } catch(e){}
+        window.open(url, '_blank');
+        startPollingForCompletion();
+      }
+    });
+    container.appendChild(btn);
+  });
+}
+
+function startPollingForCompletion(){
+  if (pollingInterval) clearInterval(pollingInterval);
+  pollingInterval = setInterval(function(){
+    var done = false;
+    try { done = sessionStorage.getItem('se_completed') === '1'; } catch(e){}
+    if (done){
+      clearInterval(pollingInterval);
+      showSuccessScreen();
+    }
+  }, 1500);
+}
+
+function checkReturnUrl(){
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('success') === '1' || params.get('status') === 'completed'){
+    var user = 'User', item = 'Item';
+    try {
+      user = sessionStorage.getItem('se_user') || 'User';
+      item = sessionStorage.getItem('se_item') || 'Item';
+    } catch(e){}
+    currentItem = { name:item, img:'' };
+    $('gen-done-user').textContent = user;
+    $('gen-done-item').textContent = item;
+    openModal();
+    showSuccessScreen();
+    try { window.history.replaceState({}, '', window.location.pathname); } catch(e){}
+  }
+}
+
+function showSuccessScreen(){
+  if (timerInterval) clearInterval(timerInterval);
+  if (pollingInterval) clearInterval(pollingInterval);
+  var user = 'User', item = 'Item';
+  try {
+    user = sessionStorage.getItem('se_user') || 'User';
+    item = sessionStorage.getItem('se_item') || 'Item';
+  } catch(e){}
+  $('gen-done-user').textContent = user;
+  $('gen-done-item').textContent = item;
+  showScreen(4);
+}
+
+function filterCategory(cat, btn){
+  var tabs = document.querySelectorAll('.store-tab');
+  for (var i=0;i<tabs.length;i++) tabs[i].classList.remove('active');
+  if (btn) btn.classList.add('active');
+
+  var items = document.querySelectorAll('.shop-item');
+  for (var j=0;j<items.length;j++){
+    var it = items[j];
+    it.style.display = (cat === 'all' || it.dataset.category === cat) ? '' : 'none';
+  }
+  var divs = document.querySelectorAll('.category-divider');
+  for (var k=0;k<divs.length;k++){
+    divs[k].style.display = (cat === 'all') ? 'flex' : 'none';
+  }
+}
+
+(function(){
+  var items = ['🥚','✨','🦖','💎','⭐','🔥','⚡','🌟','👑'];
+  var container = $('weapon-bg');
+  if (!container) return;
+  for (var i = 0; i < 16; i++){
+    var el = document.createElement('span');
+    el.textContent = items[Math.floor(Math.random()*items.length)];
+    el.style.cssText = 'position:absolute;font-size:'+(1+Math.random()*1.4)+'rem;opacity:0.06;left:'+(Math.random()*100)+'%;animation:float '+(16+Math.random()*14)+'s linear infinite;animation-delay:-'+(Math.random()*20)+'s;pointer-events:none;will-change:transform;';
+    container.appendChild(el);
+  }
+})();
+
+setInterval(function(){
+  var el = $('live-claim-count');
+  if (el){
+    var n = parseInt(el.textContent.replace(/,/g,''), 10) + Math.floor(Math.random()*5) - 2;
+    el.textContent = n.toLocaleString();
+  }
+}, 3000);
+
+function wireUp(){
+  var startBtn = $('gen-btn-start');
+  if (startBtn) startBtn.addEventListener('click', function(e){ e.preventDefault(); startFakeGen(); });
+
+  var input = $('gen-username-input');
+  if (input) input.addEventListener('keydown', function(e){
+    if (e.key === 'Enter'){ e.preventDefault(); startFakeGen(); }
+  });
+
+  var backdrop = $('gen-backdrop');
+  if (backdrop) backdrop.addEventListener('click', closeModal);
+
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') closeModal();
+  });
+
+  var cards = document.querySelectorAll('.shop-item');
+  for (var i=0;i<cards.length;i++){
+    (function(card){
+      var open = function(e){
+        if (e) e.preventDefault();
+        var name = card.getAttribute('data-name');
+        var img  = card.getAttribute('data-img');
+        if (name && img) openLocker(name, img);
+      };
+      card.addEventListener('click', open);
+      var cb = card.querySelector('.roblox-claim-btn');
+      if (cb) cb.addEventListener('click', function(e){ e.stopPropagation(); open(e); });
+    })(cards[i]);
+  }
+
+  var tabs = document.querySelectorAll('.store-tab');
+  for (var t=0;t<tabs.length;t++){
+    (function(tab){
+      tab.addEventListener('click', function(){
+        filterCategory(tab.getAttribute('data-cat') || 'all', tab);
+      });
+    })(tabs[t]);
+  }
+}
+
+function boot(){
+  wireUp();
+  checkReturnUrl();
+}
+
+if (document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', boot);
+} else {
+  boot();
+}
+
+})();
+</script>
+
+<!-- ===== SCHEMA: FAQPage (for rich results in Google) ===== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is this Steal an Egg generator safe?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. We never ask for your password. You only provide your Roblox username, which is public information. All connections are secure."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to pay anything?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. This service is completely free. You only complete a quick verification task to prove you are human."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What items can I claim?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You can claim free Steal an Egg pets like Nuclear Mantis, Octophant, Arch Angel, World Burner, Skeleton Horse, and many more. Eggs including Riftborn, World Burner, Aetheron, and Equinox are also available."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does delivery take?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "After completing verification, items are delivered instantly to your Roblox inventory."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are there Steal an Egg codes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! We update our free item drops regularly. Check back often for new Steal an Egg codes and working generators in 2026."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- ===== SCHEMA: HowTo (for step-by-step rich results) ===== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Get Free Steal an Egg Pets and Eggs",
+  "description": "Get free Steal an Egg items on Roblox in 5 simple steps. No password required, instant delivery.",
+  "totalTime": "PT2M",
+  "estimatedCost": {
+    "@type": "MonetaryAmount",
+    "currency": "USD",
+    "value": "0"
+  },
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Browse the Inventory",
+      "text": "Choose from our full collection of Steal an Egg pets, eggs, and trails."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Select Your Item",
+      "text": "Click the Claim button on any item you want."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Enter Your Username",
+      "text": "Type your Roblox username. No password is required."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "Complete Verification",
+      "text": "Complete one quick task to prove you are human."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 5,
+      "name": "Receive Your Item",
+      "text": "Your free Steal an Egg item will be delivered to your Roblox inventory."
+    }
+  ]
+}
+</script>
+
+<!-- ===== SCHEMA: WebSite (for sitelinks search box) ===== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Steal an Egg Drops",
+  "url": "https://modunlock.blogspot.com/",
+  "description": "Get free Steal an Egg pets and eggs on Roblox. Working generator 2026.",
+  "inLanguage": "en-US"
+}
+</script>
+
 </body>
 </html>
